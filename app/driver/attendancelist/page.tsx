@@ -61,19 +61,83 @@
 
 // export default Scanner;
 
+
+// corrected one
+
+// "use client"
+// import { useEffect, useState } from 'react';
+// import { Html5QrcodeScanner } from 'html5-qrcode';
+
+// const Scanner = () => {
+//    const [scannedData, setScannedData] = useState<string[]>([]);
+//   //     const [scannedData, setScannedData] = useState<null | {
+//   //   name: string;
+//   //   mobileNo: string;
+//   //   joiningDate: string;
+//   //   completedClasses: number;
+//   // }>(null);
+
+//     const [isScanning, setIsScanning] = useState(false);
+
+//     useEffect(() => {
+//         if (!isScanning) return;
+
+//         const html5QrCode = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 }, false);
+
+//         const onScanSuccess = (decodedText: string) => {
+//             setScannedData((prevData) => [...prevData, decodedText]);
+//             setIsScanning(false); // Hide the scanner after a successful scan
+//         };
+
+//         const onScanFailure = (errorMessage: string) => {
+//             console.warn("QR Code scan failed: ", errorMessage);
+//         };
+
+//         html5QrCode.render(onScanSuccess, onScanFailure);
+
+//         return () => {
+//             html5QrCode.clear();
+//         };
+//     }, [isScanning]);
+
+//     return (
+//         <div>
+//             <h1>QR Code Scanner</h1>
+//             {!isScanning && (
+//                 <button onClick={() => setIsScanning(true)}>Scan</button>
+//             )}
+//             {isScanning && (
+//                 <div id="qr-reader" style={{ width: '300px', height: '300px', border: '1px solid black' }}></div>
+//             )}
+//             {scannedData.length > 0 && (
+//                 <table>
+//                     <thead>
+//                         <tr>
+//                             <th>Scanned Data</th>
+//                         </tr>
+//                     </thead>
+//                     <tbody>
+//                         {scannedData.map((data, index) => (
+//                             <tr key={index}>
+//                                 <td>{data}</td>
+//                             </tr>
+//                         ))}
+//                     </tbody>
+//                 </table>
+//             )}
+//         </div>
+//     );
+// };
+
+// export default Scanner;
+
+
 "use client"
 import { useEffect, useState } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 
 const Scanner = () => {
-   const [scannedData, setScannedData] = useState<string[]>([]);
-  //     const [scannedData, setScannedData] = useState<null | {
-  //   name: string;
-  //   mobileNo: string;
-  //   joiningDate: string;
-  //   completedClasses: number;
-  // }>(null);
-
+    const [scannedData, setScannedData] = useState<{ name: string; mobile: string; joiningDate: string; completedClasses: number; }[]>([]);
     const [isScanning, setIsScanning] = useState(false);
 
     useEffect(() => {
@@ -82,8 +146,13 @@ const Scanner = () => {
         const html5QrCode = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 }, false);
 
         const onScanSuccess = (decodedText: string) => {
-            setScannedData((prevData) => [...prevData, decodedText]);
-            setIsScanning(false); // Hide the scanner after a successful scan
+            try {
+                const parsedData = JSON.parse(decodedText);
+                setScannedData((prevData) => [...prevData, parsedData]);
+                setIsScanning(false); // Hide scanner after scan
+            } catch (error) {
+                console.error("Invalid QR Code format:", error);
+            }
         };
 
         const onScanFailure = (errorMessage: string) => {
@@ -107,16 +176,22 @@ const Scanner = () => {
                 <div id="qr-reader" style={{ width: '300px', height: '300px', border: '1px solid black' }}></div>
             )}
             {scannedData.length > 0 && (
-                <table>
+                <table border={1} style={{ marginTop: "20px", borderCollapse: "collapse" }}>
                     <thead>
                         <tr>
-                            <th>Scanned Data</th>
+                            <th>Name</th>
+                            <th>Mobile</th>
+                            <th>Joining Date</th>
+                            <th>Completed Classes</th>
                         </tr>
                     </thead>
                     <tbody>
                         {scannedData.map((data, index) => (
                             <tr key={index}>
-                                <td>{data}</td>
+                                <td>{data.name}</td>
+                                <td>{data.mobile}</td>
+                                <td>{data.joiningDate}</td>
+                                <td>{data.completedClasses}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -127,6 +202,7 @@ const Scanner = () => {
 };
 
 export default Scanner;
+
 // "use client"
 // import React, { useState } from "react";
 // import Scanner from "./Scanner";
