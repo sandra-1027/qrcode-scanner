@@ -93,7 +93,18 @@ const QRScannerPage: React.FC = () => {
         //   onClose={() => setIsScannerOpen(false)}
         // />
         <Scanner
-  onScan={(data) => {
+//   onScan={(data) => {
+//     try {
+//       const parsedData = JSON.parse(data); // Parse the JSON string
+//       setScannedData(parsedData); // Now it's a valid object
+//       setIsScannerOpen(false);
+//     } catch (error) {
+//       console.error("Error parsing QR code data:", error);
+//       alert("Invalid QR Code. Please scan a valid QR code.");
+//     }
+//   }}
+onScan={(data) => {
+    console.log("Scanned Data:", data); // Check what is being scanned
     try {
       const parsedData = JSON.parse(data); // Parse the JSON string
       setScannedData(parsedData); // Now it's a valid object

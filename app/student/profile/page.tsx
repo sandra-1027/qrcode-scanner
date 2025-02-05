@@ -47,6 +47,22 @@ const page = () => {
  
 
   useEffect(() => {
+    // const generateQrCode = async () => {
+    //   if (qrCodeRef.current) {
+    //     const qrCodeText = JSON.stringify({
+    //       name: studentDetails.name,
+    //       mobileNo: studentDetails.mobileNo,
+    //       joiningDate: studentDetails.joiningDate,
+    //       completedClasses: studentDetails.completedClasses,
+    //     });
+  
+    //     try {
+    //       await QRCode.toCanvas(qrCodeRef.current, qrCodeText, { width: 200 });
+    //     } catch (err) {
+    //       console.error("Error generating QR code:", err);
+    //     }
+    //   }
+    // };
     const generateQrCode = async () => {
       if (qrCodeRef.current) {
         const qrCodeText = JSON.stringify({
@@ -55,7 +71,7 @@ const page = () => {
           joiningDate: studentDetails.joiningDate,
           completedClasses: studentDetails.completedClasses,
         });
-  
+    
         try {
           await QRCode.toCanvas(qrCodeRef.current, qrCodeText, { width: 200 });
         } catch (err) {
@@ -63,7 +79,6 @@ const page = () => {
         }
       }
     };
-  
     generateQrCode();
   }, [studentDetails]);
   
