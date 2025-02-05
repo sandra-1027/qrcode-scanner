@@ -74,8 +74,22 @@ const Scanner: React.FC<ScannerProps> = ({ onScan, onClose }) => {
     );
 
     scanner.render(
+      // (decodedText) => {
+      //   try {
+      //     const parsedData = JSON.parse(decodedText); // Parse QR data
+      //     onScan(parsedData); // Pass parsed object to parent component
+      //     scanner.clear().catch((err) =>
+      //       console.error("Error stopping scanner:", err)
+      //     );
+      //   } catch (error) {
+      //     console.error("Invalid QR Code Data:", error);
+      //     alert("Invalid QR Code. Please try again.");
+      //   }
+      // },
       (decodedText) => {
+        console.log("Decoded Text:", decodedText); // Log the decoded text
         try {
+          // const parsedData = JSON.parse(decodedText.trim());
           const parsedData = JSON.parse(decodedText); // Parse QR data
           onScan(parsedData); // Pass parsed object to parent component
           scanner.clear().catch((err) =>

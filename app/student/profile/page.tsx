@@ -18,10 +18,16 @@ const page = () => {
   const [showAttedence, setShowAttedence] = useState(false);
 
    const [studentDetails] = useState({
-     name: "John Doe",
-     mobileNo: "1234567890",
-     joiningDate: "2023-09-01",
-     completedClasses: 15,
+    //  name: "John Doe",
+    //  mobileNo: "1234567890",
+    //  joiningDate: "2023-09-01",
+    //  completedClasses: 15,
+   
+      "name": "John Doe",
+      "mobileNo": "1234567890",
+      "joiningDate": "2023-09-01",
+      "completedClasses": 15
+   
    });
  
    const qrCodeRef = useRef<HTMLCanvasElement | null>(null);
@@ -65,13 +71,19 @@ const page = () => {
     // };
     const generateQrCode = async () => {
       if (qrCodeRef.current) {
+        // const qrCodeText = JSON.stringify({
+        //   name: studentDetails.name,
+        //   mobileNo: studentDetails.mobileNo,
+        //   joiningDate: studentDetails.joiningDate,
+        //   completedClasses: studentDetails.completedClasses,
+        // });
         const qrCodeText = JSON.stringify({
           name: studentDetails.name,
           mobileNo: studentDetails.mobileNo,
           joiningDate: studentDetails.joiningDate,
           completedClasses: studentDetails.completedClasses,
         });
-    
+        console.log("Generated QR Code Text:", qrCodeText);
         try {
           await QRCode.toCanvas(qrCodeRef.current, qrCodeText, { width: 200 });
         } catch (err) {
