@@ -30,21 +30,43 @@ const page = () => {
    const gender = "male";
    const defaultAvatar = gender === "male" ? "/male.webp" : "/female.webp";
  
-   useEffect(() => {
-     const generateQrCode = async () => {
-       if (qrCodeRef.current) {
-         const qrCodeText = `Name: ${studentDetails.name}, ID: ${studentDetails.mobileNo}`;
-         try {
-           await QRCode.toCanvas(qrCodeRef.current, qrCodeText, { width: 200 });
-         } catch (err) {
-           console.error("Error generating QR code:", err);
-         }
-       }
-     };
+  //  useEffect(() => {
+  //    const generateQrCode = async () => {
+  //      if (qrCodeRef.current) {
+  //        const qrCodeText = `Name: ${studentDetails.name}, ID: ${studentDetails.mobileNo}`;
+  //        try {
+  //          await QRCode.toCanvas(qrCodeRef.current, qrCodeText, { width: 200 });
+  //        } catch (err) {
+  //          console.error("Error generating QR code:", err);
+  //        }
+  //      }
+  //    };
  
-     generateQrCode(); // ✅ Auto-generate QR code on component mount
-   }, [studentDetails]);
+  //    generateQrCode(); // ✅ Auto-generate QR code on component mount
+  //  }, [studentDetails]);
  
+
+  useEffect(() => {
+    const generateQrCode = async () => {
+      if (qrCodeRef.current) {
+        const qrCodeText = JSON.stringify({
+          name: studentDetails.name,
+          mobileNo: studentDetails.mobileNo,
+          joiningDate: studentDetails.joiningDate,
+          completedClasses: studentDetails.completedClasses,
+        });
+  
+        try {
+          await QRCode.toCanvas(qrCodeRef.current, qrCodeText, { width: 200 });
+        } catch (err) {
+          console.error("Error generating QR code:", err);
+        }
+      }
+    };
+  
+    generateQrCode();
+  }, [studentDetails]);
+  
    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
      const file = event.target.files?.[0];
      const reader = new FileReader();
