@@ -41,28 +41,42 @@ const [loading, setLoading] = useState(false);
     }
   }, [branchData]);
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => prevData ? { ...prevData, [name]: value } : null);
+
+  // const handleChange = (
+  //   e: React.ChangeEvent<HTMLInputElement> | string,
+  //   fieldName?: string
+  // ) => {
+  //   if (typeof e === "string" && fieldName) {
+  //     setFormData((prevData) =>
+  //       prevData ? { ...prevData, [fieldName]: e } : null
+  //     );
+  //   } else if (e instanceof Event && 'target' in e) { // Type guard to check if `e` is a ChangeEvent
+  //     const { name, value } = e.target as HTMLInputElement; // Type assertion
+  //     setFormData((prevData) =>
+  //       prevData ? { ...prevData, [name]: value } : null
+  //     );
+  //   }
   // };
+  
+  
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | string,
     fieldName?: string
   ) => {
     if (typeof e === "string" && fieldName) {
+      // Handle text editor or custom string input
       setFormData((prevData) =>
         prevData ? { ...prevData, [fieldName]: e } : null
       );
-    } else if (e instanceof Event && 'target' in e) { // Type guard to check if `e` is a ChangeEvent
-      const { name, value } = e.target as HTMLInputElement; // Type assertion
+    } else {
+      // Handle input field changes
+      const event = e as React.ChangeEvent<HTMLInputElement>;
+      const { name, value } = event.target;
       setFormData((prevData) =>
         prevData ? { ...prevData, [name]: value } : null
       );
     }
   };
-  
-  
-
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -174,7 +188,8 @@ const [loading, setLoading] = useState(false);
                   name="branch_name"
                   type="text"
                   value={formData.branch_name}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => handleChange(e)}
                 />
               </label>
 

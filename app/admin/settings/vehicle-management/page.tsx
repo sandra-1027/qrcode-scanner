@@ -317,13 +317,15 @@ const page = () => {
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                 Rc Expiry Date
                 </th>
-                <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                {/* <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"> */}
+                <th className="w-40 px-3 py-3 bg-slate-200 text-left font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100">
                 Pucc Expiry Date
                 </th>            
-                <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                {/* <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"> */}
+                <th className="w-40 px-3 py-3 bg-slate-200 text-left font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100">
                 Insurance Expiry Date
                 </th> 
-                <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                <th className="w-40 px-3 py-3 bg-slate-200 text-left font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100">
                Tax Expiry Date
                 </th> 
                 <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">

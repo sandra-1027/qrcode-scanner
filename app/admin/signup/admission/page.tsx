@@ -45,6 +45,8 @@ type Admission = {
    user_photo:File | null;
    documents:File | null;
    branch_name:string;
+   address:string;
+   dob:string;
 };
 
 
@@ -413,6 +415,7 @@ const Admission = () => {
                 Service Name
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                
                 Due Amount
                 </th>            
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
@@ -437,7 +440,9 @@ const Admission = () => {
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.user_name}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                <td className="max-w-[350px] px-4 py-3">
+                <p><span className="font-bold mr-2">D-O-B:</span>{item.dob}</p>
+                <p><span className="font-bold mr-2">Address:</span>{item.address}</p>
                   <p><span className="font-bold mr-2">Email: </span>{item.email}</p>
                   <p><span className="font-bold mr-2">Blood Group:</span>{item.blood_group}</p>
                   <p><span className="font-bold mr-2">Gender:</span>{item.gender}</p>
@@ -483,7 +488,11 @@ const Admission = () => {
                 )}
                 </td>
             <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.added_date}
+                {/* {item.added_date} */}
+                <div className="flex flex-col">
+    <span>{item.added_date.split(" ")[0]}</span> {/* Date */}
+    <span>{item.added_date.split(" ")[1]}</span> {/* Time */}
+  </div>
                 </td>
                 <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                 <span>

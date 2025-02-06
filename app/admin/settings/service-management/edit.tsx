@@ -37,22 +37,26 @@ const [loading, setLoading] = useState(false);
     }
   }, [serviceData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | string, fieldName?: string) => {
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement> | string,
+    fieldName?: string
+  ) => {
     if (typeof e === "string" && fieldName) {
-    
+      // Handle text editor or custom string input
       setFormData((prevData) =>
         prevData ? { ...prevData, [fieldName]: e } : null
       );
-    } else if (e instanceof Event && 'target' in e) {
-   
-      const { name, value } = e.target as HTMLInputElement;
+    } else {
+      // Handle input field changes
+      const event = e as React.ChangeEvent<HTMLInputElement>;
+      const { name, value } = event.target;
       setFormData((prevData) =>
         prevData ? { ...prevData, [name]: value } : null
       );
     }
   };
-
-
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,11 +118,11 @@ const [loading, setLoading] = useState(false);
 
   return (
     
-   
-
-    <div>
+  
+    // <div>
     <div
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5"
+     //className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto px-4 py-6 sm:px-5"
       role="dialog"
       onKeyDown={(e) => e.key === "Escape" && toggleModal()}
     >
@@ -127,7 +131,8 @@ const [loading, setLoading] = useState(false);
         onClick={toggleModal}
       ></div>
 
-      <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
+      {/* <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-y-auto rounded-lg bg-white transition-all duration-300 dark:bg-navy-700"> */}
+      <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-y-auto rounded-lg bg-white transition-all duration-300 dark:bg-navy-700 hide-scrollbar">
         <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
           <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
             Edit Service
@@ -165,7 +170,8 @@ const [loading, setLoading] = useState(false);
                   name="service_name"
                   type="text"
                   value={formData.service_name}
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => handleChange(e)}
                 />
               </label>
               <label className="block">
@@ -176,8 +182,8 @@ const [loading, setLoading] = useState(false);
                   name="amount"
                   type="text"
                   value={formData.amount}
-                
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e) => handleChange(e)}
                 />
               </label>
 
@@ -202,7 +208,7 @@ const [loading, setLoading] = useState(false);
         </div>
       </div>
     </div>
-  </div>
+  //</div>
   );
 };
 export default Edit;

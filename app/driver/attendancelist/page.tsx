@@ -8,7 +8,7 @@ import { IoQrCodeSharp } from "react-icons/io5";
 
 const Scanner = () => {
   const [scannedData, setScannedData] = useState<
-    { name: string; mobile: string; joiningDate: string; completedClasses: number }[]
+    { name: string; mobileNo: string; joiningDate: string; completedClasses: number }[]
   >([]);
   const [isScanning, setIsScanning] = useState(false);
   const [scannerInstance, setScannerInstance] = useState<Html5QrcodeScanner | null>(null);
@@ -91,10 +91,10 @@ const Scanner = () => {
                   Name
                   </th>
                   <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  Join Date
+                  Mobile
                   </th>
                   <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  Completed Classes
+                  Joining Date
                   </th>
                   <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                   Completed Classes
@@ -116,7 +116,7 @@ const Scanner = () => {
                   {item.name}
                   </td>
                   <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                  {item.mobile}
+                  {item.mobileNo}
                   </td>
                   <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                   {item.joiningDate}

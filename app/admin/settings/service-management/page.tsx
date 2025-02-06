@@ -64,6 +64,8 @@ const page = () => {
       if (data.success) {
         setServiceData(data.data || []);
         setFilteredData(data.data || []);
+        console.log(data.data,"data");
+       console.log(data.data[1].description,"description");
       } else {
       }
     } catch (error) {
@@ -326,7 +328,7 @@ const page = () => {
                 />
               </div>
             </div>
-            <div className="overflow-x-auto w-full">
+            {/* <div className="overflow-x-auto w-full">
               <table className="is-hoverable w-full text-left">
                 <thead>
                   <tr>
@@ -432,7 +434,132 @@ const page = () => {
                   ))}
                 </tbody>
               </table>
+            </div> */}
+
+
+<div className="overflow-x-auto w-full">
+              <table className="is-hoverable w-full text-left">
+      
+                <thead>
+                  <tr>
+                    <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                      SL No
+                    </th>
+                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                      Service Name
+                    </th>
+                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                      Amount
+                    </th>
+                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                      Description
+                    </th>
+                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                      Status
+                    </th>
+                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                      Date
+                    </th>
+                    <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentEntries.map((item, index) => (
+                    <tr
+                      key={item.id}
+                      className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
+                    >
+                      <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
+                        {indexOfFirstEntry + index + 1}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {item.service_name}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {item.amount}
+                      </td>
+                      {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                        />
+                      </td> */}
+<td className="max-w-[350px] px-4 py-3">
+<div
+  dangerouslySetInnerHTML={{ __html: item.description }}
+  className="prose prose-sm dark:prose-invert"
+></div>
+</td>
+                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {item.status === "active" && (
+                          <div className="badge space-x-2.5 rounded-full bg-success/10 text-success">
+                            <div className="size-2 rounded-full bg-current" />
+                            <span>active</span>
+                          </div>
+                        )}
+                        {item.status === "inactive" && (
+                          <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
+                            <div className="size-2 rounded-full bg-current" />
+                            <span>inactive</span>
+                          </div>
+                        )}
+                      </td>
+
+                      {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {item.added_date}
+                      </td> */}
+                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+  <div className="flex flex-col">
+    <span>{item.added_date.split(" ")[0]}</span> {/* Date */}
+    <span>{item.added_date.split(" ")[1]}</span> {/* Time */}
+  </div>
+</td>
+                      <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
+                        <span>
+                          {/* <div className="flex justify-center space-x-2"> */}
+
+                          <div className="flex flex-col">
+
+                            <button
+                              onClick={() => togglemodal("edit", item)}
+                              className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+                            >
+                              <i className="fa fa-edit" />
+                            </button>
+                            <button
+                              onClick={() =>
+                                updateAccountStatus(item.id!, item.status)
+                              }
+                              className={`btn size-8 p-0 ${
+                                item.status === "active"
+                                  ? "text-error"
+                                  : "text-primary"
+                              } hover:bg-${
+                                item.status === "active" ? "error" : "primary"
+                              }/20 focus:bg-${
+                                item.status === "active" ? "error" : "primary"
+                              }/20 active:bg-${
+                                item.status === "active" ? "error" : "primary"
+                              }/25`}
+                            >
+                              <i
+                                className={`fa ${
+                                  item.status === "active"
+                                    ? "fa-trash-alt"
+                                    : "fa-check-circle"
+                                }`}
+                              />
+                            </button>
+                          </div>
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
+
 
             <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-4 sm:space-y-0">
               {/* Entries Info */}

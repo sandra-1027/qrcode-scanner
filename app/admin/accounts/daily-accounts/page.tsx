@@ -33,6 +33,9 @@ const page = () => {
   const [filteredData, setFilteredData] = useState<Account[]>([]);
   const [expenseData, setExpenseData] = useState<Account | null>(null);
 
+  const [selectedBranches, setSelectedBranches] = useState<string>("");
+  const [ BranchData,  setBranchData] = useState<Account []>([]);
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
@@ -85,6 +88,41 @@ const page = () => {
     fetchStaffData();
   }, [state]);
 
+
+  const fetchBranchData = async () => {
+    try {
+
+      const response = await fetch('/api/admin/settings/branch_details', {
+        method: 'POST',
+        headers: {
+           'authorizations': state?.accessToken ?? '', 
+        
+          'api_key': '10f052463f485938d04ac7300de7ec2b',  
+        },
+        body: JSON.stringify({ user_id:null}),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+       
+        throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
+      }
+      
+      const data = await response.json();
+ 
+      if (data.success) {
+        setBranchData(data.data || []);
+      } else {
+      
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchBranchData();
+  }, [state]);
+
   const [filterStatus,setFilterStatus] = useState("all");
   
   const [currentPage,setCurrentPage] = useState(1);
@@ -104,13 +142,19 @@ const page = () => {
         (item) => item.status === selectedStatus
       );
     }
-   
+  
     if (selectedDate) {
       newFilteredData = newFilteredData.filter((item) => {
       
         const itemDate = item.added_date.split(" ")[0]; 
         return itemDate === selectedDate;
       });
+    }
+
+    if (selectedBranches){
+      newFilteredData = newFilteredData.filter(
+        (item) => item.branch_name=== selectedBranches
+      );
     }
     return newFilteredData; 
   };
@@ -273,6 +317,29 @@ const page = () => {
       />
     </div>
       </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
+      <div className='flex-1'>
+          <label
+            htmlFor="serviceName"
+            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+          >
+           Branch Name
+          </label>
+          <select
+            id="branch_name"
+            name="branch_name"
+            value={selectedBranches}
+            onChange={(e) => setSelectedBranches(e.target.value)}
+            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          >
+            <option value="">Select a Branch</option>
+            {BranchData.map((branch) => (
+    <option key={branch.id} value={branch.branch_name}>
+      {branch.branch_name}
+    </option>
+  ))}
+          </select>
+        </div>
       <div className="mt-4 flex space-x-4">
         <button
           type="submit"
@@ -296,6 +363,7 @@ const page = () => {
           ></i>
           Reset
         </button>
+      </div>
       </div>
     </form>
   </div>
@@ -349,6 +417,8 @@ const page = () => {
     />
             </div>
           </div>
+
+
         <div className="overflow-x-auto w-full">
   <table className="is-hoverable w-full text-left">
             <thead>
