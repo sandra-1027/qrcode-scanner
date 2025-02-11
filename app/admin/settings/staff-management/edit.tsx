@@ -173,7 +173,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             {/* <div className="flex mb-4" key="id"> */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="block">
-  
+   <span>Staff Name</span>
     <span className="relative mt-1.5 flex">
             <input 
             name="first_name" 
@@ -186,7 +186,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             </span>
             </label>
             <label className="block">
-
+<span>Mobile</span>
     <span className="relative mt-1.5 flex">
             <input 
             name="mobile"
@@ -197,8 +197,9 @@ const handleSubmit = async (e: React.FormEvent) => {
               className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
             </span>
             </label>
+
             <label className="block">
-  
+  <span>Place</span>
     <span className="relative mt-1.5 flex">
             <input
              name="address"
@@ -209,8 +210,9 @@ const handleSubmit = async (e: React.FormEvent) => {
                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
             </span>
             </label>
+
             <label className="block">
-  
+  <span>Email</span>
     <span className="relative mt-1.5 flex">
             <input name="email" 
             value={formData.email}

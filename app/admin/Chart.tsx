@@ -105,7 +105,7 @@ import {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function Chart({ data }: { data: any }) {
-  console.log("Data:", data);
+ // console.log("Data:", data);
 
   const incomeData = data.income;
   const expenseData = data.expense;

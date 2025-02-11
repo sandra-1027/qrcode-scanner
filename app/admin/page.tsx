@@ -90,7 +90,7 @@ const AdminPage = () => {
 
 
   useEffect(() => {
-    console.log("Updated Graph Data:", graphData);
+   // console.log("Updated Graph Data:", graphData);
   }, [graphData]); 
 
   const fetchDashboardData = async () => {

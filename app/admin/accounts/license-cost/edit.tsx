@@ -106,12 +106,13 @@ useEffect(() => {
   
         console.log('Response Status:', response.status);
         const data = await response.json();
-        toast.success('License Cost updated successfully');
+        
         console.log('Response Data:', data);
   
         if (data.success) {
           setSuccess(true);
           onSave(formData);
+          toast.success('License Cost updated successfully');
           togglemodal();
         } else {
           setError(data.msg || 'Failed to update driver');

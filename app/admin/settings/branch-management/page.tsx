@@ -326,9 +326,15 @@ const page = () => {
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.branch_name}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 <div dangerouslySetInnerHTML={{ __html: item.description }}/>
-                </td>
+                </td> */}
+                <td className="max-w-[350px] px-4 py-3">
+<div
+  dangerouslySetInnerHTML={{ __html: item.description }}
+  className="prose prose-sm dark:prose-invert"
+></div>
+</td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.status}
                 </td>

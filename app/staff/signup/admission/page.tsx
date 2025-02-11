@@ -43,6 +43,9 @@ type Admission = {
   insurence: File | null;
   user_photo: File | null;
   documents: File | null;
+  address:string;
+  dob:string;
+  branch_name:string;
 };
 const Admission = () => {
   const { state } = useAuth();
@@ -363,6 +366,14 @@ const Admission = () => {
                         {item.user_name}
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                      <p>
+                          <span className="font-bold mr-2">D-O-B: </span>
+                          {item.dob}
+                        </p>
+                        <p>
+                          <span className="font-bold mr-2">Address: </span>
+                          {item.address}
+                        </p>
                         <p>
                           <span className="font-bold mr-2">Email: </span>
                           {item.email}
@@ -374,6 +385,10 @@ const Admission = () => {
                         <p>
                           <span className="font-bold mr-2">Gender:</span>
                           {item.gender}
+                        </p>
+                        <p>
+                          <span className="font-bold mr-2">Branch: </span>
+                          {item.branch_name}
                         </p>
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
@@ -414,12 +429,12 @@ const Admission = () => {
                       <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                         <span>
                           <div className="flex justify-center space-x-2">
-                            <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
+                            {/* <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
                               <i
                                 className="fa fa-edit"
                                 onClick={() => togglemodal("edit", item)}
                               />
-                            </button>
+                            </button> */}
                             {item.pay_status !== "completed" && (
                               <button
                                 onClick={() => handleEdit(item)}

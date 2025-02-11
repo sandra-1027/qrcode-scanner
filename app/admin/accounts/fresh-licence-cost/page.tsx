@@ -1,22 +1,27 @@
 
-
 'use client'
 import withAuth from '@/hoc/withAuth';
 import React, { useEffect, useState } from 'react'
 import Add from './add';
 import { useAuth } from '@/app/context/AuthContext';
 import Edit from './edit';
-
 type Cost = {
   id?: string;
   status: string;
   service_name: string;
-  f_cost: string;
-  m_cost: string;
+  cost: string;
+  study_cost: string;
+  licence_cost:string;
   vehicle_type: string;
   service_id: string;
   branch_name:string;
   added_date:string;
+  gender:string;
+  lmc_mc_both_study:string;
+  lmc_mc_both_licence:string;
+  lmc_study_mc_licence:string;
+  lmc_licence_mc_study:string;
+
 };
 const page = () => {
   const { state } = useAuth();
@@ -24,6 +29,7 @@ const page = () => {
   const [costData, setCostData] = useState<Cost[]>([]);
   const [filteredData, setFilteredData] = useState<Cost[]>([]);
   const [selectedCost, setSelectedCost] = useState<Cost | null>(null); 
+  
   const [search, setSearch] = useState("");
   const [selectedServices, setSelectedServices] = useState<string>("");
   const [service, setService] = useState<{ id: string; service_name: string }[]>([]);
@@ -31,25 +37,26 @@ const page = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>("");
    const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
- 
-  const togglemodal = (mode: 'add' | 'edit', cost: Cost | null = null) => {
-    setModalMode(mode);  
-    setSelectedCost(cost);  
-    setShowmodal((prev) => !prev);  
-  };
+   
+    const togglemodal = (mode: 'add' | 'edit', cost: Cost | null = null) => {
+      setModalMode(mode); 
+      setSelectedCost(cost); 
+      setShowmodal((prev) => !prev); 
+    };
   
-  const fetchlicenseData = async () => {
+  
+  const fetchclassData = async () => {
   
 
     try {
 
-      const response = await fetch('/api/admin/accounts/license_cost_details', {
+      const response = await fetch('/api/admin/accounts/fresh_license_cost_details', {
         method: 'POST',
         headers: {
            'authorizations': state?.accessToken ?? '', 
-          'api_key': '10f052463f485938d04ac7300de7ec2b'
+          'api_key': '10f052463f485938d04ac7300de7ec2b',  
         },
-        body: JSON.stringify({  }),
+        body: JSON.stringify({ }),
       });
       if (!response.ok) {
         const errorData = await response.json();
@@ -57,7 +64,6 @@ const page = () => {
       }
       
       const data = await response.json();
- 
       if (data.success) {
         setCostData(data.data || []);
          setFilteredData(data.data || []);
@@ -69,43 +75,42 @@ const page = () => {
   };
   
   useEffect(() => {
-    fetchlicenseData();
+    fetchclassData();
   }, [state]);
 
  
-  const fetchServiceData = async () => {
+  // const fetchServiceData = async () => {
   
 
-    try {
+  //   try {
 
-      const response = await fetch('/api/admin/settings/service_details', {
-        method: 'POST',
-        headers: {
-           'authorizations': state?.accessToken ?? '', 
-          'api_key': '10f052463f485938d04ac7300de7ec2b',
-        },
-        body: JSON.stringify({  }),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
-      }
+  //     const response = await fetch('/api/admin/settings/service_details', {
+  //       method: 'POST',
+  //       headers: {
+  //          'authorizations': state?.accessToken ?? '', 
+  //         'api_key': '10f052463f485938d04ac7300de7ec2b', 
+  //       },
+  //       body: JSON.stringify({  }),
+  //     });
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
+  //     }
       
-      const data = await response.json();
-   
-      if (data.success) {
-        setService(data.data || []);
+  //     const data = await response.json();
+  //     if (data.success) {
+  //       setService(data.data || []);
          
-      } else {
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
-  };
+  //     } else {
+  //     }
+  //   } catch (error) {
+  //     console.error("Fetch error:", error);
+  //   }
+  // };
   
-  useEffect(() => {
-    fetchServiceData();
-  }, [state]);
+  // useEffect(() => {
+  //   fetchServiceData();
+  // }, [state]);
 
   const [filterStatus,setFilterStatus] = useState("all");
   
@@ -116,7 +121,7 @@ const page = () => {
 
   const updateAccountStatus = async (id: string, status: string) => {
     try {
-      const response = await fetch('/api/admin/accounts/inactivate_license_cost', {
+      const response = await fetch('/api/admin/accounts/inactivate_fresh_license_cost', {
         method: 'POST',
         headers: {
           'authorizations': state?.accessToken ?? '', 
@@ -125,7 +130,7 @@ const page = () => {
         body: JSON.stringify({
           id: id,
           status: status,
-          table: "license_cost"
+          table: "fresh_license_cost"
         }),
       });
   
@@ -139,7 +144,7 @@ const page = () => {
   
       if (data.success) {
        
-        fetchlicenseData();
+        fetchclassData();
       } else {
         console.error("API error:", data.msg || "Unknown error");
       }
@@ -147,9 +152,10 @@ const page = () => {
       console.error("Update error:", error);
     }
   };
-  
 
-  const handleEdit = (staff: Cost) => {
+
+
+    const handleEdit = (staff: Cost) => {
       setSelectedCost(staff); 
       setShowmodal(true); 
     };
@@ -158,36 +164,38 @@ const page = () => {
     
       // Apply form filters
      
-      if (selectedServices) {
-        newFilteredData = newFilteredData.filter(
-          (item) => item.service_name === selectedServices
-        );
-      }
+      // if (selectedServices) {
+      //   newFilteredData = newFilteredData.filter(
+      //     (item) => item.service_name === selectedServices
+      //   );
+      // }
       if (selectedStatus) {
         newFilteredData = newFilteredData.filter(
           (item) => item.status === selectedStatus
         );
       }
     
-      return newFilteredData;
+      return newFilteredData; 
     };
     
   
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
+     // console.log(value,'value');
       setSearchTerm(value);
     
       const searchFilteredData = costData.filter(
         (item) =>
-          item.service_name.toLowerCase().includes(value.toLowerCase()) ||
+          item.gender.toLowerCase().includes(value.toLowerCase()) ||
           item.vehicle_type.toLowerCase().includes(value.toLowerCase()) ||
+          item.cost.toLowerCase().includes(value.toLowerCase()) ||
           item.status.toLowerCase().includes(value.toLowerCase())
       );
     
       setFilteredData(searchFilteredData); 
+     // console.log(searchFilteredData,'searchFilteredData');
     };
-    
-    
+  
     const handleFilterSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const newFilteredData = applyFilters();
@@ -198,7 +206,7 @@ const page = () => {
       setSearchTerm("");
       setSelectedServices("");
       setSelectedStatus("");
-      setFilteredData(costData);
+      setFilteredData(costData); 
     };
     const indexOfLastEntry = currentPage * entriesPerPage;
     const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -206,6 +214,7 @@ const page = () => {
       indexOfFirstEntry,
       indexOfLastEntry
     );
+   /// console.log(currentEntries,'currentEntries')
     const totalEntries = filteredData.length;
     const totalPages = Math.ceil(totalEntries / entriesPerPage);
   return (
@@ -214,7 +223,7 @@ const page = () => {
         
     <div className="flex items-center space-x-4 py-5 lg:py-6">
     <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
-    License Cost
+    Fresh Licence cost
     </h2>
     <div className="hidden h-full py-1 sm:flex">
       <div className="h-full w-px bg-slate-300 dark:bg-navy-600" />
@@ -231,7 +240,7 @@ const page = () => {
       <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
-      <li>License Cost</li>
+      <li>Fresh Licence cost</li>
     </ul>
   </div>
 
@@ -240,30 +249,7 @@ const page = () => {
   <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
     <form>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {/* Driver Name Select */}
-        <div className='flex-1'>
-          <label
-            htmlFor="serviceName"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-            Service
-          </label>
-           <select
-            id="driverName"
-            name="driverName"
-            value={selectedServices}
-            onChange={(e) => setSelectedServices(e.target.value)}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          >
-            <option value="">Select a service</option>
-  {service.map((service) => (
-                <option key={service.id} value={service.service_name}>
-                  {service.service_name}
-                </option>
-              ))}
-</select>
-
-        </div>
+     
         {/* Status Select */}
         <div className='flex-1'>
           <label
@@ -293,13 +279,13 @@ const page = () => {
         <button
            onClick={handleReset}
           type="button"
-          className="ml-4 nline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="ml-4 inline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         ><i className='fa fa-refresh' style={{marginTop:'3px',marginRight:'3px'}}></i>
           Reset
         </button>
-   </div>
+        </div>
       </div>
-    
+
     </form>
   </div>
     </div>
@@ -310,17 +296,19 @@ const page = () => {
                 License Cost
                 </span>
                 <button className="px-4 py-2 bg-[#4f46e5] text-white rounded-md" 
-                onClick={() => togglemodal('add')}
+                 onClick={() => togglemodal('add')}
                 >  
           Add License Cost
                 </button>
+               
             </div>
 
                              
   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6" >
   <div className="card px-4 pb-4 sm:px-5">
   <div className="mt-5">
-
+<div className="gridjs-head">
+            <div className="gridjs-search">
             <div className="gridjs-head">
            
            <div className="gridjs-search">
@@ -334,6 +322,8 @@ onChange={handleSearchChange}
 />
 </div>
         </div>
+            </div>
+          </div>
         <div className="overflow-x-auto w-full">
   <table className="is-hoverable w-full text-left">
             <thead>
@@ -341,18 +331,16 @@ onChange={handleSearchChange}
                 <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                 SL No
                 </th>
-                <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                Service Name
-                </th>
+               
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                Vehicle Type
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                Cost
+                Gender
                 </th>
-                {/* <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                Male cost
-                </th>             */}
+                <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                Cost
+                </th>            
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                Status
                 </th> 
@@ -371,18 +359,16 @@ onChange={handleSearchChange}
                 <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
                 {index +indexOfFirstEntry+1}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.service_name}
-                </td>
+               
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.vehicle_type}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.f_cost}
+                {item.gender}
                 </td>
-                {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.m_cost}
-                </td> */}
+                <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                {item.cost}
+                </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                
                  {item.status === "active" && (
@@ -397,12 +383,7 @@ onChange={handleSearchChange}
                   <span>inactive</span>
                 </div>
                 )}
-                 {item.status === "completed" && (
-                <div className="badge space-x-2.5 rounded-full bg-info/10 text-info">
-                  <div className="size-2 rounded-full bg-current"/>
-                  <span>completed</span>
-                </div>
-                )}
+
                 </td>
             <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.added_date}
@@ -413,35 +394,14 @@ onChange={handleSearchChange}
                         <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
                           <i className="fa fa-edit" 
                           onClick={() => togglemodal('edit', item)}
-                          />
+                            />
                         </button>
-                        {/* <button className="btn size-8 p-0 text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
-                          <i className="fa fa-trash-alt" onClick={() => updateAccountStatus(item.id!, item.status)} />
-                        </button> */}
-                         <button
-                              onClick={() =>
-                                updateAccountStatus(item.id!, item.status)
-                              }
-                              className={`btn size-8 p-0 ${
-                                item.status === "active"
-                                  ? "text-error"
-                                  : "text-primary"
-                              } hover:bg-${
-                                item.status === "active" ? "error" : "primary"
-                              }/20 focus:bg-${
-                                item.status === "active" ? "error" : "primary"
-                              }/20 active:bg-${
-                                item.status === "active" ? "error" : "primary"
-                              }/25`}
-                            >
-                              <i
-                                className={`fa ${
-                                  item.status === "active"
-                                    ? "fa-trash-alt"
-                                    : "fa-check-circle"
-                                }`}
-                              />
-                            </button>
+                        <button
+                        className={`btn size-8 p-0 ${item.status === 'active' ? 'text-error' : 'text-primary'} hover:bg-${item.status === 'active' ? 'error' : 'primary'}/20 focus:bg-${item.status === 'active' ? 'error' : 'primary'}/20 active:bg-${item.status === 'active' ? 'error' : 'primary'}/25`}
+                        onClick={() => updateAccountStatus(item.id!, item.status)} // Pass the current status
+                      >
+                        <i className={`fa ${item.status === 'active' ? 'fa-trash-alt' : 'fa-check-circle'}`} />
+                      </button>
                       </div>
                     </span>
                 </td>
@@ -450,6 +410,7 @@ onChange={handleSearchChange}
             </tbody>
           </table>
         </div>
+
             <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-4 sm:space-y-0">
   {/* Entries Info */}
   <div className="text-center sm:text-left">
@@ -511,27 +472,25 @@ onChange={handleSearchChange}
   </div>
   </div>
  
-
-{showmodal && (
+  {showmodal && (
   modalMode === 'edit' ? (
     <Edit
       showModal={showmodal}
-      togglemodal={() => togglemodal('add')}  
+      togglemodal={() => togglemodal('add')} 
       costData={selectedCost}
       onSave={(updatedCost) => {
-        setCostData((prevData) => prevData.map((cost) =>
-          cost.id === updatedCost.id ? updatedCost : cost
-        ));
-        togglemodal('add'); 
+        setCostData((prevData) =>
+          prevData.map((cost) =>
+            cost.id === updatedCost.id ? updatedCost : cost
+          )
+        );
+        togglemodal('add');  
       }}
     />
   ) : (
     <Add showmodal={showmodal} togglemodal={() => togglemodal('add')} />
   )
 )}
-
-
-
 
 
 

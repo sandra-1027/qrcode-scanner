@@ -370,6 +370,7 @@
 
 import React, { useState, useRef } from 'react';
 import { FaListOl, FaListUl } from 'react-icons/fa';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 type TextEditorProps = {
   value: string;
@@ -390,21 +391,17 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
   const [selectedBgColor, setSelectedBgColor] = useState<string>('#FFFFFF');
   const [isColorDropdownVisible, setIsColorDropdownVisible] = useState(false);
   const [isBgColorDropdownVisible, setIsBgColorDropdownVisible] = useState(false);
+
+
+ 
   const editorRef = useRef<HTMLDivElement | null>(null);
 
-  // const handleCommand = (command: string, value?: string) => {
-  //   document.execCommand(command, false, value || '');
-  //   updateToolbarState();
-  // };
+
   const handleCommand = (command: string, value?: string) => {
     document.execCommand(command, false, value || '');
     updateToolbarState(); // Ensure toolbar updates correctly
   };
-  // const handleCommand = (command: string) => {
-  //   if (editorRef.current) {
-  //     document.execCommand(command, false, '');
-  //   }
-  // };
+
   const updateToolbarState = () => {
     setIsBold(document.queryCommandState('bold'));
     setIsItalic(document.queryCommandState('italic'));
@@ -504,11 +501,7 @@ const insertVideoFromURL = () => {
     }
   }, [value]);
 
-  // const handleInput = () => {
-  //   if (editorRef.current) {
-  //     onChange(editorRef.current.innerHTML);
-  //   }
-  // };
+
   const handleInput = () => {
     if (editorRef.current) {
       const newValue = editorRef.current.innerHTML;
@@ -518,12 +511,7 @@ const insertVideoFromURL = () => {
     }
   };
   
-  // const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-  //   if (event.key === "Enter") {
-  //     event.preventDefault(); // Prevents form submission
-  //     document.execCommand("insertLineBreak"); // Adds a line break instead of submitting
-  //   }
-  // };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       document.execCommand('defaultParagraphSeparator', false, 'p'); // Ensures new lines are wrapped in <p>
@@ -788,9 +776,7 @@ const insertVideoFromURL = () => {
             onClick={() => handleCommand('insertOrderedList')}
             className="p-1.5 rounded cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-white"
           >
-            {/* <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg> */}
+          
             <FaListOl />
             
             <span className="sr-only">Ordered List</span>
@@ -802,46 +788,48 @@ const insertVideoFromURL = () => {
             onClick={() => handleCommand('insertUnorderedList')}
             className="p-1.5 rounded cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-white"
           >
-            {/* <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg> */}
+           
             <FaListUl />
             <span className="sr-only">Unordered List</span>
           </button>
 
 
           {/* Add Text Alignment Buttons */}
+          {/* left */}
           <button
            type="button"
             onClick={() => handleCommand('justifyLeft')}
             className="p-1.5 rounded cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-white"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18M3 18h18M3 6h18" />
-            </svg>
+           <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 6h8m-8 4h12M6 14h8m-8 4h12" />
+          </svg>
             <span className="sr-only">Align Left</span>
           </button>
+          {/* center */}
           <button
            type="button"
             onClick={() => handleCommand('justifyCenter')}
             className="p-1.5 rounded cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-white"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
+           <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 6h8M6 10h12M8 14h8M6 18h12" />
+          </svg>
             <span className="sr-only">Align Center</span>
           </button>
+           {/* right */}
           <button
            type="button"
             onClick={() => handleCommand('justifyRight')}
             className="p-1.5 rounded cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-white"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 10H3M21 14H3M21 18H3M21 6H3" />
-            </svg>
+          <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 6h-8m8 4H6m12 4h-8m8 4H6" />
+          </svg>
             <span className="sr-only">Align Right</span>
           </button>
-          <button
+{/* justify */}
+          {/* <button
            type="button"
             onClick={() => handleCommand('justifyFull')}
             className="p-1.5 rounded cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-white"
@@ -850,7 +838,7 @@ const insertVideoFromURL = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18M3 18h18M3 6h18" />
             </svg>
             <span className="sr-only">Justify</span>
-          </button>
+          </button> */}
 
           {/* Add Background Color Button */}
           <button
@@ -858,9 +846,9 @@ const insertVideoFromURL = () => {
             onClick={toggleBgColorDropdown}
             className="p-1.5 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
+<svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" strokeLinecap="round" strokeWidth={2} d="M9 19.2H5.5c-.3 0-.5-.2-.5-.5V16c0-.2.2-.4.5-.4h13c.3 0 .5.2.5.4v2.7c0 .3-.2.5-.5.5H18m-6-1 1.4 1.8h.2l1.4-1.7m-7-5.4L12 4c0-.1 0-.1 0 0l4 8.8m-6-2.7h4m-7 2.7h2.5m5 0H17" />
+          </svg>
             <span className="sr-only">Background Color</span>
           </button>
 
@@ -916,6 +904,7 @@ const insertVideoFromURL = () => {
             <option value="5">Large</option>
             <option value="7">Extra Large</option>
           </select>
+   
    {/* Font Family Dropdown */}
    <select
             value={selectedFont}
@@ -933,8 +922,7 @@ const insertVideoFromURL = () => {
         </div>
       </div>
 
-    
-      
+
       <div
   ref={editorRef}
   contentEditable

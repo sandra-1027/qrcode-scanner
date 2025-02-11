@@ -439,14 +439,16 @@ const Admission = () => {
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.user_name}
+                <p className='text-slate-400 dark:text-navy-300'>Name: {item.first_name}</p>
                 </td>
-                <td className="max-w-[350px] px-4 py-3">
-                <p><span className="font-bold mr-2">D-O-B:</span>{item.dob}</p>
-                <p><span className="font-bold mr-2">Address:</span>{item.address}</p>
-                  <p><span className="font-bold mr-2">Email: </span>{item.email}</p>
-                  <p><span className="font-bold mr-2">Blood Group:</span>{item.blood_group}</p>
-                  <p><span className="font-bold mr-2">Gender:</span>{item.gender}</p>
-                  <p><span className="font-bold mr-2">Branch:</span>{item.branch_name}</p>
+                {/* <td className="max-w-[550px] px-4 py-3"> */}
+                <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                <p className='text-slate-400 dark:text-navy-300'><span className="font-bold mr-2 dark:text-navy-100">D-O-B:</span>{item.dob ? item.dob : "null"}</p>
+                <p className='text-slate-400 dark:text-navy-300'><span className="font-bold mr-2 dark:text-navy-100">Address:</span>  {item.address ? item.address : "null"}</p>
+                <p className='text-slate-400 dark:text-navy-300'><span className="font-bold mr-2 dark:text-navy-100">Email: </span>{item.email}</p>
+                  <p className='text-slate-400 dark:text-navy-300'><span className="font-bold mr-2 dark:text-navy-100">Blood Group:</span>{item.blood_group}</p>
+                  <p className='text-slate-400 dark:text-navy-300'><span className="font-bold mr-2 dark:text-navy-100">Gender:</span>{item.gender}</p>
+                  <p className='text-slate-400 dark:text-navy-300'><span className="font-bold mr-2 dark:text-navy-100">Branch:</span>{item.branch_name}</p>
                   
                
                 </td>

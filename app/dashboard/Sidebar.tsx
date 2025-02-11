@@ -841,7 +841,7 @@ const Sidebar = () => {
   const userType = user?.data?.user_type; // Now TypeScript recognizes data
   // console.log(userType, "userType");
  const data = user?.data;
-  // console.log(data, "data");
+// console.log(data, "data");
 
 
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -1715,10 +1715,10 @@ fill="currentColor"
           </Link>
         </li>
         <li>
-          <Link href="/admin/accounts/license-class" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+          <Link href="/admin/accounts/fresh-licence-cost" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>License Class</span>
+              <span>Fresh Licence cost</span>
             </div>
           </Link>
         </li>
@@ -1998,13 +1998,21 @@ fill="currentColor"
           </Link>
         </li>
         <li>
-          <Link href="/admin/accounts/license-class" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+          <Link href="/admin/accounts/fresh-licence-cost" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>License Class</span>
+              <span>Fresh Licence cost</span>
             </div>
           </Link>
         </li>
+        {/* <li>
+          <Link href="/admin/accounts/license-class" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
+            <div className="flex items-center space-x-2">
+              <div className="size-1.5 rounded-full border border-current opacity-40" />
+              <span>Licence class</span>
+            </div>
+          </Link>
+        </li> */}
       </ul>
     </li>
                       {/* accounts */}

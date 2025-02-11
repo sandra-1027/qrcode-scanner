@@ -108,7 +108,7 @@ const page = () => {
       }
       
       const data = await response.json();
- 
+ //console.log(data,"data")
       if (data.success) {
         setBranchData(data.data || []);
       } else {
@@ -166,6 +166,8 @@ const page = () => {
       (item) =>
         item.daily_status.toLowerCase().includes(value.toLowerCase()) ||
         item.type.toLowerCase().includes(value.toLowerCase()) ||
+        item.expense_name.toLowerCase().includes(value.toLowerCase()) ||
+        item.added_by.toLowerCase().includes(value.toLowerCase()) ||
         item.status.toLowerCase().includes(value.toLowerCase())
     );
   
@@ -343,7 +345,7 @@ const page = () => {
       <div className="mt-4 flex space-x-4">
         <button
           type="submit"
-          className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="inline-flex justify-center rounded-md border border-transparent bg-primary py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           onClick={handleFilterSubmit}
         >
           <i
@@ -354,7 +356,7 @@ const page = () => {
         </button>
         <button
           type="button"
-          className="inline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="inline-flex justify-center rounded-md border border-gray-300 bg-warning py-3 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           onClick={handleReset}
         >
           <i
@@ -433,6 +435,9 @@ const page = () => {
                Added By
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+               Branch Name
+                </th>
+                <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                Type
                 </th>
               
@@ -458,6 +463,9 @@ const page = () => {
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.added_by}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                {item.branch_name}
                 </td>
                   <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.daily_status === "income" ? (
