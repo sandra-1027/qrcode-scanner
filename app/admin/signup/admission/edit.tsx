@@ -1947,20 +1947,20 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
     </div>
 
     {isOpen && (
-      <div className="dark:bg-navy-700 absolute z-10 w-full mt-1 bg-white border border-slate-300 rounded-lg shadow-md">
+      <div className="p-1 dark:bg-navy-700 absolute z-10 w-full mt-1 bg-white border border-slate-300 rounded-lg shadow-md">
         <input
           type="text"
           placeholder="Search services..."
-          className="w-full px-3 py-2 border-b dark:bg-navy-700"
+          className="w-full py-2 border-b dark:bg-navy-700 rounded-lg"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <div className="max-h-60 overflow-y-auto">
+        <div className="max-h-60 overflow-y-auto hide-scrollbar">
           {filteredServices.length > 0 ? (
             filteredServices.map((service) => (
               <div
                 key={service.id}
-                className="cursor-pointer px-3 py-2 hover:bg-gray-200 "
+                className="cursor-pointer px-3 py-2 hover:bg-gray-200 hover:rounded-lg"
                 onClick={() => handleSelect(service)}
               >
                 {service.service_name}

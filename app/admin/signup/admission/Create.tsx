@@ -472,7 +472,7 @@ onClick={() => setmobileOpen(!isOpen)} >
       </div>
 
                     {mobileOpen && (
-        <div className="dark:bg-navy-700 z-10 w-full mt-1 bg-white border border-slate-300 rounded-lg shadow-md">
+        <div className="p-2 dark:bg-navy-700 z-10 w-full mt-1 bg-white border border-slate-300 rounded-lg shadow-md">
           <input
             type="text"
             placeholder="Search..."
@@ -480,7 +480,7 @@ onClick={() => setmobileOpen(!isOpen)} >
             value={searchMobile}
             onChange={(e) => setSearchMobile(e.target.value)}
           />
-          <div className="max-h-60 overflow-y-auto">
+          <div className="max-h-60 overflow-y-auto hide-scrollbar">
             {filteredMobilenumbers.length > 0 ? (
               filteredMobilenumbers.map((admission) => (
                 <div
@@ -790,7 +790,7 @@ onClick={() => setmobileOpen(!isOpen)} >
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <div className="dark:bg-navy-700 max-h-60 overflow-y-auto">
+          <div className="dark:bg-navy-700 max-h-60 overflow-y-auto hide-scrollbar">
             {filteredServices.length > 0 ? (
               filteredServices.map((service) => (
                 <div
