@@ -22,7 +22,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [accountType, setAccountType] = useState(formData?.daily_status || 'expense');
   const [expenseType, setExpenseType] = useState(formData?.type || '');
   const [amount, setAmount] = useState(formData?.amount || '');
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (isEditing && formData) {
       setAccountType(formData.daily_status);
@@ -228,7 +228,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
               type="submit"
               className="bg-primary text-white rounded p-2 w-1/5 mt-4"
             >
-              {isEditing ? 'Update' : 'Add'}
+           {loading ? "Adding..." : "Add"}
             </button>
           </form>
         </div>

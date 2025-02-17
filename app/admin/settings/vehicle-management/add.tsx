@@ -12,6 +12,7 @@ type CreateProps = {
 const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
   const { state } = useAuth();
 
+
   const [vehicle_no, setVehicle_No] = useState('');
   const [tax_expiry_date, setTax_expiry_date] = useState('');
   const [rc_expiry_date, setRc_expiry_date] = useState('');
@@ -265,7 +266,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
           className="bg-primary text-white rounded p-2 w-1/5"
           disabled={loading}
         >
-         Add
+         {loading ? "Adding..." : "Add"}
         </button>
       </div>
     </form>

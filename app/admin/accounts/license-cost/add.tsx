@@ -18,6 +18,9 @@ type CreateProps = {
 const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditing }) => {
   const { state } = useAuth();
   const [services, setServices] = useState<{ id: string; service_name: string }[]>([]);
+
+  const [loading, setLoading] = useState(false);
+
   const [localFormData, setLocalFormData] = useState(formData || {
     f_cost: "",
     m_cost: "",
@@ -187,7 +190,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
            </label> */}
             </div>
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
-              Add
+              {loading ? " Adding..." : "Add"}
             </button>
           </form>
         </div>

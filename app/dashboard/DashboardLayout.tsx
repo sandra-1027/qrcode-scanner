@@ -270,8 +270,9 @@ export default function DashboardLayout({
          
           {loading && (
             <div className="app-preloader loader-overlay absolute inset-0 z-50 grid place-content-center bg-white/70 dark:bg-navy-900/70">
-              <div className="app-preloader-inner relative inline-block size-48"></div>
+             <div className="app-preloader-inner relative inline-block size-48"></div> 
             </div>
+
           )}
 
           <main

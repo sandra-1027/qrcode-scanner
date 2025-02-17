@@ -62,6 +62,7 @@ const[insurencePreview,setInsurencePreview]=useState<string>('');
   const [selectedService, setSelectedService] = useState('');
   const [selectedAmount, setSelectedAmount] = useState('');
 
+  const [loading, setLoading] = useState(false);
 
   const [name, setname] = useState('');
   const [mobile, setmobile] = useState('');
@@ -1054,7 +1055,7 @@ onClick={() => setmobileOpen(!isOpen)} >
               <button 
            type="submit"
               className="btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-                Add
+               {loading ? "Adding..." : "Add"}
               </button>
             </div>
           </div>

@@ -211,7 +211,7 @@ const Add: React.FC<CreateProps> = ({ showModal, togglemodal }) => {
               type="submit"
               className="bg-primary text-white rounded p-2 w-1/5 mt-4"
             >
-             Add
+             {loading ? "Adding..." : "Add"}
             </button>
           </form>
         </div>

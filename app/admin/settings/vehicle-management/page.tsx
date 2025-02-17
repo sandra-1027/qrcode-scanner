@@ -19,6 +19,7 @@ interface Vehicle {
   pucc_expiry_date: string;
   rc_expiry_date:string;
   userfile: File | null;
+  text:string;
 }
 const page = () => {
   const {state}=useAuth();

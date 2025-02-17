@@ -122,7 +122,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         if (data.success) {
           setSuccess(true);
           onSave(formData);
-          togglemodal();
+          //togglemodal();
         } else {
           setError(data.msg || 'Failed to update Cost');
           console.log('Error Messages:', data.error_msgs);
@@ -263,7 +263,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             </label>
             </div>
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
-              Update
+           {loading ? "Updating..." : "Update"}
             </button>
           </form>
         </div>

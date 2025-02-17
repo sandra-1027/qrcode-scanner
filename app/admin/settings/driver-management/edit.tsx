@@ -16,7 +16,7 @@ interface Driver {
     date_of_joining: string;
     password:string;
     id?: string;
-   
+    text:string;
   }
 
 
@@ -94,7 +94,7 @@ const [loading, setLoading] = useState(false);
           setSuccess(true);
           onSave(formData);
           toast.success('Driver updated successfully');
-          toggleModal();
+        // toggleModal();
         } else {
           setError(data.msg || 'Failed to update driver');
           console.log('Error Messages:', data.error_msgs);
@@ -240,7 +240,7 @@ const [loading, setLoading] = useState(false);
                   type="submit"
                   className="bg-primary text-white rounded p-2 w-1/5 mt-4"
                 >
-                 Update
+                 {loading ? "Updating..." : "Update"}
                 </button>
               </form>
             </div>

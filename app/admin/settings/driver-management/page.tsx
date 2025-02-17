@@ -21,7 +21,7 @@ interface Driver {
   driving_licence_no: string;
   date_of_joining: string;
   password:string;
- 
+  text:string;
 }
 const page = () => {
   const {state}=useAuth();
@@ -42,6 +42,13 @@ const [filterStatus, setFilterStatus] = useState<string>("all");
 
   const [selectedDriver, setSelectedDriver] = useState<Driver | null>(null);
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+
+  const [selectedDrivers, setSelectedDrivers] = useState<string>("");
+ 
+  const [driverName, setDriverName] = useState<Driver[]>([]);
+  const [isOpenDriver, setIsOpenDriver] = useState(false);
+const [filteredDrivers, setFilteredDrivers] = useState(driverData); // Assuming driverData is available
+
 
   const togglemodal = (mode: 'add' | 'edit', driver: Driver | null = null) => {
     setModalMode(mode);
@@ -70,7 +77,7 @@ const [filterStatus, setFilterStatus] = useState<string>("all");
         }
         
         const data = await response.json();
-       console.log(data,'datttt')
+    //   console.log(data,'datttt')
         if (data.success) {
           setDriverData(data.data || []);
           setFilteredData(data.data || []);
@@ -87,14 +94,47 @@ const [filterStatus, setFilterStatus] = useState<string>("all");
   }, [state]);
 
  
+  const fetchDriverName = async () => {
+    try {
+
+      const response = await fetch('/api/admin/report/get_driver_autocomplete', {
+        method: 'POST',
+        headers: {
+           'authorizations': state?.accessToken ?? '', 
+          'api_key': '10f052463f485938d04ac7300de7ec2b',  
+        },
+        body: JSON.stringify({  }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
+      }
+      
+      const data = await response.json();
+     //console.log(data,'datttt')
+      if (data.success) {
+        setDriverName(data.data.driver_details || []);
+        //console.log(data.data,'driveeee')
+        //setFilteredData(data.data || []);
+      } else {
+        // console.error("API error:", data.msg || "Unknown error");
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+  // };
+  useEffect(() => {
+  fetchDriverName ();
+}, [state]);
 
  const applyFilters = () => {
         let newFilteredData = driverData;
       
         // Apply form filters
-        if (selectedVehicle) {
+        if (selectedDrivers) {
           newFilteredData = newFilteredData.filter(
-            (item) => item.first_name === selectedVehicle
+            (item) => item.first_name === selectedDrivers // Assuming 'name' is the property you want to compare
           );
         }
         if (selectedStatus) {
@@ -130,10 +170,18 @@ const [filterStatus, setFilterStatus] = useState<string>("all");
 const handleReset = () => {
   setFilters({ driverName: '', status: '' });
   setFilteredData(driverData);
+  setSelectedDrivers("");
   setCurrentPage(1); 
 };
 
+// const handleReset = () => {
+//   setSearchTerm("");
+//   setSelectedService("");
+//   setSelectedStatus("");
+//   setFilteredData(serviceData);
 
+//   setCurrentPage(1);
+// };
     // Calculate pagination
     const indexOfLastEntry = currentPage * entriesPerPage;
     const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -176,6 +224,11 @@ const handleReset = () => {
       }
     };
    
+
+    const handleDriverSelect = (driver:Driver) => {
+      setSelectedDrivers(driver.text);
+      setIsOpenDriver(false); // Close the dropdown after selection
+    };
   return (
     <div className=" w-full  pb-8">
  
@@ -207,71 +260,93 @@ const handleReset = () => {
   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6 mb-4" >
   <div className="card px-4 pb-4 sm:px-5 pt-4">
   <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
-     <form>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {/* Driver Name Select */}
-        <div className='flex-1'>
-          <label
-            htmlFor="driverName"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-            Driver Name
-          </label>
-          <select
-            id="driverName"
-            name="driverName"
-            value={selectedVehicle}
-            onChange={(e) => setSelectedVehicle(e.target.value)}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          >
-            <option value="">All Drivers</option>
-            {driverData.map((driver) => (
-    <option key={driver.id} value={driver.first_name}>
-      {driver.first_name}
-    </option>
-  ))}
-          </select>
+ 
+
+<form>
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    {/* Driver Name Select */}
+    <div className='flex-1 relative w-full'>
+      <label className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+        Driver Name
+      </label>
+      {/* <div className="relative mt-1.5 flex"> */}
+        <div
+          className="form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 cursor-pointer"
+          onClick={() => setIsOpenDriver(!isOpenDriver)}
+        >
+          <span>{selectedDrivers || "Select a Driver"}</span>
         </div>
 
-        <div  className='flex-1'>
-          <label
-            htmlFor="status"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-            Status
-          </label>
-          <select
-            id="status"
-            name="status"
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          >
-            <option value="">All Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
-        </div>
+        {isOpenDriver && (
+          <div className="p-1 dark:bg-navy-700 absolute z-10 w-full mt-1 bg-white border border-slate-300 rounded-lg shadow-md">
+            <input
+              type="text"
+              placeholder="Search drivers..."
+              className="w-full py-2 border-b dark:bg-navy-700 rounded-lg"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className="max-h-60 overflow-y-auto hide-scrollbar">
+              {driverName.length > 0 ? (
+                driverName.map((driver) => (
+                  <div
+                    key={driver.id}
+                    className="cursor-pointer px-3 py-2 hover:bg-gray-200 hover:rounded-lg"
+                    onClick={() => handleDriverSelect(driver)}
+                  >
+                    {driver.text}
+                  </div>
+                ))
+              ) : (
+                <div className="px-3 py-2 text-gray-400">No results found</div>
+              )}
+            </div>
+          </div>
+        )}
+      
+    </div>
 
-        <div className='flex-1 mt-6'>
-        <button
-          type="button"
-          className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          onClick={handleFilterSubmit}
-        ><i className='fa fa-filter' style={{marginTop:'3px',marginRight:'3px'}}></i>
-          Filter
-        </button>
-        <button
-          type="button"
-          className="ml-4 inline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-       
-          onClick={handleReset}
-        ><i className='fa fa-refresh' style={{marginTop:'3px',marginRight:'3px'}}></i>
-          Reset
-        </button>
-        </div>
-      </div>
-    </form>
+    {/* Status Select */}
+    <div className='flex-1'>
+      <label
+        htmlFor="status"
+        className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+      >
+        Status
+      </label>
+      <select
+        id="status"
+        name="status"
+        value={selectedStatus}
+        onChange={(e) => setSelectedStatus(e.target.value)}
+        className="mt-1.5 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        <option value="">All Status</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+
+    <div className='flex-1 mt-6'>
+      <button
+        type="button"
+        className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        onClick={handleFilterSubmit}
+      >
+        <i className='fa fa-filter' style={{ marginTop: '3px', marginRight: '3px' }}></i>
+        Filter
+      </button>
+      <button
+        type="button"
+        className="ml-4 inline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        onClick={handleReset}
+      >
+        <i className='fa fa-refresh' style={{ marginTop: '3px', marginRight: '3px' }}></i>
+        Reset
+      </button>
+    </div>
+  </div>
+</form>
   </div>
     </div>
   </div>
@@ -370,7 +445,7 @@ const handleReset = () => {
                         <button
                         className={`btn size-8 p-0 ${item.status === 'active' ? 'text-error' : 'text-primary'} hover:bg-${item.status === 'active' ? 'error' : 'primary'}/20 focus:bg-${item.status === 'active' ? 'error' : 'primary'}/20 active:bg-${item.status === 'active' ? 'error' : 'primary'}/25`}
                         onClick={() => updateAccountStatus(item.id!, item.status)} // Pass the current status
-                      >
+                      >{item.status}{item.id}
                         <i className={`fa ${item.status === 'active' ? 'fa-trash-alt' : 'fa-check-circle'}`} />
                       </button>
                       </div>
@@ -471,4 +546,3 @@ const handleReset = () => {
 }
 
 export default withAuth(page, ['admin']);
-

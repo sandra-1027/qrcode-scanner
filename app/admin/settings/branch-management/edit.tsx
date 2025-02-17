@@ -116,7 +116,7 @@ const [loading, setLoading] = useState(false);
         if (data.success) {
           setSuccess(true);
           onSave(formData);
-          toggleModal();
+          // toggleModal();
         } else {
           setError(data.msg || 'Failed to update driver');
           console.log('Error Messages:', data.error_msgs);
@@ -205,7 +205,7 @@ const [loading, setLoading] = useState(false);
                   className="bg-primary text-white rounded p-2 w-1/5"
                   disabled={loading}
                 >
-                 Edit
+                 {loading ? "Updating..." : "Update"}
                 </button>
               {/* </div> */}
             </div>

@@ -675,7 +675,7 @@ const StaffProfile = () => {
                       type="submit"
                       disabled={isSubmitting}
                     >
-                      Update
+                      {loading ? "Updating..." : "Update"}
                     </button>
                   </div>
                   <div className="my-7 h-px bg-slate-200 dark:bg-navy-500" />
@@ -741,7 +741,7 @@ const StaffProfile = () => {
                       type="submit"
                       disabled={isSubmitting}
                     >
-                      Update Password
+                      {loading ? "Updating Password..." : "Update Password"}
                     </button>
                   </div>
                   <div className="my-7 h-px bg-slate-200 dark:bg-navy-500" />

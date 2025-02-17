@@ -18,7 +18,7 @@ interface Vehicle {
     // rc_document: File;
     rc_document: string | File; 
     mobile: string;
-
+    text:string;
   
   }
 interface EditProps {
@@ -136,7 +136,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       setSuccess(true);
       onSave(formData); 
       toast.success('Vehicle Updated successfully');
-      toggleModal(); 
+      //toggleModal(); 
     } else {
       setError(data.msg || 'Failed to update vehicle');
     }
@@ -347,7 +347,7 @@ const handleRemoveImage = () => {
               type="submit"
               className="bg-primary text-white rounded p-2 w-1/5"
             >
-            Update
+             {loading ? "Updating..." : "Update"}
             </button>
             </div>
           </form>

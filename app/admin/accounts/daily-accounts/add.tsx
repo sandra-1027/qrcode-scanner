@@ -282,6 +282,8 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [expenseType, setExpenseType] = useState(formData?.type || '');
   const [expenseName, setExpenseName] = useState(formData?.expense_name || '');
 
+  const [loading, setLoading] = useState(false);
+  
   const [amount, setAmount] = useState(formData?.amount || '');
   const [ BranchData,  setBranchData] = useState<Account []>([]);
   const [branch_id, setbranch_id] = useState(formData?.branch_id || '');
@@ -650,7 +652,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
               type="submit"
               className="bg-primary text-white rounded p-2 w-1/5 mt-4"
             >
-              Add
+              {loading ? "Adding..." : "Add"}
             </button>
           </form>
         </div>

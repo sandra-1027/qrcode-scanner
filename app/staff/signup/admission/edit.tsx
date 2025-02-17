@@ -73,6 +73,7 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
   const [RcPreview, setRcPreview] = useState<string | null>(null);
 
   
+  
   const [Aadhaarchange, setAadhaarchange] = useState(false);
   const [AadhaarPreview, setAadhaarPreview] = useState<string | null>(null);
 
@@ -1081,6 +1082,7 @@ src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formDa
             type="submit"
             className="bg-primary text-white rounded p-2"
           >
+             
          {loading ? 'Updating...' : 'Update'}
           </button>
             </div>

@@ -29,6 +29,9 @@ interface EditProps {
 
 const Edit = ({ showModal, toggleModal, AccountData, onSave }: EditProps) => {
   const { state } = useAuth();
+
+
+
   const [services, setServices] = useState<{ id: string; service_name: string }[]>([]);
   const [ BranchData,  setBranchData] = useState<Account []>([]);
   const [formData, setFormData] = useState<Account | null>(null);
@@ -120,7 +123,7 @@ const Edit = ({ showModal, toggleModal, AccountData, onSave }: EditProps) => {
         if (data.success) {
           setSuccess(true);
           onSave(formData);
-          toggleModal();
+          //toggleModal();
         } else {
           setError(data.msg || 'Failed to update Cost');
           console.log('Error Messages:', data.error_msgs);
@@ -284,7 +287,7 @@ if (!showModal || !formData) return null;
               type="submit"
               className="bg-primary text-white rounded p-2 w-1/5 mt-4"
             >
-              Update
+              {loading ? "Updating..." : "Update"}
             </button>
           </form>
         </div>

@@ -38,7 +38,7 @@ interface Payment {
 }
 const Payment: React.FC<CreateProps> = ({ showmodals, togglemodals, formData }) => {
   const { state } = useAuth();
- 
+  const [loading, setLoading] = useState(false);
   const [localFormData, setLocalFormData] = useState({
     payment_method:'',
     pay_amount:"",
@@ -249,7 +249,7 @@ const Payment: React.FC<CreateProps> = ({ showmodals, togglemodals, formData }) 
                           type="submit"
                           className="bg-primary text-white rounded p-2 w-1/5"
                         >
-                         Pay
+                         {loading ? "Paying..." : "Pay"}
                         </button>
                         </div>
                       </form>

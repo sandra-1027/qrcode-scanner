@@ -47,7 +47,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (showmodal) {
@@ -250,7 +250,7 @@ if (response.ok){
             </label>
             </div>
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
-              Add
+            {loading ? "Adding..." : "Add"}
             </button>
           </form>
         </div>

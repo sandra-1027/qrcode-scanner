@@ -97,7 +97,7 @@ const [loading, setLoading] = useState(false);
           setSuccess(true);
           onSave(formData);
           toast.success('Service updated successfully');
-          toggleModal();
+          //toggleModal();
         } else {
           setError(data.msg || 'Failed to update driver');
           console.log('Error Messages:', data.error_msgs);
@@ -200,7 +200,7 @@ const [loading, setLoading] = useState(false);
                   className="bg-primary text-white rounded p-2 w-1/5"
                   disabled={loading}
                 >
-                  Update
+                   {loading ? "Updating..." : "Update"}
                 </button>
             
             </div>
