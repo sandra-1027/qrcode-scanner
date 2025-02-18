@@ -58,7 +58,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   
   });
   const [staffData, setStaffData] = useState<Staff[]>([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
@@ -109,6 +109,23 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   
+ 
+  if (!localFormData.mobile || !/^\d{10}$/.test(localFormData.mobile)) {
+    setError("Mobile number must be a valid 10-digit number.");
+    return;
+  }
+  if (/\s/.test(password)) {
+    setError("Password should not contain spaces.");
+    return;
+  }
+  if (!password || password.length <6){
+    setError ("password must be at least 6 characters long");
+    return;
+  }
+  if (!localFormData.branch_id.trim() || !branch_id) {
+    setError("All fields are required.");
+    return;
+  }
   const formDataToSend = { ...localFormData, branch_id: branch_id, };
   try {
     const response = await fetch("/api/admin/settings/add_staff", {
@@ -380,6 +397,9 @@ const fetchSearchBranch = async () => {
     </span>
             </label>
             </div>
+            {error && (
+              <div className="text-red-500 text-sm mt-2">{error}</div>
+            )}
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
             {loading ? 'Adding...' : 'Add'}
             </button>

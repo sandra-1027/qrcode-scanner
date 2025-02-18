@@ -662,7 +662,7 @@ useEffect(() => {
             <span className="relative mt-1.5 flex">
       <input
         name="password"
-        value={formData.password}
+        // value={formData.password}
         onChange={handleChange}
         type={showPassword ? "text" : "password"} 
         placeholder="Password"

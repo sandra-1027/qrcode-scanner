@@ -35,7 +35,7 @@ type Cost = {
 const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditing }) => {
   const { state } = useAuth();
   const [services, setServices] = useState<{ id: string; service_name: string }[]>([]);
-
+  const [error, setError] = useState('');
   const [selectedService, setSelectedService] = useState<string>("");
   const [searchService, setSearchService] = useState("");
   // const[searchServiceData,setSearchServiceData] =useState("");
@@ -96,7 +96,10 @@ service_id: selectedService,
 
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
- 
+  if (!localFormData.service_id.trim() || !localFormData.vehicle_type.trim()) {
+    setError("All fields are required.");
+    return;
+  }
   
   try {
     const response = await fetch("/api/admin/accounts/add_license_cost", {
@@ -314,6 +317,12 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             name="f_cost"
              value={ localFormData.f_cost}
               onChange={handleChange}
+              onKeyPress={(e) => {
+                // Allow only numbers, backspace, and dot
+                if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+                  e.preventDefault();
+                }
+              }}
                type="text"
                 placeholder="cost" 
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
@@ -327,6 +336,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
            </label> */}
             </div>
+            {error && (
+              <div className="text-red-500 text-sm mt-2">{error}</div>
+            )}
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
               Add
             </button>

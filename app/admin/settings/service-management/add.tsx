@@ -184,7 +184,9 @@ const Add: React.FC<AddProps> = ({ showmodal, togglemodal }) => {
                   }
                 />
               </div>
-
+              {error && (
+              <div className="text-red-500 text-sm mt-2">{error}</div>
+            )}
               <button
                 type="submit"
                 className="bg-primary text-white rounded p-2 w-1/5"

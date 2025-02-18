@@ -38,6 +38,18 @@ const Add: React.FC<CreateProps> = ({ showModal, togglemodal }) => {
       setError("Mobile number must be numeric.");
       return;
     }
+    if (!mobile || !/^\d{10}$/.test(mobile)) {
+      setError("Mobile number must be a valid 10-digit number.");
+      return;
+    }
+    if (/\s/.test(password)) {
+      setError("Password should not contain spaces.");
+      return;
+    }
+    if (!password || password.length <6){
+      setError ("password must be at least 6 characters long");
+      return;
+    }
     setError("");
     setLoading(true);
     setSuccess(false);
@@ -220,6 +232,9 @@ if (response.ok){
               </label>
             </div>
 
+            {error && (
+              <div className="text-red-500 text-sm mt-2">{error}</div>
+            )}
             <button
               type="submit"
               className="bg-primary text-white rounded p-2 w-1/5 mt-4"

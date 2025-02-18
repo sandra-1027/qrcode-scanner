@@ -10,7 +10,7 @@ type CreateProps = {
 
 const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
   const { state } = useAuth();
-
+  const [error, setError] = useState("");
   const [vehicle_no, setVehicle_No] = useState("");
   const [tax_expiry_date, setTax_expiry_date] = useState("");
   const [rc_expiry_date, setRc_expiry_date] = useState("");
@@ -24,6 +24,11 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!vehicle_no || !tax_expiry_date || !rc_expiry_date || !pucc_expiry_date || !insurance_expiry_date) {
+      setError("All fields are required.");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("vehicle_no", vehicle_no);
@@ -101,7 +106,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
     setImagePreview("");
   };
 
-  //if (!showmodal) return null;
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <div>
@@ -160,6 +165,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   type="date"
                   value={tax_expiry_date}
                   onChange={(e) => setTax_expiry_date(e.target.value)}
+                  min={today}
                   className="mt-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   required
                 />
@@ -170,6 +176,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   type="date"
                   value={rc_expiry_date}
                   onChange={(e) => setRc_expiry_date(e.target.value)}
+                  min={today}
                   className="mt-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   required
                 />
@@ -180,6 +187,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   type="date"
                   value={pucc_expiry_date}
                   onChange={(e) => setPucc_expiry_date(e.target.value)}
+                  min={today}
                   className="mt-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   required
                 />
@@ -190,6 +198,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   type="date"
                   value={insurance_expiry_date}
                   onChange={(e) => setInsurance_expiry_date(e.target.value)}
+                  min={today}
                   className="mt-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   required
                 />
@@ -260,6 +269,9 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
 
             {/* Submit Button */}
             <div className="mt-4">
+            {error && (
+              <div className="text-red-500 text-sm mt-2">{error}</div>
+            )}
               <button
                 type="submit"
                 className="bg-primary text-white rounded p-2 w-1/5"

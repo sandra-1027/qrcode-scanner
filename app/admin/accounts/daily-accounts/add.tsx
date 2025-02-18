@@ -44,6 +44,8 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [expenseType, setExpenseType] = useState(formData?.type || '');
   const [payment_method, setpayment_method] = useState(formData?.payment_method || '');
 
+  const [error, setError] = useState('');
+
   const [amount, setAmount] = useState(formData?.amount || '');
   const [ BranchData,  setBranchData] = useState<Account []>([]);
   const [branch_id, setbranch_id] = useState(formData?.branch_id || '');
@@ -98,23 +100,26 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    if (!branch_id) {
-      toast.error("Please Select a Branch.");
-      return;
-    }
+    // if (!branch_id) {
+    //   toast.error("Please Select a Branch.");
+    //   return;
+    // }
   
-    if (!amount || isNaN(Number(amount))) {
-      toast.error("Please enter a valid amount.");
-      return;
-    }
-  
+    // if (!amount || isNaN(Number(amount))) {
+    //   toast.error("Please enter a valid amount.");
+    //   return;
+    // }
+  if(!accountType || !amount || !expenseType ||!branch_id || !payment_method){
+    setError("All fields are required");
+    return;
+  }
     const data: any = {
       daily_status: accountType,
       amount: parseFloat(amount), 
       type: expenseType || 'general',
       expense_name: expenseType === 'others' ? expenseName : expenseType, // Ensuring correct name
       branch_id: branch_id,
-       "payment_method": payment_method,
+       payment_method: payment_method,
     };
   
     console.log('Sending data:', data);
@@ -403,6 +408,12 @@ const fetchSearchBranch = async () => {
         placeholder="Amount"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
+        onKeyPress={(e) => {
+          // Allow only numbers, backspace, and dot
+          if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+            e.preventDefault();
+          }
+        }}
         className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
     </label>
@@ -462,6 +473,12 @@ const fetchSearchBranch = async () => {
         placeholder="Amount"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
+        onKeyPress={(e) => {
+          // Allow only numbers, backspace, and dot
+          if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+            e.preventDefault();
+          }
+        }}
         className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
     </label>
@@ -528,7 +545,9 @@ const fetchSearchBranch = async () => {
  </>
 )}
     </div>
-
+    {error && (
+              <div className="text-red-500 text-sm mt-2">{error}</div>
+            )}
             <button
               type="submit"
               className="bg-primary text-white rounded p-2 w-1/5 mt-4"

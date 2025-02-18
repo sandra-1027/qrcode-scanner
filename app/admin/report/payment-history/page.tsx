@@ -72,6 +72,7 @@ const Page = () => {
   }, [state]);
 
   const applyFilters = () => {
+
     let newFilteredData = paymentData;
     if (selectedStatus) {
       newFilteredData = newFilteredData.filter(
@@ -257,9 +258,9 @@ const Page = () => {
           onChange={(e) => setSelectedStatus(e.target.value)}
         >
           <option value="">Select Status</option>
-          <option value="pending">Pending</option>
-          <option value="remaining">Partially Paid</option>
-          <option value="completed">Fully paid</option>
+          {/* <option value="pending">Pending</option> */}
+          <option value="remaining">Remaining</option>
+          <option value="completed">Completed</option>
         </select>
      
       </div>

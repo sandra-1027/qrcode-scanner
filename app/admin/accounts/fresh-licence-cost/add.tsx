@@ -134,6 +134,7 @@ type CreateProps = {
 const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditing }) => {
   const { state } = useAuth();
   const [services, setServices] = useState<{ id: string; service_name: string }[]>([]);
+  const [error, setError] = useState('');
   const [localFormData, setLocalFormData] = useState(formData || {
     cost: "",
     study_cost:"",
@@ -187,6 +188,10 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   
+  if (!localFormData.service_id.trim() || !localFormData.vehicle_type.trim()) {
+    setError("All fields are required.");
+    return;
+  }
   
   try {
     const response = await fetch('/api/admin/accounts/add_fresh_license_cost', {
@@ -202,8 +207,11 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     console.log(localFormData, "data sent to backend");
 
     const responseJson = await response.json();
-    toast.success('License Class added successfully');
-    console.log("Response from backend:", responseJson);
+    if(response.ok){
+      toast.success('License Class added successfully');
+      console.log("Response from backend:", responseJson);
+    }
+   
 
     if (!response.ok) {
       alert(`Failed to add license. Status code: ${response.status}`);
@@ -386,6 +394,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                 className="mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
            </label>
           </div>
+          {error && (
+              <div className="text-red-500 text-sm mt-2">{error}</div>
+            )}
           <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">Add</button>
         </form>
       </div>
