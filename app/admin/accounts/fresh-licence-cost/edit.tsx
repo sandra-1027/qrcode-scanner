@@ -119,7 +119,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
           setSuccess(true);
           onSave(formData);
           toast.success('License Class updated successfully');
-         // togglemodal();
+          //togglemodal();
         } else {
           setError(data.msg || 'Failed to update driver');
           console.log('Error Messages:', data.error_msgs);
@@ -286,7 +286,8 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
               </label>
               {( formData.vehicle_type === 'lmc_mc' ||
-                formData.vehicle_type === 'both'
+                formData.vehicle_type === 'both'||
+                formData.vehicle_type === 'Both'
               ) ? (
                 <>
                   <label className="block">
@@ -389,8 +390,7 @@ className="form-input peer w-full rounded-lg border border-slate-300 bg-transpar
            </label>
             </div>
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
-              
-              {loading ? "Updating..." : "Update"}
+              Update
             </button>
           </form>
         </div>

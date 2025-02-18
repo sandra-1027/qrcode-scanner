@@ -1,7 +1,7 @@
 
 "use client";
 import withAuth from "@/hoc/withAuth";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Add from "./add";
 import { useAuth } from "@/app/context/AuthContext";
 import { FaRegCheckCircle } from "react-icons/fa";
@@ -33,20 +33,35 @@ const page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(10);
   const [staffData, setStaffData] = useState<Staff[]>([]);
-  const [selectedStaff, setSelectedStaff] = useState<Staff | null>(null); 
-  const [staffselected, setStaffselected] = useState<string>("");
+  const [editedStaff, setEditedStaff] = useState<Staff | null>(null);
+  // const [staffselected, setStaffselected] = useState<string>("");
   const [filteredData, setFilteredData] = useState<Staff[]>([]);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [branches, setBranches] = useState<{ id: string; branch_name: string }[]>([]);
-  const [selectedBranch, setSelectedBranch] = useState<string>("");
+  // const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+ const [selectedStaff, setSelectedStaff] = useState<string>("");
+  const [searchStaff, setSearchStaff] = useState("");
+  const[searchStaffData,setSearchStaffData] =useState("");
+  const[filteredStaff,setFilteredStaff]=useState("");
+   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+ const [selectedBranch, setSelectedBranch] = useState<string>("");
+  const [searchBranch, setSearchBranch] = useState("");
+  const[searchBranchData,setSearchBranchData] =useState("");
+  const[filteredBranch,setFilteredBranch]=useState("");
+   const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
+   const staffDropdownRef = useRef(null);
+   const branchDropdownRef = useRef(null);
+    
+
 
   const togglemodal = (mode: 'add' | 'edit', staff: Staff | null = null) => {
     setModalMode(mode); 
-    setSelectedStaff(staff);  
+    setEditedStaff(staff);  
     setShowmodal((prev) => !prev);  
+    fetchStaffData();
   };
  
 
@@ -122,7 +137,7 @@ const page = () => {
   }, [state]);
   
   const handleEdit = (staff: Staff) => {
-    setSelectedStaff(staff); 
+    setEditedStaff(staff); 
     setShowmodal(true); 
   };
 
@@ -130,9 +145,9 @@ const page = () => {
     let newFilteredData = staffData;
   
     // Apply form filters
-    if (staffselected) {
+    if (selectedStaff) {
       newFilteredData = newFilteredData.filter(
-        (item) => item.first_name === staffselected
+        (item) => item.first_name === selectedStaff
       );
     }
     if (selectedBranch) {
@@ -172,7 +187,7 @@ const page = () => {
   
   const handleReset = () => {
     setSearchTerm("");
-    setStaffselected("");
+    setSelectedStaff("");
     setSelectedBranch("");
     setSelectedStatus("");
     setFilteredData(staffData); 
@@ -221,6 +236,132 @@ const page = () => {
       console.error("Update error:", error);
     }
   };
+
+
+  const fetchSearchStaff = async () => {
+      try {
+        const response = await fetch("/api/admin/report/get_staff_autocomplete", {
+          method: "POST",
+          headers: {
+            authorizations: state?.accessToken ?? "",
+            api_key: "10f052463f485938d04ac7300de7ec2b",
+          },
+          body: JSON.stringify({}),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+        }
+  
+        const data = await response.json();
+        console.log("Search mobile data", data.data);
+  
+        if (data.success) {
+          setSearchStaffData(data.data.staff_details || []);
+          setFilteredStaff(data.data.staff_details || []);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchSearchStaff();
+    }, [state]);
+  
+    const handleSearchStaff = (e : any) => {
+      const value = e.target.value;
+      setSearchStaff(value);
+  
+      const searchData = searchStaffData.filter(
+        (item) =>
+          item.text.toLowerCase().includes(value.toLowerCase())
+         
+      );
+  
+      setFilteredStaff(searchData);
+    };
+  
+    
+    const handleSelectStaff = (staff) => {
+      setSelectedStaff(staff.text);
+      setSearchStaff("");
+      setIsDropdownOpen(false); 
+    };
+  
+  
+
+//  fetch brach search
+ const fetchSearchBranch = async () => {
+      try {
+        const response = await fetch("/api/admin/report/get_branch_autocomplete", {
+          method: "POST",
+          headers: {
+            authorizations: state?.accessToken ?? "",
+            api_key: "10f052463f485938d04ac7300de7ec2b",
+          },
+          body: JSON.stringify({}),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+        }
+  
+        const data = await response.json();
+        console.log("Search mobile data", data.data);
+  
+        if (data.success) {
+          setSearchBranchData(data.data.branch_details || []);
+          setFilteredBranch(data.data.branch_details || []);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchSearchBranch();
+    }, [state]);
+  
+    const handleSearchBranch = (e : any) => {
+      const value = e.target.value;
+      setSearchBranch(value);
+  
+      const searchData = searchBranchData.filter(
+        (item) =>
+          item.text.toLowerCase().includes(value.toLowerCase())
+       
+      );
+  
+      setFilteredBranch(searchData);
+    };
+  
+    
+    const handleSelectBranch = (branch) => {
+      setSelectedBranch(branch.text);
+  
+      setSearchBranch("");
+      setIsbranchDropdownOpen(false); 
+    };
+  
+   
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (staffDropdownRef.current && !staffDropdownRef.current.contains(event.target)) {
+          setIsDropdownOpen(false);
+        }
+        if (branchDropdownRef.current && !branchDropdownRef.current.contains(event.target)) {
+          setIsbranchDropdownOpen(false);
+        }
+      };
+    
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+    
   return (
     <div className=" w-full  pb-8">
       <div className="flex items-center space-x-4 py-5 lg:py-6">
@@ -278,46 +419,109 @@ const page = () => {
 
 <form>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div>
-          <label
-            htmlFor="staffName"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-            Staff Name
-          </label>
-          <select
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-            value={staffselected}
-            onChange={(e) => setStaffselected(e.target.value)} >
-              
-            <option>Select a Staff</option>
-            {staffData.map((item) => (
-              <option key={item.id} value={item.first_name}>
-                {item.first_name}
-              </option>
-            ))}
-          </select>
+        
+
+
+ {/* Staff Select */}
+        
+ <div className="relative w-full" ref={staffDropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Staff Name
+      </label>
+
+      {/* Dropdown Button */}
+      <div
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        {selectedStaff || "Select a Staff"}
+        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+      </div>
+
+      {/* Dropdown Content */}
+      {isDropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+          {/* Search Bar Inside Dropdown */}
+          <input
+            type="text"
+            value={searchStaff}
+            onChange={handleSearchStaff}
+            placeholder="Search..."
+            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+          {/* Dropdown Options */}
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+            {filteredStaff.length > 0 ? (
+              filteredStaff.map((staff) => (
+                <li
+                  key={staff.id}
+                  onClick={() => handleSelectStaff(staff)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {staff.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
         </div>
-        <div>
-          <label
-            htmlFor="branchName"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-            Branch Name
-          </label>
-          <select
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-            value={selectedBranch}
-            onChange={(e) => setSelectedBranch(e.target.value)}
-          >
-            <option value="">Select a Branch</option>
-            {branches.map((branch) => (
-              <option key={branch.id} value={branch.branch_name}>
-                {branch.branch_name}
-              </option>
-            ))}
-          </select>
+      )}
+    </div>
+
+
+
+{/* Branch Select */}
+        
+<div className="relative w-full" ref={branchDropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Branch Name
+      </label>
+
+      {/* Dropdown Button */}
+      <div
+        onClick={() => setIsbranchDropdownOpen(!isbranchDropdownOpen)}
+        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        {selectedBranch || "Select a Branch"}
+        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+      </div>
+
+      {/* Dropdown Content */}
+      {isbranchDropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+          {/* Search Bar Inside Dropdown */}
+          <input
+            type="text"
+            value={searchBranch}
+            onChange={handleSearchBranch}
+            placeholder="Search..."
+            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+          {/* Dropdown Options */}
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+            {filteredBranch.length > 0 ? (
+              filteredBranch.map((branch) => (
+                <li
+                  key={branch.id}
+                  onClick={() => handleSelectBranch(branch)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {branch.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
         </div>
+      )}
+    </div>
+
+
+
         <div>
           <label
             htmlFor="status"
@@ -552,7 +756,7 @@ onChange={handleSearchChange}
     <Edit
       showmodal={showmodal}
       togglemodal={() => togglemodal('add')}  
-      staffData={selectedStaff}
+      staffData={editedStaff}
       onSave={(updatedStaff) => {
       
       

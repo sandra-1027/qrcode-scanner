@@ -2,7 +2,7 @@
 
 'use client'
 import withAuth from '@/hoc/withAuth';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Add from './add';
 import { useAuth } from '@/app/context/AuthContext';
 import Edit from './edit';
@@ -25,17 +25,25 @@ const page = () => {
   const [filteredData, setFilteredData] = useState<Cost[]>([]);
   const [selectedCost, setSelectedCost] = useState<Cost | null>(null); 
   const [search, setSearch] = useState("");
-  const [selectedServices, setSelectedServices] = useState<string>("");
+  // const [selectedServices, setSelectedServices] = useState<string>("");
   const [service, setService] = useState<{ id: string; service_name: string }[]>([]);
   const [filters, setFilters] = useState({ service_name: '', status: '' });
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>("");
    const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+ const [selectedService, setSelectedService] = useState<string>("");
+    const [searchService, setSearchService] = useState("");
+    const[searchServiceData,setSearchServiceData] =useState("");
+    const[filteredService,setFilteredService]=useState("");
+     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+      const dropdownRef = useRef(null);
+
+
  
   const togglemodal = (mode: 'add' | 'edit', cost: Cost | null = null) => {
-    setModalMode(mode);  
-    setSelectedCost(cost);  
-    setShowmodal((prev) => !prev);  
+    setModalMode(mode);  // Set the modal mode to either "add" or "edit"
+    setSelectedCost(cost);  // Pass the selected driver if in edit mode
+    setShowmodal((prev) => !prev);  // Toggle the modal visibility
   };
   
   const fetchlicenseData = async () => {
@@ -47,12 +55,14 @@ const page = () => {
         method: 'POST',
         headers: {
            'authorizations': state?.accessToken ?? '', 
-          'api_key': '10f052463f485938d04ac7300de7ec2b'
+          // 'authorizations': token ?? '',
+          'api_key': '10f052463f485938d04ac7300de7ec2b',  // Make sure the API key is correct
         },
-        body: JSON.stringify({  }),
+        body: JSON.stringify({ /* request body */ }),
       });
       if (!response.ok) {
         const errorData = await response.json();
+        // console.error('API error:', errorData);
         throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
       }
       
@@ -62,6 +72,7 @@ const page = () => {
         setCostData(data.data || []);
          setFilteredData(data.data || []);
       } else {
+        // console.error("API error:", data.msg || "Unknown error");
       }
     } catch (error) {
       console.error("Fetch error:", error);
@@ -82,12 +93,14 @@ const page = () => {
         method: 'POST',
         headers: {
            'authorizations': state?.accessToken ?? '', 
-          'api_key': '10f052463f485938d04ac7300de7ec2b',
+          // 'authorizations': token ?? '',
+          'api_key': '10f052463f485938d04ac7300de7ec2b',  // Make sure the API key is correct
         },
-        body: JSON.stringify({  }),
+        body: JSON.stringify({ /* request body */ }),
       });
       if (!response.ok) {
         const errorData = await response.json();
+        // console.error('API error:', errorData);
         throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
       }
       
@@ -97,6 +110,7 @@ const page = () => {
         setService(data.data || []);
          
       } else {
+        // console.error("API error:", data.msg || "Unknown error");
       }
     } catch (error) {
       console.error("Fetch error:", error);
@@ -135,7 +149,7 @@ const page = () => {
       }
   
       const data = await response.json();
-      console.log("API Response:", data); 
+      console.log("API Response:", data); // Log the response
   
       if (data.success) {
        
@@ -158,9 +172,9 @@ const page = () => {
     
       // Apply form filters
      
-      if (selectedServices) {
+      if (selectedService) {
         newFilteredData = newFilteredData.filter(
-          (item) => item.service_name === selectedServices
+          (item) => item.service_name === selectedService
         );
       }
       if (selectedStatus) {
@@ -169,10 +183,10 @@ const page = () => {
         );
       }
     
-      return newFilteredData;
+      return newFilteredData; // Return filtered data
     };
     
-  
+    // Handle real-time search filtering
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
       setSearchTerm(value);
@@ -184,21 +198,21 @@ const page = () => {
           item.status.toLowerCase().includes(value.toLowerCase())
       );
     
-      setFilteredData(searchFilteredData); 
+      setFilteredData(searchFilteredData); // Update filtered data in real-time
     };
     
-    
+    // Handle form submit for additional filters
     const handleFilterSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
+      e.preventDefault(); // Prevent page reload
       const newFilteredData = applyFilters();
-      setFilteredData(newFilteredData); 
+      setFilteredData(newFilteredData); // Update filtered data
     };
     
     const handleReset = () => {
       setSearchTerm("");
-      setSelectedServices("");
+      setSelectedService("");
       setSelectedStatus("");
-      setFilteredData(costData);
+      setFilteredData(costData); // Reset to original data
     };
     const indexOfLastEntry = currentPage * entriesPerPage;
     const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -208,6 +222,78 @@ const page = () => {
     );
     const totalEntries = filteredData.length;
     const totalPages = Math.ceil(totalEntries / entriesPerPage);
+
+
+    const fetchSearchService = async () => {
+      try {
+        const response = await fetch("/api/admin/report/get_service_autocomplete", {
+          method: "POST",
+          headers: {
+            authorizations: state?.accessToken ?? "",
+            api_key: "10f052463f485938d04ac7300de7ec2b",
+          },
+          body: JSON.stringify({}),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
+        }
+  
+        const data = await response.json();
+        console.log("Search mobile data", data.data);
+  
+        if (data.success) {
+          setSearchServiceData(data.data.service_details || []);
+          setFilteredService(data.data.service_details || []);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchSearchService();
+    }, [state]);
+  
+    const handleSearchService = (e : any) => {
+      const value = e.target.value;
+      setSearchService(value);
+  
+      const searchData = searchServiceData.filter(
+        (item) =>
+          item.text.toLowerCase().includes(value.toLowerCase())
+          // item.user_name.toLowerCase().includes(value.toLowerCase()) ||
+          // item.email.toLowerCase().includes(value.toLowerCase()) ||
+          // item.pay_status.toLowerCase().includes(value.toLowerCase())
+      );
+  
+      setFilteredService(searchData);
+    };
+  
+    
+    const handleSelectService = (service) => {
+      setSelectedService(service.text);
+      // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
+      setSearchService("");
+      setIsDropdownOpen(false); // Close dropdown after selection
+    };
+  
+    // Close dropdown when clicking outside
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setIsDropdownOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+
+
+
+
   return (
     <div className=" w-full  pb-8">
  
@@ -241,7 +327,7 @@ const page = () => {
     <form>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {/* Driver Name Select */}
-        <div className='flex-1'>
+        {/* <div className='flex-1'>
           <label
             htmlFor="serviceName"
             className="block text-sm font-medium text-slate-700 dark:text-navy-100"
@@ -263,7 +349,54 @@ const page = () => {
               ))}
 </select>
 
+        </div> */}
+<div className="relative w-full" ref={dropdownRef}>
+      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+       Service Name
+      </label>
+
+      {/* Dropdown Button */}
+      <div
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        {selectedService || "Select a service"}
+        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+      </div>
+
+      {/* Dropdown Content */}
+      {isDropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+          {/* Search Bar Inside Dropdown */}
+          <input
+            type="text"
+            value={searchService}
+            onChange={handleSearchService}
+            placeholder="Search..."
+            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+          />
+
+          {/* Dropdown Options */}
+          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+            {filteredService.length > 0 ? (
+              filteredService.map((service) => (
+                <li
+                  key={service.id}
+                  onClick={() => handleSelectService(service)}
+                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                >
+                   {service.text}
+                </li>
+              ))
+            ) : (
+              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
+            )}
+          </ul>
         </div>
+      )}
+    </div>
+
+
         {/* Status Select */}
         <div className='flex-1'>
           <label
@@ -277,7 +410,7 @@ const page = () => {
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
           >
-            <option value="">All Status</option>
+            <option value="">Select Status</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
@@ -310,10 +443,12 @@ const page = () => {
                 License Cost
                 </span>
                 <button className="px-4 py-2 bg-[#4f46e5] text-white rounded-md" 
+                // onClick={togglemodal}
                 onClick={() => togglemodal('add')}
                 >  
           Add License Cost
                 </button>
+                {/* <Add showmodal={showmodal} togglemodal={togglemodal}/> */}
             </div>
 
                              
@@ -348,7 +483,7 @@ onChange={handleSearchChange}
                Vehicle Type
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                Cost
+                cost
                 </th>
                 {/* <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                 Male cost
@@ -412,13 +547,14 @@ onChange={handleSearchChange}
                       <div className="flex justify-center space-x-2">
                         <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
                           <i className="fa fa-edit" 
+                          // onClick={() => handleEdit(item)}
                           onClick={() => togglemodal('edit', item)}
                           />
                         </button>
                         {/* <button className="btn size-8 p-0 text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
                           <i className="fa fa-trash-alt" onClick={() => updateAccountStatus(item.id!, item.status)} />
                         </button> */}
-                         <button
+                           <button
                               onClick={() =>
                                 updateAccountStatus(item.id!, item.status)
                               }
@@ -450,79 +586,77 @@ onChange={handleSearchChange}
             </tbody>
           </table>
         </div>
-            <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-4 sm:space-y-0">
-  {/* Entries Info */}
-  <div className="text-center sm:text-left">
-    Showing {indexOfFirstEntry + 1} to {Math.min(indexOfLastEntry, totalEntries)} of {totalEntries} entries
-  </div>
-
-  {/* Pagination Controls */}
-  <div className="flex flex-wrap justify-center sm:justify-end gap-1">
-    <button
-      onClick={() => setCurrentPage(1)}
-      disabled={currentPage === 1}
-      className={`px-3 py-2 border rounded-md ${
-        currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-    >
-      First
-    </button>
-    <button
-      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-      disabled={currentPage === 1}
-      className={`px-3 py-2 border rounded-md ${
-        currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-    >
-      Previous
-    </button>
-    {Array.from({ length: totalPages }, (_, i) => (
-      <button
-        key={i + 1}
-        onClick={() => setCurrentPage(i + 1)}
-        className={`px-3 py-2 border rounded-md ${
-          currentPage === i + 1 ? 'bg-[#4f46e5] text-white' : ''
-        }`}
-      >
-        {i + 1}
-      </button>
-    ))}
-    <button
-      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-      disabled={currentPage === totalPages}
-      className={`px-4 py-2 border rounded-md ${
-        currentPage === totalPages ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-    >
-      Next
-    </button>
-    <button
-      onClick={() => setCurrentPage(totalPages)}
-      disabled={currentPage === totalPages}
-      className={`px-3 py-2 border rounded-md ${
-        currentPage === totalPages ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-    >
-      Last
-    </button>
-  </div>
-</div>
+        <div className="flex justify-between items-center mt-4">
+        <div>
+          Showing {indexOfFirstEntry + 1} to {Math.min(indexOfLastEntry, totalEntries)} of {totalEntries} entries
+        </div>
+        <div>
+          <button
+            onClick={() => setCurrentPage(1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 border rounded-md"
+          >
+            First
+          </button>
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 border rounded-md"
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i + 1}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`px-4 py-2 border rounded-md ${currentPage === i + 1 ? 'bg-[#4f46e5] text-white' : ''}`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 border rounded-md"
+          >
+            Next
+          </button>
+          <button
+            onClick={() => setCurrentPage(totalPages)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 border rounded-md"
+          >
+            Last
+          </button>
+        </div>
+      </div>
       </div>
   </div>
   </div>
- 
+  {/* <Add
+  showmodal={showmodal}
+  togglemodal={togglemodal}
+  formData={selectedCost ? { 
+    service_id: selectedCost.service_id, 
+    vehicle_type: selectedCost.vehicle_type, 
+    f_cost: selectedCost.f_cost, 
+    m_cost: selectedCost.m_cost, 
+    id:selectedCost.id || ""
+  } : undefined}
+  isEditing={!!selectedCost}
+/> */}
 
 {showmodal && (
   modalMode === 'edit' ? (
     <Edit
       showModal={showmodal}
-      togglemodal={() => togglemodal('add')}  
+      togglemodal={() => togglemodal('add')}  // Correct the mode here if you want to switch to 'edit'
       costData={selectedCost}
       onSave={(updatedCost) => {
         setCostData((prevData) => prevData.map((cost) =>
           cost.id === updatedCost.id ? updatedCost : cost
         ));
-        togglemodal('add'); 
+        togglemodal('add');  // Close modal after saving
       }}
     />
   ) : (

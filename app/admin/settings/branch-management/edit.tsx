@@ -2,8 +2,8 @@ import { useAuth } from '@/app/context/AuthContext';
 import { useState, useEffect } from 'react';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import TextEditor from './TextEditor';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Branch {
     id?:string;
@@ -15,11 +15,7 @@ interface Branch {
   
   }
 
-  // interface Item {
-  //   id: number;
-  //   status: string;
-  //   // Other properties...
-  // }
+  
 interface EditProps {
   showModal: boolean;
   toggleModal: () => void;
@@ -41,7 +37,7 @@ const [loading, setLoading] = useState(false);
     }
   }, [branchData]);
 
-
+ 
   // const handleChange = (
   //   e: React.ChangeEvent<HTMLInputElement> | string,
   //   fieldName?: string
@@ -50,33 +46,31 @@ const [loading, setLoading] = useState(false);
   //     setFormData((prevData) =>
   //       prevData ? { ...prevData, [fieldName]: e } : null
   //     );
-  //   } else if (e instanceof Event && 'target' in e) { // Type guard to check if `e` is a ChangeEvent
-  //     const { name, value } = e.target as HTMLInputElement; // Type assertion
+  //   } else if (e instanceof Event && 'target' in e) { 
+  //     const { name, value } = e.target as HTMLInputElement; 
   //     setFormData((prevData) =>
   //       prevData ? { ...prevData, [name]: value } : null
   //     );
   //   }
   // };
   
-  
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | string,
     fieldName?: string
   ) => {
     if (typeof e === "string" && fieldName) {
-      // Handle text editor or custom string input
       setFormData((prevData) =>
         prevData ? { ...prevData, [fieldName]: e } : null
       );
-    } else {
-      // Handle input field changes
-      const event = e as React.ChangeEvent<HTMLInputElement>;
+    } else{
+      const event =e as React.ChangeEvent<HTMLInputElement>;
       const { name, value } = event.target;
       setFormData((prevData) =>
         prevData ? { ...prevData, [name]: value } : null
       );
     }
   };
+
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -89,7 +83,6 @@ const [loading, setLoading] = useState(false);
       if (formData) {
         const transformedData = {
           id: formData.id,
-        //   name: `${formData.first_name}`,
           type: 'branch',
           branch_name:formData.branch_name,
           description: formData.description,
@@ -110,22 +103,22 @@ const [loading, setLoading] = useState(false);
   
         console.log('Response Status:', response.status);
         const data = await response.json();
-        toast.success('Branch updated successfully');
+   toast.success("Branch Updated successfully!");
         console.log('Response Data:', data);
   
         if (data.success) {
           setSuccess(true);
           onSave(formData);
-          // toggleModal();
+         // toggleModal();
         } else {
           setError(data.msg || 'Failed to update driver');
           console.log('Error Messages:', data.error_msgs);
         }
       }
-    } catch (err : any) {
+    } catch (err:any) {
       console.error('Error during API call:', err);
-      setError('An error occurred while updating the driver.');
-      toast.error(err.message || 'An Error occured');
+      // setError('An error occurred while updating the driver.');
+      toast.error(err.message || "An error occurred while updating the driver.");
     } finally {
       setLoading(false);
     }
@@ -133,7 +126,7 @@ const [loading, setLoading] = useState(false);
   
 
   if (!showModal || !formData) return null;
-  // if (!showModal) return null; 
+ 
 
   return (
     
@@ -150,7 +143,7 @@ const [loading, setLoading] = useState(false);
         onClick={toggleModal}
       ></div>
 
-      <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
+      <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-y-auto hide-scrollbar rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
         <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
           <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
             Edit Branch
@@ -181,33 +174,36 @@ const [loading, setLoading] = useState(false);
             <div className="space-y-5 p-4">
              
               <label className="block">
-              <span>Branch Name</span>
+                <span>Branch Name</span>
                 <input
                   className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   placeholder="Branch Name"
                   name="branch_name"
                   type="text"
                   value={formData.branch_name}
-                // onChange={handleChange}
-                onChange={(e) => handleChange(e)}
+               
+                  onChange={(e)=> handleChange(e)}
                 />
               </label>
 
               <div className="mt-1.5 w-full">
-              <span>Description</span>
+                <span>Description</span>
                 <TextEditor
                   value={formData.description}
                   onChange={(value: string) => handleChange(value, "description")}
+              
                 />
               </div>
+
+             
                 <button
                   type="submit"
                   className="bg-primary text-white rounded p-2 w-1/5"
                   disabled={loading}
                 >
-                 {loading ? "Updating..." : "Update"}
+                 {loading ? 'Updating...' : 'Update'}
                 </button>
-              {/* </div> */}
+              
             </div>
           </form>
         </div>

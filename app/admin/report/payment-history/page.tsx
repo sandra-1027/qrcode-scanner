@@ -112,8 +112,107 @@ const Page = () => {
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
 
   return (
+    // <div className="w-full pb-8">
+    //   <div className="flex items-center space-x-4 py-5 lg:py-6">
+    //     <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+    //       Payment History
+    //     </h2>
+    //   </div>
 
-        <div className=" w-full  pb-8"> 
+    //   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6 mb-4">
+    //     <div className="card px-4 pb-4 sm:px-5 pt-4">
+    //       <form>
+    //         <div className="sm:col-span-2 flex flex-col sm:flex-row gap-4">
+    //           <div className="flex-1">
+    //             <label htmlFor="status" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+    //               Status
+    //             </label>
+    //             <select
+    //               className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm"
+    //               value={selectedStatus}
+    //               onChange={(e) => setSelectedStatus(e.target.value)}
+    //             >
+    //               <option value="">Select Status</option>
+    //               <option value="pending">Pending</option>
+    //               <option value="remaining">Partially Paid</option>
+    //               <option value="completed">Fully Paid</option>
+    //             </select>
+    //           </div>
+    //           <div className="flex-1">
+    //             <button
+    //               onClick={handleFilterSubmit}
+    //               type="submit"
+    //               className="mt-5 h-10 bg-primary text-white px-4 rounded-md"
+    //             >
+    //               Filter
+    //             </button>
+    //             <button
+    //               onClick={handleReset}
+    //               type="button"
+    //               className="ml-4 mt-5 h-10 bg-warning text-white px-4 rounded-md"
+    //             >
+    //               Reset
+    //             </button>
+    //           </div>
+    //         </div>
+    //       </form>
+    //     </div>
+    //   </div>
+
+    //   <div className="overflow-x-auto w-full">
+    //     <table className="is-hoverable w-full text-left">
+    //       <thead>
+    //         <tr>
+    //           <th>SL No</th>
+    //           <th>Mobile</th>
+    //           <th>Service Name</th>
+    //           <th>Amount</th>
+    //           <th>Status</th>
+    //           <th>Date</th>
+    //         </tr>
+    //       </thead>
+    //       <tbody>
+    //         {currentEntries.map((item, index) => (
+    //           <tr key={item.id}>
+    //             <td>{index + 1 + indexOfFirstEntry}</td>
+    //             <td>{item.mobile}</td>
+    //             <td>{item.service_name}</td>
+    //             <td>{item.amount}</td>
+    //             <td>{item.payment_status}</td>
+    //             <td>{item.added_date}</td>
+    //           </tr>
+    //         ))}
+    //       </tbody>
+    //     </table>
+    //   </div>
+
+    //   <div className="flex justify-between mt-4">
+    //     <button
+    //       onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+    //       disabled={currentPage === 1}
+    //     >
+    //       Previous
+    //     </button>
+    //     <span>
+    //       Page {currentPage} of {totalPages}
+    //     </span>
+    //     <button
+    //       onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+    //       disabled={currentPage === totalPages}
+    //     >
+    //       Next
+    //     </button>
+    //   </div>
+    // </div>
+
+
+
+
+
+
+        <div className=" w-full  pb-8">
+ 
+        
     <div className="flex items-center space-x-4 py-5 lg:py-6">
     <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
     Payment History
@@ -157,7 +256,7 @@ const Page = () => {
           value={selectedStatus}
           onChange={(e) => setSelectedStatus(e.target.value)}
         >
-          <option value="">select Status</option>
+          <option value="">Select Status</option>
           <option value="pending">Pending</option>
           <option value="remaining">Partially Paid</option>
           <option value="completed">Fully paid</option>
@@ -229,7 +328,7 @@ onChange={handleSearchChange}
                Mobile
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-               Service_name
+               Service Name
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                Amount
@@ -251,7 +350,7 @@ onChange={handleSearchChange}
             {currentEntries.map((item, index) => (
               <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
                 <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
-                {index +indexOfFirstEntry+1}
+                {index+indexOfFirstEntry + 1}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.mobile}
@@ -263,27 +362,32 @@ onChange={handleSearchChange}
                 {item.amount}
                 </td>
               
-                  <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                <td className="whitespace-nowrap  px-4 py-3 sm:px-5">
                
-               {item.payment_status === "completed" && (
-              <div className="badge space-x-2.5 rounded-full bg-success/10 text-success">
-             <IoMdCheckmark/>
-                <span>Fully paid</span>
-              </div>
-              )}
-               {item.payment_status === "pending" && (
-              <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
-                 <FiClock/>
-                <span>Pending</span>
-              </div>
-              )}
-               {item.payment_status === "remaining" && (
-              <div className="badge space-x-2.5 rounded-full bg-info/10 text-info">
-               <CgNotes/>
-                <span>Partially paid</span>
-              </div>
-              )}
-              </td>
+                {item.payment_status === "completed" && (
+                <div className="badge space-x-2.5 rounded-full bg-success/10 text-success">
+                  {/* <div className="size-2 rounded-full bg-current"/> */}
+                   <IoMdCheckmark/>
+                  <span>Fully paid</span>
+                </div>
+                )}
+                 {item.payment_status === "pending" && (
+                <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
+                  {/* <div className="size-2 rounded-full bg-current"/> */}
+                   <FiClock/>
+                  <span>Pending</span>
+                </div>
+                )}
+                 {item.payment_status === "remaining" && (
+                <div className="badge space-x-2.5 rounded-full bg-info/10 text-info">
+                   {/* <div className="size-2 rounded-full bg-current"/> */}
+                   <CgNotes/>
+                  <span>Partially paid </span>
+                </div>
+                )}
+                  </td>
+
+                
                 <td className="whitespace-nowrap  px-4 py-3 sm:px-5">
                 {item.added_date}
                 </td>
@@ -308,63 +412,51 @@ onChange={handleSearchChange}
             </tbody>
           </table>
         </div>
-            <div className="flex flex-col sm:flex-row justify-between items-center mt-4 space-y-4 sm:space-y-0">
-  {/* Entries Info */}
-  <div className="text-center sm:text-left">
-    Showing {indexOfFirstEntry + 1} to {Math.min(indexOfLastEntry, totalEntries)} of {totalEntries} entries
-  </div>
 
-  {/* Pagination Controls */}
-  <div className="flex flex-wrap justify-center sm:justify-end gap-1">
-    <button
-      onClick={() => setCurrentPage(1)}
-      disabled={currentPage === 1}
-      className={`px-3 py-2 border rounded-md ${
-        currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-    >
-      First
-    </button>
-    <button
-      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-      disabled={currentPage === 1}
-      className={`px-3 py-2 border rounded-md ${
-        currentPage === 1 ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-    >
-      Previous
-    </button>
-    {Array.from({ length: totalPages }, (_, i) => (
-      <button
-        key={i + 1}
-        onClick={() => setCurrentPage(i + 1)}
-        className={`px-3 py-2 border rounded-md ${
-          currentPage === i + 1 ? 'bg-[#4f46e5] text-white' : ''
-        }`}
-      >
-        {i + 1}
-      </button>
-    ))}
-    <button
-      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-      disabled={currentPage === totalPages}
-      className={`px-4 py-2 border rounded-md ${
-        currentPage === totalPages ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-    >
-      Next
-    </button>
-    <button
-      onClick={() => setCurrentPage(totalPages)}
-      disabled={currentPage === totalPages}
-      className={`px-3 py-2 border rounded-md ${
-        currentPage === totalPages ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-    >
-      Last
-    </button>
-  </div>
-</div>
+        <div className="flex justify-between items-center mt-4">
+        <div>
+          Showing {indexOfFirstEntry + 1} to {Math.min(indexOfLastEntry, totalEntries)} of {totalEntries} entries
+        </div>
+        <div>
+          <button
+            onClick={() => setCurrentPage(1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 border rounded-md"
+          >
+            First
+          </button>
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 border rounded-md"
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i + 1}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`px-4 py-2 border rounded-md ${currentPage === i + 1 ? 'bg-[#4f46e5] text-white' : ''}`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 border rounded-md"
+          >
+            Next
+          </button>
+          <button
+            onClick={() => setCurrentPage(totalPages)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 border rounded-md"
+          >
+            Last
+          </button>
+        </div>
+      </div>
       </div>
   </div>
   </div>

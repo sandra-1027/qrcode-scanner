@@ -1,8 +1,8 @@
 import { useAuth } from "@/app/context/AuthContext";
 import React, { useEffect, useState } from "react";
 import TextEditor from "./TextEditor";
-import 'react-toastify/dist/ReactToastify.css';
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type CreateProps = {
   showmodal: boolean;
@@ -49,30 +49,35 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          `HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`
+          `HTTP error! Status: ${response.status} - ${
+            errorData.message || "Unknown error"
+          }`
         );
       }
 
       const result = await response.json();
-      setSuccess(true);
-      toast.success('Branch Added successfully');
+      // setSuccess(true);
+      toast.success("Branch added successfully!");
       console.log("Branch added successfully:", result);
+      setTimeout(() => togglemodal(), 2000);
+      // Clear form fields
       setFormData({
         branch_name: "",
         description: "",
         save: "submit",
       });
 
-      setTimeout(() => togglemodal(), 2000);
+     // setTimeout(() => togglemodal(), 2000);
     } catch (err: any) {
-      setError(err.message || "An error occurred")
-      toast.error(err.message || 'An Error occured');
+      // setError(err.message || "An error occurred");
+       toast.error(err.message || "An error occurred");
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  if (!showmodal) return null;
+  //if (!showmodal) return null;
 
   return (
     <div>
@@ -86,7 +91,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
           onClick={togglemodal}
         ></div>
 
-        <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
+        <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-y-auto hide-scrollbar rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
               Add Branch
@@ -115,7 +120,6 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
               <div className="space-y-5 p-4">
-             
                 <label className="block">
                   <span>Branch Name</span>
                   <input
@@ -131,7 +135,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                 </label>
 
                 <div className="mt-1.5 w-full">
-                <span>Description</span>
+                  <span>Description</span>
                   <TextEditor
                     value={formData.description}
                     onChange={(value: string) =>
@@ -140,15 +144,13 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   />
                 </div>
 
-                {/* <div className="flex justify-end"> */}
-                  <button
-                    type="submit"
-                    className="bg-primary text-white rounded p-2 w-1/5"
-                    disabled={loading}
-                  >
-                   {loading ? "Adding..." : "Add"}
-                  </button>
-                {/* </div> */}
+                <button
+                  type="submit"
+                  className="bg-primary text-white rounded p-2 w-1/5"
+                  disabled={loading}
+                >
+                   {loading ? 'Adding...' : 'Add'}
+                </button>
               </div>
             </form>
           </div>

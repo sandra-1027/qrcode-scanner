@@ -82,7 +82,8 @@ type Site = {
         method: 'POST',
         headers: {
            'authorizations': state?.accessToken ?? '', 
-          'api_key': '10f052463f485938d04ac7300de7ec2b',
+          // 'authorizations': token ?? '',
+          'api_key': '10f052463f485938d04ac7300de7ec2b',  // Make sure the API key is correct
         },
         body: JSON.stringify({
           id:1
@@ -90,6 +91,7 @@ type Site = {
       });
       if (!response.ok) {
         const errorData = await response.json();
+        // console.error('API error:', errorData);
         throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
       }
       
@@ -99,6 +101,7 @@ type Site = {
         setsiteData(data.data || []);
          
       } else {
+        // console.error("API error:", data.msg || "Unknown error");
       }
     } catch (error) {
       console.error("Fetch error:", error);
@@ -162,11 +165,11 @@ type Site = {
       document.body.innerHTML = printContents;
       window.print();
       document.body.innerHTML = originalContents;
-      window.location.reload();
+      window.location.reload(); // Reload to restore the original content
     }
   };
   return (
-
+  // <div className="w-full pb-8">
  
  <div className="w-full pb-8">
     <div className="flex items-center space-x-4 py-5 lg:py-6">
@@ -199,7 +202,7 @@ type Site = {
   <div className="mt-5 ">
  
   <div className="flex justify-between p-4">
- 
+  {/* {siteData.map((item, index) => ( */}
   {siteData && (
       <div>
         <p>Billed From</p>
@@ -213,7 +216,7 @@ type Site = {
 
       </div>
   )}
-     
+      {/* ))} */}
       <div>
       <p>Billed To</p>
       {userData && (
@@ -279,7 +282,7 @@ type Site = {
         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
           {item.payment_method}
         </td>
-        <td className="whitespace-normal  rounded-r-lg max-w-xs px-4 py-3 sm:px-5">
+        <td className="whitespace-normal max-w-xs px-4 py-3 sm:px-5">
           {item.added_date}
         </td>
       </tr>
@@ -312,7 +315,6 @@ type Site = {
   </div>
    
   </div>
-  
   </div>
   
   )

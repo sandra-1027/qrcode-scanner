@@ -19,7 +19,7 @@ const Signup = () => {
     role: string;
     amount: string;
     class: string;
-    type: string[]; // Corrected type
+    type: string[]; 
     no_of_days:string;
     password: string;
     confirmPassword: string;
@@ -33,7 +33,7 @@ const Signup = () => {
     role: "",
     amount: "",
     class: "",
-    type: [], // Initialize as an empty array
+    type: [], 
     no_of_days:"",
     password: "",
     confirmPassword: "",
@@ -76,17 +76,17 @@ const router = useRouter();
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
   
-    // Validate password match
+    
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
   
     try {
-      // Show a loading state if needed
+     
       console.log("Submitting signup data...", formData);
   
-      // Send the form data to the backend
+
       const response = await fetch("/api/home/signup", {
         method: "POST",
         headers: {
@@ -110,7 +110,7 @@ const router = useRouter();
       });
   
 
-      // Check if the request was successful
+      
       if (!response.ok) {
         const errorData = await response.json();
         alert(errorData.message || "Signup failed");
@@ -121,13 +121,11 @@ const router = useRouter();
 
 
 
-      // Handle success response
       const data = await response.json();
       console.log("Signup successful:", data);
   
-      // Redirect to a login page or dashboard
       alert("Signup successful! Redirecting to login...");
-      // window.location.href = "/login"; 
+    
       router.push("/login")
     } catch (error) {
       console.error("Error during signup:", error);

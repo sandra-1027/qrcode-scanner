@@ -103,7 +103,7 @@ const AdminProfile = () => {
     fetchProfileData();
   }, [state]);
 
-  const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
       ...prevData,
@@ -708,7 +708,7 @@ const AdminProfile = () => {
                       type="submit"
                       disabled={isSubmitting}
                     >
-                       {loading ? " Updating..." : " Update"}
+                     {loading ? 'Updating...' : 'Update'}
                     </button>
                   </div>
                   <div className="my-7 h-px bg-slate-200 dark:bg-navy-500" />
@@ -786,7 +786,7 @@ const AdminProfile = () => {
                       type="submit"
                       disabled={isSubmitting}
                     >
-                      {loading ? " Updating..." : " Update Password"}
+                      {loading ? 'Updating...' : 'Update Password'}
                     </button>
                   </div>
                   <div className="my-7 h-px bg-slate-200 dark:bg-navy-500" />

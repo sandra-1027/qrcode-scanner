@@ -1635,8 +1635,8 @@ fill="currentColor"
                         >
                          
                           <div className="flex items-center space-x-2">
-                            <div className="size-1.5 rounded-full border border-current opacity-40" />
-                            <span>Admission</span>
+                            {/* <div className="size-1.5 rounded-full border border-current opacity-40" /> */}
+                            <span className="font-bold">Admission</span>
                           </div>
                          
                         </Link>
@@ -1652,7 +1652,7 @@ fill="currentColor"
         onClick={handleDropdownToggle} // Toggle the dropdown on button click
         className="ac-trigger flex w-full items-center justify-between py-2 text-xs+ tracking-wide text-slate-600 outline-none transition-[color,padding-left] duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50"
       >
-        <span>Master</span>
+        <span className="font-bold ml-2">Master</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={`size-4 text-slate-400 transition-transform ease-in-out ${isDropdownOpen ? 'rotate-90' : ''}`}
@@ -1734,8 +1734,8 @@ fill="currentColor"
                         >
                          
                           <div className="flex items-center space-x-2">
-                            <div className="size-1.5 rounded-full border border-current opacity-40" />
-                            <span>Accounts</span>
+                            {/* <div className="size-1.5 rounded-full border border-current opacity-40" /> */}
+                            <span className="font-bold">Accounts</span>
                           </div>
                          
                         </Link>
@@ -1747,7 +1747,7 @@ fill="currentColor"
         onClick={handleDropdownToggles} // Toggle the dropdown on button click
         className="ac-trigger flex w-full items-center justify-between py-2 text-xs+ tracking-wide text-slate-600 outline-none transition-[color,padding-left] duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50"
       >
-         <span>Reports</span>
+         <span className="font-bold ml-2">Reports</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={`size-4 text-slate-400 transition-transform ease-in-out ${isDropdownOpens ? 'rotate-90' : ''}`}
@@ -1801,13 +1801,13 @@ fill="currentColor"
                          
                           <div className="flex items-center space-x-2">
                             <div className="size-1.5 rounded-full border border-current opacity-40" />
-                            <span>Admission</span>
+                            <span className="font-bold">Admission</span>
                           </div>
                          
                         </Link>
                       </li>
 
-                         {/* scanner */}
+                         {/* scanner
                          <li>
                         <Link
                           href="/staff/Scanner"
@@ -1825,7 +1825,7 @@ fill="currentColor"
                       </li>
 
                       {/* Qr code */}
-                      <li>
+                      {/* <li>
                         <Link
                           href="/staff/Qr"
                           className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4"
@@ -1839,7 +1839,7 @@ fill="currentColor"
                           </div>
                          
                         </Link>
-                      </li>
+                      </li>  */}
                     
   {/* accounts */}
   <li>
@@ -1918,8 +1918,8 @@ fill="currentColor"
                         >
                          
                           <div className="flex items-center space-x-2">
-                            <div className="size-1.5 rounded-full border border-current opacity-40" />
-                            <span>Admission</span>
+                            {/* <div className="size-1.5 rounded-full border border-current opacity-40" /> */}
+                            <span className="font-bold" onClick={toggleDrawer}>Admission</span>
                           </div>
                          
                         </Link>
@@ -1935,7 +1935,7 @@ fill="currentColor"
         onClick={handleDropdownToggle} // Toggle the dropdown on button click
         className="ac-trigger flex w-full items-center justify-between py-2 text-xs+ tracking-wide text-slate-600 outline-none transition-[color,padding-left] duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50"
       >
-        <span>Master</span>
+        <span className="font-bold ml-2">Master</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={`size-4 text-slate-400 transition-transform ease-in-out ${isDropdownOpen ? 'rotate-90' : ''}`}
@@ -1953,7 +1953,7 @@ fill="currentColor"
           <Link href="/admin/settings/service-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>Service</span>
+              <span onClick={toggleDrawer}>Service</span>
             </div>
           </Link>
         </li>
@@ -1961,7 +1961,7 @@ fill="currentColor"
           <Link href="/admin/settings/driver-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>Driver</span>
+              <span onClick={toggleDrawer}>Driver</span>
             </div>
           </Link>
         </li>
@@ -1969,7 +1969,7 @@ fill="currentColor"
           <Link href="/admin/settings/vehicle-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>Vehicle</span>
+              <span onClick={toggleDrawer}>Vehicle</span>
             </div>
           </Link>
         </li>
@@ -1977,7 +1977,7 @@ fill="currentColor"
           <Link href="/admin/settings/branch-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>Branch</span>
+              <span onClick={toggleDrawer}>Branch</span>
             </div>
           </Link>
         </li>
@@ -1985,7 +1985,7 @@ fill="currentColor"
           <Link href="/admin/settings/staff-management" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>Staff</span>
+              <span onClick={toggleDrawer}>Staff</span>
             </div>
           </Link>
         </li>
@@ -1993,7 +1993,7 @@ fill="currentColor"
           <Link href="/admin/accounts/license-cost" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>License Cost</span>
+              <span onClick={toggleDrawer}>License Cost</span>
             </div>
           </Link>
         </li>
@@ -2001,7 +2001,7 @@ fill="currentColor"
           <Link href="/admin/accounts/fresh-licence-cost" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>Fresh Licence cost</span>
+              <span onClick={toggleDrawer}>Fresh Licence cost</span>
             </div>
           </Link>
         </li>
@@ -2025,8 +2025,10 @@ fill="currentColor"
                         >
                          
                           <div className="flex items-center space-x-2">
-                            <div className="size-1.5 rounded-full border border-current opacity-40" />
-                            <span  onClick={toggleDrawer}>Accounts</span>
+                            {/* <div className="size-1.5 rounded-full border border-current opacity-40" /> */}
+                            {/* <span  onClick={toggleDrawer}>Accounts</span> */}
+                            <span   className="font-bold" onClick={toggleDrawer}>Accounts</span>
+                           
                           </div>
                          
                         </Link>
@@ -2040,7 +2042,7 @@ fill="currentColor"
         onClick={handleDropdownToggles} // Toggle the dropdown on button click
         className="ac-trigger flex w-full items-center justify-between py-2 text-xs+ tracking-wide text-slate-600 outline-none transition-[color,padding-left] duration-300 ease-in-out hover:text-slate-800 dark:text-navy-200 dark:hover:text-navy-50"
       >
-         <span>Reports</span>
+         <span className="font-bold ml-2" >Reports</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={`size-4 text-slate-400 transition-transform ease-in-out ${isDropdownOpens ? 'rotate-90' : ''}`}
@@ -2058,7 +2060,7 @@ fill="currentColor"
           <Link href="/admin/report/payment-history" className="nav-link flex items-center justify-between p-2 text-xs+ tracking-wide outline-none transition-[color,padding-left] duration-300 ease-in-out hover:pl-4">
             <div className="flex items-center space-x-2">
               <div className="size-1.5 rounded-full border border-current opacity-40" />
-              <span>Payment History</span>
+              <span onClick={toggleDrawer}>Payment History</span>
             </div>
           </Link>
         </li>
