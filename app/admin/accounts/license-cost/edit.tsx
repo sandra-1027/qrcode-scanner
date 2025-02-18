@@ -12,6 +12,7 @@ interface Cost {
     service_name: string;
     branch_name:string;
     added_date:string;
+    text:string;
   }
 
 
@@ -36,10 +37,14 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
 
   const [selectedService, setSelectedService] = useState<string>("");
   const [searchService, setSearchService] = useState("");
-  const[searchServiceData,setSearchServiceData] =useState("");
-  const[filteredService,setFilteredService]=useState("");
+  // const[searchServiceData,setSearchServiceData] =useState("");
+  // const[filteredService,setFilteredService]=useState("");
+  const[searchServiceData,setSearchServiceData] = useState<Cost []>([]);
+  const[filteredService,setFilteredService]=useState<Cost []>([]);
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
+   const dropdownRef = useRef<HTMLDivElement>(null);
+
+
 
 
   useEffect(() => {
@@ -170,7 +175,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
   };
 
   
-  const handleSelectService = (service) => {
+  const handleSelectService = (service :Cost) => {
     setSelectedService(service.text);
    
     // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
@@ -179,15 +184,19 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
   };
 
   // Close dropdown when clicking outside
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setIsDropdownOpen(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && event.target instanceof Node) {
+        if (!dropdownRef.current.contains(event.target)) {
+          setIsDropdownOpen(false);
+        }
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
  
   return (
     <div>

@@ -1,112 +1,13 @@
 
 
 
-// import { useAuth } from "@/app/context/AuthContext";
-// import React, { useEffect, useState } from "react";
-// import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-// type CreateProps = {
-//   showmodal: boolean;
-//   togglemodal: () => void;
-//   formData?: {
-//     f_cost: string;
-//     m_cost: string;
-//     service_id: string;
-//     vehicle_type: string;
-//     id:string;
-//   };
-//   isEditing?: boolean;
-// };
-// const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditing }) => {
-//   const { state } = useAuth();
-//   const [services, setServices] = useState<{ id: string; service_name: string }[]>([]);
-//   const [localFormData, setLocalFormData] = useState(formData || {
-//     f_cost: "",
-//     m_cost: "",
-//     service_id: "",
-//     vehicle_type: "",
-//     id:"",
-//   });
-//   useEffect(() => {
-//     if (showmodal) {
-//       const fetchServices = async () => {
-//         try {
-//           // const response = await fetch("/api/admin/settings/service_details");
-//           const response = await fetch('/api/admin/settings/service_details', {
-//             method: 'POST',
-//             headers: {
-//               'authorizations': state?.accessToken ?? '',
-//               'api_key': '10f052463f485938d04ac7300de7ec2b',  // Make sure the API key is correct
-//             },
-//             body: JSON.stringify({ /* request body */ }),
-//           });
-//           const data = await response.json();
-//           if (data.success) {
-//             setServices(data.data);
-//           }
-//         } catch (error) {
-//           console.error("Error fetching Services:", error);
-//         }
-//       };
-
-//       fetchServices();
-//     }
-//   }, [showmodal]);
- 
-
-//   useEffect(() => {
-//     if (formData) {
-//       setLocalFormData(formData);
-//     }
-//   }, [formData]);
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-//     const { name, value } = e.target;
-//     setLocalFormData({ ...localFormData, [name]: value });
-//   };
-
-// const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-//   e.preventDefault();
-//   // const endpoint = isEditing ? "/api/admin/accounts/update_license_cost" : "/api/admin/accounts/add_license_cost";
-  
-//   try {
-//     // const response = await fetch(endpoint, {
-//       const response = await fetch("/api/admin/accounts/add_license_cost", {
-//       method: "POST",
-//       headers: {
-//         authorizations: state?.accessToken ?? "",
-//         api_key: "10f052463f485938d04ac7300de7ec2b",
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(localFormData),
-//     });
-
-//     console.log(localFormData, "data sent to backend");
-
-//     const responseJson = await response.json();
-//     console.log("Response from backend:", responseJson);
-
-//     if (!response.ok) {
-//       alert(`Failed to ${isEditing ? 'update' : 'add'} license. Status code: ${response.status}`);
-//       return;
-//     }
-
-//     alert(`License ${isEditing ? 'updated' : 'added'} successfully!`);
-//     togglemodal(); 
-//   } catch (error) {
-//     console.error("Error submitting form:", error);
-//     alert(`An error occurred while ${isEditing ? 'updating' : 'adding'} the license.`);
-//   }
-// };
-
-//   if (!showmodal) return null;
-
-
 import { useAuth } from "@/app/context/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 type CreateProps = {
   showmodal: boolean;
+ 
   togglemodal: () => void;
   formData?: {
     f_cost: string;
@@ -114,8 +15,22 @@ type CreateProps = {
     service_id: string;
     vehicle_type: string;
     id:string;
+   
   };
   isEditing?: boolean;
+};
+
+type Cost = {
+  id?: string;
+  status: string;
+  service_name: string;
+  f_cost: string;
+  m_cost: string;
+  vehicle_type: string;
+  service_id: string;
+  branch_name:string;
+  added_date:string;
+  text:string;
 };
 const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditing }) => {
   const { state } = useAuth();
@@ -123,10 +38,13 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
 
   const [selectedService, setSelectedService] = useState<string>("");
   const [searchService, setSearchService] = useState("");
-  const[searchServiceData,setSearchServiceData] =useState("");
-  const[filteredService,setFilteredService]=useState("");
+  // const[searchServiceData,setSearchServiceData] =useState("");
+  // const[filteredService,setFilteredService]=useState("");
+   const[searchServiceData,setSearchServiceData] = useState<Cost []>([]);
+  const[filteredService,setFilteredService]=useState<Cost []>([]);
+
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
+   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [localFormData, setLocalFormData] = useState(formData || {
     f_cost: "",
@@ -261,7 +179,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     };
   
     
-    const handleSelectService = (service) => {
+    const handleSelectService = (service :Cost) => {
       setSelectedService(service.text);
      
       // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
@@ -271,11 +189,14 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   
     // Close dropdown when clicking outside
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsDropdownOpen(false);
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && event.target instanceof Node) {
+          if (!dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+          }
         }
       };
+    
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);

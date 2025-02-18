@@ -18,7 +18,7 @@ interface Staff {
   branch_id: string;
   branch_name:string;
   date_of_joining:string;
- 
+ text:string;
 }
 type CreateProps = {
   showmodal: boolean;
@@ -38,12 +38,15 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [branches, setBranches] = useState<{ id: string; branch_name: string }[]>([]);
 
   const [selectedBranch, setSelectedBranch] = useState<string>("");
- 
+
+  const [branch_id, setbranch_id] = useState(formData?.branch_id || '');
  const [searchBranch, setSearchBranch] = useState("");
-    const[searchBranchData,setSearchBranchData] =useState("");
-    const[filteredBranch,setFilteredBranch]=useState("");
+    // const[searchBranchData,setSearchBranchData] =useState("");
+    // const[filteredBranch,setFilteredBranch]=useState("");
+    const[searchBranchData,setSearchBranchData] =useState<Staff[]>([]);
+    const[filteredBranch,setFilteredBranch]=useState<Staff[]>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-      const dropdownRef = useRef(null);
+     const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [localFormData, setLocalFormData] = useState(formData || {
     name: "",
@@ -106,7 +109,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   
-  const formDataToSend = { ...localFormData,branch_id:localFormData.branch_id };
+  const formDataToSend = { ...localFormData, branch_id: branch_id, };
   try {
     const response = await fetch("/api/admin/settings/add_staff", {
       method: "POST",
@@ -190,14 +193,14 @@ const fetchSearchBranch = async () => {
     };
   
     
-    const handleSelectBranch = (branch) => {
+    const handleSelectBranch = (branch:Staff) => {
       // setSelectedBranch(branch.text);
     //  setbranch_id(branch.id);
-     setLocalFormData((prevData) => ({
-      ...prevData,
-      branch_id: branch.id,
-    }));
-
+    //  setLocalFormData((prevData) => ({
+    //   ...prevData,
+    //   branch_id: branch.id,
+    // }));
+    setbranch_id(branch.id ?? "");
       setSelectedBranch(branch.text);
       setSearchBranch("");
       setIsDropdownOpen(false); 
@@ -205,11 +208,14 @@ const fetchSearchBranch = async () => {
   
     // Close dropdown when clicking outside
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsDropdownOpen(false);
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && event.target instanceof Node) {
+          if (!dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+          }
         }
       };
+    
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);

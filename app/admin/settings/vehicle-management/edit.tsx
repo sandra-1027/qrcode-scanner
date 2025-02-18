@@ -15,6 +15,7 @@ interface Vehicle {
   userfile: File | null;
   rc_document: string | File;
   mobile: string;
+  text:string;
 }
 interface EditProps {
   showModal: boolean;

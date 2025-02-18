@@ -11,6 +11,7 @@ type Branch = {
   status: string;
   [key: string]: any;
   description: string;
+  text:string;
 };
 type BranchData = {
   data: Branch[];
@@ -30,10 +31,12 @@ const page = () => {
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [searchBranch, setSearchBranch] = useState("");
-  const[searchBranchData,setSearchBranchData] =useState("");
-  const[filteredBranch,setFilteredBranch]=useState("");
+  // const[searchBranchData,setSearchBranchData] =useState("");
+  // const[filteredBranch,setFilteredBranch]=useState("");
+  const[searchBranchData,setSearchBranchData] = useState<Branch []>([]);
+  const [filteredBranch, setFilteredBranch] = useState<Branch[]>([]);
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
+   const dropdownRef = useRef<HTMLDivElement>(null);
 
 
 
@@ -220,7 +223,7 @@ const page = () => {
     };
   
     
-    const handleSelectBranch = (branch) => {
+    const handleSelectBranch = (branch : Branch) => {
       setSelectedBranch(branch.text);
       // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
       setSearchBranch("");
@@ -229,11 +232,14 @@ const page = () => {
   
     // Close dropdown when clicking outside
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsDropdownOpen(false);
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && event.target instanceof Node) {
+          if (!dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+          }
         }
       };
+    
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);

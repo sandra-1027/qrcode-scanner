@@ -671,11 +671,14 @@ interface Driver {
   driving_licence_no: string;
   date_of_joining: string;
   password: string;
+  text:string;
+  
 }
 const page = () => {
   const { state } = useAuth();
   const [showmodal, setShowmodal] = useState(false);
   const [driverData, setDriverData] = useState<Driver[]>([]);
+
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(10);
@@ -690,10 +693,12 @@ const page = () => {
  
   const [modalMode, setModalMode] = useState<"add" | "edit">("add");
   const [searchDriver, setSearchDriver] = useState("");
-  const[searchDriverData,setSearchDriverData] =useState("");
-  const[filteredDriver,setFilteredDriver]=useState("");
+  // const[searchDriverData,setSearchDriverData] =useState("");
+  // const[filteredDriver,setFilteredDriver]=useState("");
+   const[searchDriverData,setSearchDriverData] =useState<Driver []>([]);
+  const[filteredDriver,setFilteredDriver]=useState<Driver []>([]);
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
+   const dropdownRef = useRef<HTMLDivElement>(null);
 
 
 
@@ -892,7 +897,7 @@ const page = () => {
       };
     
       
-      const handleSelectDriver = (driver) => {
+      const handleSelectDriver = (driver :Driver) => {
         setSelectedDriver(driver.text);
         // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
         setSearchDriver("");
@@ -901,11 +906,14 @@ const page = () => {
     
       // Close dropdown when clicking outside
       useEffect(() => {
-        const handleClickOutside = (event) => {
-          if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setIsDropdownOpen(false);
+        const handleClickOutside = (event: MouseEvent) => {
+          if (dropdownRef.current && event.target instanceof Node) {
+            if (!dropdownRef.current.contains(event.target)) {
+              setIsDropdownOpen(false);
+            }
           }
         };
+      
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
       }, []);
@@ -1294,7 +1302,8 @@ const page = () => {
             onSave={(updatedDriver) => {
               setDriverData((prevData) =>
                 prevData.map((driver) =>
-                  driver.id === updatedDriver.id ? updatedDriver : driver
+                   driver.id === updatedDriver.id ? updatedDriver : driver
+         
                 )
               );
               togglemodal("add");

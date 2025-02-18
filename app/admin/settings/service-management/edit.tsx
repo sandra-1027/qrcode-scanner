@@ -11,6 +11,7 @@ interface Branch {
   amount: string;
   status: string;
   description: string;
+  text:string;
 }
 
 interface EditProps {

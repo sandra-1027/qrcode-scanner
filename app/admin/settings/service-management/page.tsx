@@ -12,6 +12,7 @@ type Service = {
   [key: string]: any;
   description: string;
   amount: string;
+  text:string;
 };
 type ServiceData = {
   data: Service[];
@@ -32,10 +33,12 @@ const page = () => {
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedService, setSelectedService] = useState<string>("");
     const [searchService, setSearchService] = useState("");
-    const[searchServiceData,setSearchServiceData] =useState("");
-    const[filteredService,setFilteredService]=useState("");
+    // const[searchServiceData,setSearchServiceData] =useState("");
+    // const[filteredService,setFilteredService]=useState("");
+    const[searchServiceData,setSearchServiceData] =useState<Service[]>([]);
+    const[filteredService,setFilteredService]=useState<Service[]>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-      const dropdownRef = useRef(null);
+     const dropdownRef = useRef<HTMLDivElement>(null);
 
   const togglemodal = (
     mode: "add" | "edit",
@@ -227,7 +230,7 @@ const page = () => {
     };
   
     
-    const handleSelectService = (service) => {
+    const handleSelectService = (service : Service) => {
       setSelectedService(service.text);
       // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
       setSearchService("");
@@ -235,17 +238,20 @@ const page = () => {
     };
   
     // Close dropdown when clicking outside
+  
+
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsDropdownOpen(false);
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && event.target instanceof Node) {
+          if (!dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+          }
         }
       };
+    
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-
-
 
 
   return (

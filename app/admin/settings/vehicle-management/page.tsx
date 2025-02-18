@@ -16,6 +16,7 @@ interface Vehicle {
   pucc_expiry_date: string;
   rc_expiry_date: string;
   userfile: File | null;
+  text:string;
 }
 const page = () => {
   const { state } = useAuth();
@@ -34,10 +35,13 @@ const page = () => {
   const [modalMode, setModalMode] = useState<"add" | "edit">("add");
 
  const [searchVehicle, setSearchVehicle] = useState("");
-  const[searchVehicleData,setSearchVehicleData] =useState("");
-  const[filteredVehicle,setFilteredVehicle]=useState("");
+  // const[searchVehicleData,setSearchVehicleData] =useState("");
+  // const[filteredVehicle,setFilteredVehicle]=useState("");
+  const[searchVehicleData,setSearchVehicleData] =useState<Vehicle[]>([]);
+  const[filteredVehicle,setFilteredVehicle]= useState<Vehicle[]>([]);
+ 
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const dropdownRef = useRef(null);
+   const dropdownRef = useRef<HTMLDivElement>(null);
 
 
 
@@ -232,7 +236,7 @@ const page = () => {
     };
   
     
-    const handleSelectVehicle = (vehicle) => {
+    const handleSelectVehicle = (vehicle : Vehicle) => {
       setSelectedVehicle(vehicle.text);
       // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
       setSearchVehicle("");
@@ -241,11 +245,14 @@ const page = () => {
   
     // Close dropdown when clicking outside
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsDropdownOpen(false);
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && event.target instanceof Node) {
+          if (!dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+          }
         }
       };
+    
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);

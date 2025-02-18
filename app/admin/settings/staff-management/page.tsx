@@ -21,6 +21,7 @@ type Staff = {
   name:string;
  place:string;
  password:string;
+ text:string;
 };
 const page = () => {
 
@@ -44,17 +45,22 @@ const page = () => {
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
  const [selectedStaff, setSelectedStaff] = useState<string>("");
   const [searchStaff, setSearchStaff] = useState("");
-  const[searchStaffData,setSearchStaffData] =useState("");
-  const[filteredStaff,setFilteredStaff]=useState("");
+  // const[searchStaffData,setSearchStaffData] =useState("");
+  // const[filteredStaff,setFilteredStaff]=useState("");
+  const[searchStaffData,setSearchStaffData] =useState<Staff[]>([]);
+  const[filteredStaff,setFilteredStaff]=useState<Staff[]>([]);
+
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
  const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [searchBranch, setSearchBranch] = useState("");
-  const[searchBranchData,setSearchBranchData] =useState("");
-  const[filteredBranch,setFilteredBranch]=useState("");
+  // const[searchBranchData,setSearchBranchData] =useState("");
+  // const[filteredBranch,setFilteredBranch]=useState("");
+  const[searchBranchData,setSearchBranchData] =useState<Staff[]>([]);
+  const[filteredBranch,setFilteredBranch]=useState<Staff[]>([]);
    const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
-   const staffDropdownRef = useRef(null);
-   const branchDropdownRef = useRef(null);
-    
+   const staffDropdownRef = useRef<HTMLDivElement>(null);
+   const branchDropdownRef = useRef<HTMLDivElement>(null);
+
 
 
   const togglemodal = (mode: 'add' | 'edit', staff: Staff | null = null) => {
@@ -284,7 +290,7 @@ const page = () => {
     };
   
     
-    const handleSelectStaff = (staff) => {
+    const handleSelectStaff = (staff :Staff) => {
       setSelectedStaff(staff.text);
       setSearchStaff("");
       setIsDropdownOpen(false); 
@@ -339,22 +345,49 @@ const page = () => {
     };
   
     
-    const handleSelectBranch = (branch) => {
+    const handleSelectBranch = (branch:Staff) => {
       setSelectedBranch(branch.text);
   
       setSearchBranch("");
       setIsbranchDropdownOpen(false); 
     };
   
-   
+      // Close dropdown when clicking outside
+  
+   // Close dropdown when clicking outside
+  
+
+  //  useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (dropdownRef.current && event.target instanceof Node) {
+  //       if (!dropdownRef.current.contains(event.target)) {
+  //         setIsDropdownOpen(false);
+  //       }
+  //     }
+  //   };
+  
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleClickOutside);
+  // }, []);
+
 
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (staffDropdownRef.current && !staffDropdownRef.current.contains(event.target)) {
-          setIsDropdownOpen(false);
-        }
-        if (branchDropdownRef.current && !branchDropdownRef.current.contains(event.target)) {
-          setIsbranchDropdownOpen(false);
+      const handleClickOutside = (event: MouseEvent) => {
+        // if (staffDropdownRef.current && !staffDropdownRef.current.contains(event.target)) {
+        //   setIsDropdownOpen(false);
+        // }
+        if (staffDropdownRef.current && event.target instanceof Node) {
+                if (!staffDropdownRef.current.contains(event.target)) {
+                  setIsDropdownOpen(false);
+                }
+              }
+        // if (branchDropdownRef.current && !branchDropdownRef.current.contains(event.target)) {
+        //   setIsbranchDropdownOpen(false);
+        // }
+        if (branchDropdownRef.current && event.target instanceof Node) {
+          if (!branchDropdownRef.current.contains(event.target)) {
+            setIsbranchDropdownOpen(false);
+          }
         }
       };
     

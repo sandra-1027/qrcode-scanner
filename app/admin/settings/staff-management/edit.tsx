@@ -296,6 +296,7 @@ interface Staff {
  name:string;
  place:string;
  password:string;
+ text:string;
 }
 interface EditProps {
     showmodal: boolean;
@@ -314,26 +315,16 @@ const[password,setpassword]=useState<Staff | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-
-
-
-
-
-
-
-
   const [selectedBranch, setSelectedBranch] = useState<string>("");
   
   const [branch_id, setbranch_id] = useState<string>("");
   const [searchBranch, setSearchBranch] = useState("");
-     const[searchBranchData,setSearchBranchData] =useState("");
-     const[filteredBranch,setFilteredBranch]=useState("");
+    //  const[searchBranchData,setSearchBranchData] =useState("");
+    //  const[filteredBranch,setFilteredBranch]=useState("");
+    const[searchBranchData,setSearchBranchData] =useState<Staff[]>([]);
+    const[filteredBranch,setFilteredBranch]=useState<Staff[]>([]);
       const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-       const dropdownRef = useRef(null);
-
-
-
-
+       const dropdownRef = useRef<HTMLDivElement>(null);
 
 
 const [formData, setFormData] = useState<Staff | null>(null);
@@ -437,11 +428,6 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
   };
 
-
-
-
-
-
 const fetchSearchBranch = async () => {
   try {
     const response = await fetch("/api/admin/report/get_branch_autocomplete", {
@@ -490,9 +476,9 @@ const handleSearchBranch = (e : any) => {
 };
 
 
-const handleSelectBranch = (branch) => {
+const handleSelectBranch = (branch : Staff) => {
   // setSelectedBranch(branch.text);
- setbranch_id(branch.id);
+ setbranch_id(branch.id ?? "");
   setSelectedBranch(branch.text);
   setSearchBranch("");
   setIsDropdownOpen(false); 
@@ -500,11 +486,14 @@ const handleSelectBranch = (branch) => {
 
 // Close dropdown when clicking outside
 useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsDropdownOpen(false);
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && event.target instanceof Node) {
+      if (!dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
     }
   };
+
   document.addEventListener("mousedown", handleClickOutside);
   return () => document.removeEventListener("mousedown", handleClickOutside);
 }, []);

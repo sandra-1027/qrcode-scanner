@@ -9,12 +9,19 @@ type Cost = {
   id?: string;
   status: string;
   service_name: string;
-  cost: string;
   vehicle_type: string;
   service_id: string;
   branch_name:string;
   added_date:string;
   gender:string;
+  cost: string;
+  study_cost: string;
+  licence_cost: string;
+  lmc_mc_both_study: string;
+  lmc_mc_both_licence: string;
+  lmc_study_mc_licence: string;
+  lmc_licence_mc_study: string;
+
 };
 const page = () => {
   const { state } = useAuth();

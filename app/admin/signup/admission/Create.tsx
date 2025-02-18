@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface Admission {
   user_name: string;
+  text:string;
 }
 
 type CreateProps = {
@@ -38,6 +39,7 @@ type CreateProps = {
     dob:string;
     address:string;
     app_no:string;
+    text:string;
   };
   isEditing?: boolean;
 };
@@ -57,7 +59,7 @@ const Create: React.FC<CreateProps> = ({
     { id: string; service_name: string }[]
   >([]);
   const [admission, setAdmission] = useState<
-    { id: string; user_name: string }[]
+    { id: string; user_name: string; text:string }[]
   >([]);
 
   const [imagePreview, setImagePreview] = useState<string>("");

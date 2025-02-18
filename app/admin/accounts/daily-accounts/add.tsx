@@ -21,6 +21,7 @@ type Account = {
   total_income:string;
   total_expense:string;
   added_by:string;
+  text:string;
 };
 type CreateProps = {
   showmodal: boolean;
@@ -50,11 +51,13 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [expenseName, setExpenseName] = useState(formData?.expense_name || '');
 //  const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [searchBranch, setSearchBranch] = useState("");
-    const[searchBranchData,setSearchBranchData] =useState("");
-    const[filteredBranch,setFilteredBranch]=useState("");
+   // const[searchBranchData,setSearchBranchData] =useState("");
+   const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
+    // const[filteredBranch,setFilteredBranch]=useState("");
+    const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-      const dropdownRef = useRef(null);
-
+      // const dropdownRef = useRef(null);
+      const dropdownRef = useRef<HTMLDivElement>(null);
   const fetchBranchData = async () => {
     try {
 
@@ -195,26 +198,38 @@ const fetchSearchBranch = async () => {
     };
   
     
-    const handleSelectBranch = (branch) => {
+    const handleSelectBranch = (branch : Account) => {
       // setSelectedBranch(branch.text);
       setbranch_text(branch.text);
-      setbranch_id(branch.id);
+      setbranch_id(branch.id ?? "");
       setSearchBranch("");
       setIsDropdownOpen(false); 
     };
   
     // Close dropdown when clicking outside
+    // useEffect(() => {
+    //   const handleClickOutside = (event) => {
+    //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    //       setIsDropdownOpen(false);
+    //     }
+    //   };
+    //   document.addEventListener("mousedown", handleClickOutside);
+    //   return () => document.removeEventListener("mousedown", handleClickOutside);
+    // }, []);
+  
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsDropdownOpen(false);
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && event.target instanceof Node) {
+          if (!dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+          }
         }
       };
+    
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-  
-   
+    
 
 
 

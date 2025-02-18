@@ -19,6 +19,7 @@ interface Account {
    total_expense:string;
    added_by:string;
    payment_method:string;
+   text:string;
   }
 
 interface EditProps {
@@ -37,8 +38,10 @@ const Edit = ({ showModal, toggleModal, AccountData, onSave }: EditProps) => {
   const [branch_id, setbranch_id] = useState(formData?.branch_id || '');
   const [branch_text, setbranch_text] = useState('');
   const [searchBranch, setSearchBranch] = useState("");
-  const[searchBranchData,setSearchBranchData] =useState("");
-  const[filteredBranch,setFilteredBranch]=useState("");
+  // const[searchBranchData,setSearchBranchData] =useState("");
+  const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
+  const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
+  // const[filteredBranch,setFilteredBranch]=useState("");
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -206,10 +209,11 @@ const handleSearchBranch = (e : any) => {
 };
 
 
-const handleSelectBranch = (branch) => {
+const handleSelectBranch = (branch : Account) => {
   // setSelectedBranch(branch.text);
   setbranch_text(branch.text);
-  setbranch_id(branch.id);
+  // setbranch_id(branch.id);
+  setbranch_id(branch.id ?? "");
   setSearchBranch("");
   setIsDropdownOpen(false); 
 };

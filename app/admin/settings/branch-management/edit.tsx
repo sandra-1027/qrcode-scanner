@@ -12,7 +12,7 @@ interface Branch {
     description: string;
   
     [key: string]: any;
-  
+  text:string;
   }
 
   

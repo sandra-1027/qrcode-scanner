@@ -13,6 +13,8 @@ interface Driver {
   date_of_joining: string;
   password: string;
   user_id?: string;
+  text:string;
+  id?: string;
 }
 
 interface EditProps {

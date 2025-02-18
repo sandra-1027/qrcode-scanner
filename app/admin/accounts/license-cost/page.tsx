@@ -17,6 +17,7 @@ type Cost = {
   service_id: string;
   branch_name:string;
   added_date:string;
+  text:string;
 };
 const page = () => {
   const { state } = useAuth();
@@ -33,10 +34,12 @@ const page = () => {
    const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
  const [selectedService, setSelectedService] = useState<string>("");
     const [searchService, setSearchService] = useState("");
-    const[searchServiceData,setSearchServiceData] =useState("");
-    const[filteredService,setFilteredService]=useState("");
+    // const[searchServiceData,setSearchServiceData] =useState("");
+    // const[filteredService,setFilteredService]=useState("");
+    const[searchServiceData,setSearchServiceData] = useState<Cost []>([]);
+    const[filteredService,setFilteredService]=useState<Cost []>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-      const dropdownRef = useRef(null);
+     const dropdownRef = useRef<HTMLDivElement>(null);
 
 
  
@@ -272,7 +275,7 @@ const page = () => {
     };
   
     
-    const handleSelectService = (service) => {
+    const handleSelectService = (service :Cost) => {
       setSelectedService(service.text);
       // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
       setSearchService("");
@@ -281,15 +284,17 @@ const page = () => {
   
     // Close dropdown when clicking outside
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsDropdownOpen(false);
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && event.target instanceof Node) {
+          if (!dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+          }
         }
       };
+    
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-
 
 
 

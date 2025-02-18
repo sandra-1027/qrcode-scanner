@@ -25,6 +25,7 @@ type Account = {
   total_expense:string;
   added_by:string;
   payment_method:string;
+  text:string;
 };
 
 const page = () => {
@@ -46,11 +47,13 @@ const page = () => {
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   
     const [searchBranch, setSearchBranch] = useState("");
-    const[searchBranchData,setSearchBranchData] =useState("");
-    const[filteredBranch,setFilteredBranch]=useState("");
+    // const[searchBranchData,setSearchBranchData] =useState("");
+    // const[filteredBranch,setFilteredBranch]=useState("");
+    const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
+    const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-      const dropdownRef = useRef(null);
-  
+      // const dropdownRef = useRef(null);
+      const dropdownRef = useRef<HTMLDivElement>(null);
 
   const togglemodal = (mode: 'add' | 'edit', account: Account | null = null) => {
     setModalMode(mode);
@@ -194,6 +197,7 @@ const page = () => {
     setSearchTerm("");
     setdailystatusselected("");
     setSelectedStatus("");
+    setSelectedDate("");
     setFilteredData(accountData); 
     setSelectedBranch("");
   };
@@ -293,7 +297,7 @@ const fetchSearchBranch = async () => {
     };
   
     
-    const handleSelectBranch = (branch) => {
+    const handleSelectBranch = (branch :Account) => {
       setSelectedBranch(branch.text);
       
       setSearchBranch("");
@@ -301,16 +305,28 @@ const fetchSearchBranch = async () => {
     };
   
     // Close dropdown when clicking outside
+    // useEffect(() => {
+    //   const handleClickOutside = (event) => {
+    //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    //       setIsDropdownOpen(false);
+    //     }
+    //   };
+    //   document.addEventListener("mousedown", handleClickOutside);
+    //   return () => document.removeEventListener("mousedown", handleClickOutside);
+    // }, []);
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setIsDropdownOpen(false);
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && event.target instanceof Node) {
+          if (!dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+          }
         }
       };
+    
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-  
+    
    
   return (
     <div className=" w-full  pb-8">
