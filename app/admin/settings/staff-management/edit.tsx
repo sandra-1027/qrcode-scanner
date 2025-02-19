@@ -385,8 +385,9 @@ const handleSubmit = async (e: React.FormEvent) => {
           mobile: formData.mobile, 
           place: formData.address, 
           email: formData.email, 
-          // branch_id:formData.branch_id,
-          branch_id: branch_id,
+     //  branch_id:formData.branch_id,
+     branch_id: branch_id || formData.branch_id,
+   // branch_id: branch_id,
          
           password:formData.password,
         };
@@ -676,6 +677,7 @@ useEffect(() => {
       </span>
     </span>
             </label>
+            
             </div>
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
             {loading ? 'Updating...' : 'Update'}

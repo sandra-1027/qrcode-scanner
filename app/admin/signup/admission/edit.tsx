@@ -1194,6 +1194,9 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
   const [documentchange, setDocumentchange] = useState(false);
   const [documentPreview, setDocumentPreview] = useState<string | null>(null);
 
+  const [signaturechange, setSignaturechange] = useState(false);
+  const [signaturePreview, setSignaturePreview] = useState<string | null>(null);
+
   const [userPreview, setUserPreview] = useState<string | null>(null);
   const [userchange, setUserchange] = useState(false);
 
@@ -1334,6 +1337,27 @@ const handleChange = (
 //     [name]: value,
 //   }));
 // };
+
+
+const handleSignaturechange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      setSignaturePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+    setFormData((prevData) => (prevData ? { ...prevData, document: file } : null)); 
+    setSignaturechange(true); 
+  }
+};
+const handleRemovesignature = () => {
+  setSignaturePreview(null); 
+  setFormData((prevData) => (prevData ? { ...prevData, document: null } : null)); 
+};
+
+
+
 const handleDocumentchange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const file = e.target.files?.[0];
   if (file) {
@@ -1512,12 +1536,6 @@ if (response.ok){
   }
 };
 
-
-
-
-
-
-
 const handleSelect = (service: { id: string; service_name: string; amount: string | undefined }) => {
   setFormData((prev) => {
     if (!prev) return null; 
@@ -1546,12 +1564,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
 };
 
 
-
-
   const filteredServices = service.filter((service) =>
     service.service_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
 
 
   if (!showmodal) return null;
@@ -1607,7 +1622,23 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                 <div className="flex-1 ">
                   {/* Profile Information */}
                   <div className="mb-4 mt-4 ">
+                  {/* Admission No */}
                   <label className="block">
+                        <span>Admission No</span>
+                        <span className="relative mt-1.5 flex">
+                          <input
+                            name="first_name"
+                          //  value={formData.name}
+                          value={formData?.first_name|| ""}
+                            onChange={handleChange}
+                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            placeholder="name"
+                            type="text"
+                          />
+                        </span>
+                      </label>
+                          {/* Application No */}
+                  <label className="block mt-1.5">
                         <span>Application No</span>
                         <span className="relative mt-1.5 flex">
                           <input
@@ -1621,6 +1652,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                           />
                         </span>
                       </label>
+                        {/* name */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
                       <label className="block">
                         <span>Name</span>
@@ -1684,6 +1716,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                     </div>
                     {/* Additional Fields */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+                          {/* Email*/}
                       <label className="block">
                         <span>Email</span>
                         <span className="relative mt-1.5 flex">
@@ -1698,6 +1731,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                           />
                         </span>
                       </label>
+                       {/* Blood Group*/}
                       <label className="block ">
                         <span>Blood Group</span>
                         <span className="relative mt-1.5 flex">
@@ -1720,7 +1754,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         </span>
                       </label>
                     </div>
+                    
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+                      {/* gender*/}
                       <label className="block ">
                         <span>Gender</span>
                         <span className="relative mt-1.5 flex">
@@ -1736,7 +1772,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                           </select>
                         </span>
                       </label>
-
+                     {/* Branch Name */}
                       <label className="block ">
                         <span>Branch Name</span>
                         <span className="relative mt-1.5 flex">
@@ -1756,7 +1792,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         </span>
                       </label>
                     </div>
-
+                      {/* Document */}
                     <label className="block mt-2">
                       <span>Choose Document</span>
                       <span className="relative mt-1.5 flex">
@@ -1920,7 +1956,76 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         </div>
 
             
-                       
+                        {/* Upload signature */}
+                        <div>
+                          <label className="block mb-2 mt-4">
+                          Signature
+                          </label>
+
+                         
+                          <div className="ml-2">
+               
+               {signaturePreview? (
+       
+       <div className="mb-2">
+         <img
+           src={signaturePreview}
+           alt="Selected"
+           className="w-32 h-32 object-cover border rounded"
+         />
+       </div>
+     ) : (
+      
+       <div className="mb-2">
+         <img
+  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.documents}`}
+           alt="RC Document"
+           className="w-32 h-32 object-cover border rounded"
+         />
+       </div>
+     )}
+               
+                {!signaturePreview && (
+               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+                 Select Image
+                 <input
+                   type="file"
+                   accept="image/*"
+                   onChange={handleSignaturechange}
+                   className="hidden"
+                 />
+               </label>
+             )}
+
+             {signaturePreview  && (
+               <div className="mt-2 flex">
+                 
+
+                 <label
+                       className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                       htmlFor="imageUpload"
+                     >
+                       Change
+                     </label>
+                     <input
+                       id="imageUpload"
+                       type="file"
+                       accept="image/*"
+                       onChange={handleSignaturechange}
+                       className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
+                     />
+
+<button
+                   type="button"
+                   onClick={handleRemovesignature}
+                  className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
+                 >
+                   Remove
+                 </button>
+               </div>
+             )}
+             </div>
+                        </div>
                       </div>
                     </div>
                   </div>

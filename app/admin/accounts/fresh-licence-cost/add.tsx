@@ -188,11 +188,14 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   
-  if (!localFormData.service_id.trim() || !localFormData.vehicle_type.trim()) {
+  // if (!localFormData.service_id.trim() || !localFormData.vehicle_type.trim()) {
+  //   setError("All fields are required.");
+  //   return;
+  // }
+    if ( !localFormData.vehicle_type.trim() || ! localFormData.gender) {
     setError("All fields are required.");
     return;
   }
-  
   try {
     const response = await fetch('/api/admin/accounts/add_fresh_license_cost', {
       method: "POST",

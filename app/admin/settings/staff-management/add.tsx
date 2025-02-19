@@ -109,7 +109,10 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   
- 
+  if (!localFormData.branch_id.trim() || !branch_id) {
+    setError("All fields are required.");
+    return;
+  }
   if (!localFormData.mobile || !/^\d{10}$/.test(localFormData.mobile)) {
     setError("Mobile number must be a valid 10-digit number.");
     return;
@@ -122,10 +125,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setError ("password must be at least 6 characters long");
     return;
   }
-  if (!localFormData.branch_id.trim() || !branch_id) {
-    setError("All fields are required.");
-    return;
-  }
+  
   const formDataToSend = { ...localFormData, branch_id: branch_id, };
   try {
     const response = await fetch("/api/admin/settings/add_staff", {

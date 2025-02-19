@@ -247,16 +247,6 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
           
               <label className="block">
                 <span>Vehicle Type</span>
-              {/* <select name="vehicle_type" value={formData.vehicle_type} onChange={handleChange} 
-              className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-              >
-                <option value="">Please select vehicle type</option>
-               <option value="LMC">LMV</option>
-               <option value="MC">MV</option>
-               <option value="Both">Both</option>
-               <option value="Auto rickshaw">Auto rickshaw</option>
-              </select> */}
-
 <input name="vehicle_type"
              value={formData.vehicle_type}
               onChange={handleChange}
@@ -270,13 +260,6 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
 
                <label className="block">
                 <span>Gender</span>
-              {/* <select name="vehicle_type" value={formData.gender} onChange={handleChange} 
-              className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-              >
-                <option value="">Please select Gender</option>
-                <option value="Female">Female</option>
-               <option value="Male">Male</option>
-              </select> */}
               <input name="gender"
              value={formData.gender}
               onChange={handleChange}
@@ -342,6 +325,12 @@ className="form-input peer w-full rounded-lg border border-slate-300 bg-transpar
   name="study_cost"
    value={formData.study_cost}
     onChange={handleChange}
+    onKeyPress={(e) => {
+      // Allow only numbers, backspace, and dot
+      if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+        e.preventDefault();
+      }
+    }}
      type="text"
       placeholder="study cost" 
       className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
@@ -351,39 +340,30 @@ className="form-input peer w-full rounded-lg border border-slate-300 bg-transpar
 <input name="licence_cost"
  value={formData.licence_cost}
   onChange={handleChange}
+  onKeyPress={(e) => {
+    // Allow only numbers, backspace, and dot
+    if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+      e.preventDefault();
+    }
+  }}
    type="text"
     placeholder="licence cost"
     className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
 </label>
 </>
               )}
-
-              {/* <label className="block">
-                <span>Study Cost</span>
-            <input 
-            name="study_cost"
-             value={formData.study_cost}
-              onChange={handleChange}
-               type="text"
-                placeholder="study cost" 
-                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
-            </label> */}
-
-            {/* <label className="block">
-              <span>Licence Cost</span>
-            <input name="licence_cost"
-             value={formData.licence_cost}
-              onChange={handleChange}
-               type="text"
-                placeholder="licence cost"
-                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
-           </label> */}
-
+              
            <label className="block">
               <span>Both Licence Study</span>
             <input name="cost"
              value={formData.cost}
               onChange={handleChange}
+              onKeyPress={(e) => {
+                // Allow only numbers, backspace, and dot
+                if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+                  e.preventDefault();
+                }
+              }}
                type="text"
                 placeholder="Cost"
                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />

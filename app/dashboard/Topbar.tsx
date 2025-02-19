@@ -146,7 +146,7 @@ const [userData, setUserData] = useState<{
                 </svg>
               </button>
               {/* Main Searchbar */}
-              <div id="searchbar-wrapper" className="hidden sm:flex">
+              {/* <div id="searchbar-wrapper" className="hidden sm:flex">
                 <div className="relative mr-4 flex h-8">
                   <input
                     id="searchbar-ref"
@@ -165,7 +165,7 @@ const [userData, setUserData] = useState<{
                     </svg>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
 
 
