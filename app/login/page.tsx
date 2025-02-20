@@ -29,6 +29,7 @@ const Login = () => {
     }
   }, [router]);
 
+
 const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
   setError("");
@@ -47,6 +48,7 @@ const handleLogin = async (e: React.FormEvent) => {
     }
 
     const data = await response.json();
+    console.log(data);
     const { token, user_type: role } = data?.data || {};
 
     if (!role || !token) {
@@ -85,6 +87,7 @@ const handleLogin = async (e: React.FormEvent) => {
     setLoading(false);
   }
 };
+
   return (
         <div>
       <link rel="stylesheet" href="/css/base.css" />

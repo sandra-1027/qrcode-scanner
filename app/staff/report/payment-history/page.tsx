@@ -268,7 +268,8 @@ const Page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentEntries.map((item, index) => (
+                {currentEntries.length > 0 ?(
+currentEntries.map((item,index) =>(
                     <tr
                       key={item.id}
                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
@@ -326,7 +327,14 @@ const Page = () => {
                         </span>
                       </td>
                     </tr>
-                  ))}
+                 ))
+                ):(
+                  <tr>
+                  <td colSpan={7} className="text-center py-4 text-gray-500">
+                    No data available
+                  </td>
+                </tr>
+                )}
                 </tbody>
               </table>
             </div>

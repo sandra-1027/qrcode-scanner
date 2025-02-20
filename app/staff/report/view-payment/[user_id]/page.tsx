@@ -155,7 +155,18 @@ const page = ({ params }: { params: Promise<{ user_id: string }> }) => {
                   </div>
                 </div>
               )}
-              <div>
+                <div className='text-right'>
+      <p>Billed To</p>
+      {userData && (
+     <div className="mt-4">
+  <h6 className="font-bold mb-2">{userData.first_name}</h6>
+  Bill No:  {userData.mobile}
+  <br />Tel No:  {userData.mobile}
+  <br />Email:  {userData.email}<p />
+</div>
+  )}
+      </div>
+              {/* <div>
                 <p>Billed To</p>
                 {userData && (
                   <div className="mt-4">
@@ -166,7 +177,7 @@ const page = ({ params }: { params: Promise<{ user_id: string }> }) => {
                     <p />
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
 
             <div className="overflow-x-auto w-full">
