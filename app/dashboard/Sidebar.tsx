@@ -94,9 +94,10 @@ const Sidebar = () => {
               {/*largeScren*/}
               {data?.user_type === "admin" ? (
                
-               <div className="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6 hidden sm:flex">
+               <div className=" is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6 hidden sm:flex">
+               
                {/* Tooltip Component */}
-               <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
+               
             
                <Link
                  href="/admin"
@@ -128,6 +129,7 @@ const Sidebar = () => {
                      d="M17.5 5h-1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5Z"
                    />
                  </svg>
+                 <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
                </Link>
          
                {/* Admission */}
@@ -270,7 +272,7 @@ const Sidebar = () => {
                 //  {/* staff */}
                 <div className="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6 hidden sm:flex">
                 {/* Tooltip Component */}
-                <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
+               
              
                 <Link
                   href="/staff"
@@ -303,6 +305,7 @@ const Sidebar = () => {
                         d="M17.5 5h-1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5Z"
                       />
                     </svg>
+                    <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
                     {/* </Link> */}
                   </Link>
 
@@ -415,7 +418,7 @@ const Sidebar = () => {
               {data?.user_type === "admin" ? (
                 <div className="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6 xl:hidden">
                
-                  <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
+                
                {/* Dashobards */}
             <Link
               href="/admin"
@@ -448,6 +451,7 @@ const Sidebar = () => {
                         d="M17.5 5h-1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5Z"
                       />
                     </svg>
+                    <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
                     {/* </Link> */}
                   </Link>
 
@@ -586,7 +590,7 @@ const Sidebar = () => {
               ) : data?.user_type === "staff" ? (
                 <div className="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6 xl:hidden">
                 {/* Tooltip Component */}
-                <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
+             
                   {/* Dashobards */}
                   <Link
                     href="/staff"
@@ -619,6 +623,7 @@ const Sidebar = () => {
                         d="M17.5 5h-1a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5Z"
                       />
                     </svg>
+                    <Tooltip id="main-sidebar-tooltip" className="dark:bg-navy-600"/>
                     {/* </Link> */}
                   </Link>
 
@@ -991,7 +996,7 @@ const Sidebar = () => {
                             >
                               <div className="flex items-center space-x-2">
                                
-                                <span className="font-bold">Admission</span>
+                                <span className="font-bold" >Admission</span>
                               </div>
                             </Link>
                           </li>
@@ -1313,7 +1318,7 @@ const Sidebar = () => {
                             >
                               <div className="flex items-center space-x-2">
                                 <div className="size-1.5 rounded-full border border-current opacity-40" />
-                                <span>Admission</span>
+                                <span onClick={toggleDrawer}>Admission</span>
                               </div>
                             </Link>
                           </li>
@@ -1370,7 +1375,7 @@ const Sidebar = () => {
                                 >
                                   <div className="flex items-center space-x-2">
                                     <div className="size-1.5 rounded-full border border-current opacity-40" />
-                                    <span>Payment History</span>
+                                    <span onClick={toggleDrawer}>Payment History</span>
                                   </div>
                                 </Link>
                               </li>

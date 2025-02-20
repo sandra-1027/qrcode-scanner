@@ -313,7 +313,10 @@ const [userData, setUserData] = useState<{
    setIsCentered((prev) => !prev);
    toggleDrawer(); // Keep the original drawer toggle function
  };
-
+ const handleClicks = () => {
+  setIsCentered((prev) => !prev);
+  toggleDrawer(); // Keep the original drawer toggle function
+};
 
  const handleToggle = () => {
    setIsSidebarExpanded(!isSidebarExpanded);
