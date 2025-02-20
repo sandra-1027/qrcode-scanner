@@ -1447,7 +1447,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
    
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
+    const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false); 
     const userDropdownRef = useRef<HTMLDivElement>(null);
     const branchDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -1984,7 +1984,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                         </span>
                       </label>
  {/*app no */}
-                  <label className="block">
+                  <label className="block mt-1.5">
                         <span>Application No:</span>
                         <span className="relative mt-1.5 flex">
                           <input
@@ -2086,7 +2086,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                             name="blood_group"
                             value={blood_group}
                             onChange={(e) => setblood_group(e.target.value)}
-                            className="dark:bg-navy-700 form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="dark:bg-navy-700 form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           >
                             <option>Select Blood Group</option>
                             <option value="A+ve">A+ve</option>
@@ -2128,7 +2128,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
       {/* Dropdown Button */}
       <div
         onClick={() => setIsbranchDropdownOpen(!isbranchDropdownOpen)}
-        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+        className="mt-3 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {selectedBranch || "Select a branch"}
         <span className="ml-2">&#9662;</span> {/* Down arrow */}
@@ -2136,14 +2136,14 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
 
       {/* Dropdown Content */}
       {isbranchDropdownOpen && (
-        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+        <div className="absolute z-10 mt-1.5 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
           {/* Search Bar Inside Dropdown */}
           <input
             type="text"
             value={searchBranch}
             onChange={handleSearchBranch}
             placeholder="Search..."
-            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+            className=" w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
           />
 
           {/* Dropdown Options */}
@@ -2378,6 +2378,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
               <div className="space-y-5 p-4 sm:p-5">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               
+              {/* service name */}
 <div className="relative w-full" ref={serviceDropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
        Service Name
@@ -2386,7 +2387,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
       {/* Dropdown Button */}
       <div
         onClick={() => setIsserviceDropdownOpen(!isserviceDropdownOpen)}
-        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+        className="mt-1.5 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {selectedService || "Select a service"}
         <span className="ml-2">&#9662;</span> {/* Down arrow */}
@@ -2424,7 +2425,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
       )}
     </div>
 
-
+               {/* bill no*/}
                 <label className="block">
                         <span>Bill No:</span>
                         <span className="relative  flex">
@@ -2447,6 +2448,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                   selectedService === "duplicate licence" ||
                   selectedService === "licence reentry" ||
                   selectedService === "rc transfer") && (
+                    // type
                   <label className="block ">
                     <span className="relative mt-1.5 flex">
                       <select
@@ -2469,6 +2471,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                   selectedService === "rc renewal" ||
                   selectedService === "sfds") && (
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {/* tax */}
                     <label className="block ">
                       <span className="relative mt-1.5 flex">
                         <input
@@ -2480,6 +2483,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                         />
                       </span>
                     </label>
+                       {/* pucc */}
                     <label className="block ">
                       <span className="relative mt-1.5 flex">
                         <input
@@ -2491,7 +2495,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                         />
                       </span>
                     </label>
-
+            {/* old rc */}
                     <div>
                       <label className="block mb-2 mt-4">Old RC</label>
                       <div
@@ -2546,7 +2550,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                         )}
                       </div>
                     </div>
-
+                  {/*Aadhaar */}
                     <div>
                       <label className="block mb-2 mt-4">Aadhaar</label>
                       <div
@@ -2601,7 +2605,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                         )}
                       </div>
                     </div>
-
+                       {/* insurence */}
                     <div>
                       <label className="block mb-2 mt-4">Insurence</label>
                       <div
@@ -2667,13 +2671,14 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
 
                 {/* Common Fields */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                   {/* Payment Method */}
                   <label className="block ">
                     <span>Payment Method</span>
                     <span className="relative mt-1.5 flex">
                       <select
                         value={payment_method}
                         onChange={(e) => setpayment_method(e.target.value)}
-                        className="dark:bg-navy-700 form-input peer mt-1.5  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="dark:bg-navy-700 form-input peer mt-1.5  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       >
                         <option>Select payment method</option>
                         <option value="cash">Cash</option>
@@ -2681,7 +2686,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                       </select>
                     </span>
                   </label>
-
+                     {/* Total Amount */}
                   <label className="block">
                     <span>Total Amount</span>
                     <span className="relative mt-1.5 flex">
@@ -2695,6 +2700,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                   </label>
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+                  {/* Payable Amount */}
                   <label className="block ">
                     <span>Payable Amount</span>
                     <span className="relative mt-1.5 flex">

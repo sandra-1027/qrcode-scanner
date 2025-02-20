@@ -264,13 +264,14 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
               </label>
 
               <div className="ml-2">
+              <span className="mb-2">RC Upload</span>
                 {imagePreview ? (
                   // If an image is selected, show the preview
                   <div className="mb-2">
                     <img
                       src={imagePreview}
                       alt="Selected"
-                      className="w-32 h-32 object-cover border rounded"
+                      className="w-36 h-32 object-cover border rounded"
                     />
                   </div>
                 ) : (
@@ -279,13 +280,13 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     <img
                       src={`https://our-demos.com/n/drivingschool_api/assets/images/rc_documents/${formData.rc_document}`}
                       alt="RC Document"
-                      className="w-32 h-32 object-cover border rounded"
+                      className="w-36 h-32 object-cover border rounded"
                     />
                   </div>
                 )}
 
                 {!imagePreview && (
-                  <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+                  <label className="w-1/3 flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
                     Select Image
                     <input
                       type="file"
@@ -300,10 +301,10 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                 {imagePreview && (
                   <div className="mt-2">
                     <label
-                      className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                      className="bg-blue-500 text-white p-2 rounded cursor-pointer px-6"
                       htmlFor="imageUpload"
                     >
-                      Change Image
+                      Change
                     </label>
                     <input
                       id="imageUpload"
@@ -320,7 +321,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                       onClick={handleRemoveImage}
                       className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
                     >
-                      Remove Image
+                      Remove
                     </button>
                   </div>
                 )}

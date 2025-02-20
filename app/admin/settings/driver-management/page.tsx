@@ -693,8 +693,6 @@ const page = () => {
  
   const [modalMode, setModalMode] = useState<"add" | "edit">("add");
   const [searchDriver, setSearchDriver] = useState("");
-  // const[searchDriverData,setSearchDriverData] =useState("");
-  // const[filteredDriver,setFilteredDriver]=useState("");
    const[searchDriverData,setSearchDriverData] =useState<Driver []>([]);
   const[filteredDriver,setFilteredDriver]=useState<Driver []>([]);
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -765,21 +763,25 @@ const page = () => {
 
     return newFilteredData;
   };
+  
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
 
-    const searchFilteredData = driverData.filter(
-      (item) =>
-        item.first_name.toLowerCase().includes(value.toLowerCase()) ||
-        item.mobile.toLowerCase().includes(value.toLowerCase()) ||
-        item.address.toLowerCase().includes(value.toLowerCase()) ||
-        item.driving_licence_no.toLowerCase().includes(value.toLowerCase()) ||
-        item.status.toLowerCase().includes(value.toLowerCase())
-    );
+    const searchFilteredData = driverData.filter((item) => {
+        return (
+            (item.first_name && item.first_name.toLowerCase().includes(value.toLowerCase())) ||
+            (item.mobile && item.mobile.toLowerCase().includes(value.toLowerCase())) ||
+            (item.address && item.address.toLowerCase().includes(value.toLowerCase())) ||
+            (item.driving_licence_no && item.driving_licence_no.toLowerCase().includes(value.toLowerCase())) ||
+            (item.status && item.status.toLowerCase().includes(value.toLowerCase()))
+        );
+    });
 
     setFilteredData(searchFilteredData);
-  };
+};
+  
+ 
   const handleFilterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newFilteredData = applyFilters();
@@ -1154,7 +1156,15 @@ const page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentEntries.map((item, index) => (
+                {currentEntries.length > 0 ?(
+currentEntries.map((item,index) =>{
+    const formattedDate = new Date(item.date_of_joining).toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+
+    return (
                     <tr
                       key={item.id}
                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
@@ -1175,7 +1185,8 @@ const page = () => {
                         {item.driving_licence_no}
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.date_of_joining}
+                        {/* {item.date_of_joining} */}
+                        {formattedDate}
                       </td>
                       <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                         <span>
@@ -1217,7 +1228,15 @@ const page = () => {
                         </span>
                       </td>
                     </tr>
-                  ))}
+                         );
+                        })
+                      ):(
+                        <tr>
+                        <td colSpan={7} className="text-center py-4 text-gray-500">
+                          No data available
+                        </td>
+                      </tr>
+                      )}
                 </tbody>
               </table>
             </div>

@@ -217,13 +217,14 @@ type Site = {
       </div>
   )}
       {/* ))} */}
-      <div>
+      <div className='text-right'>
       <p>Billed To</p>
       {userData && (
      <div className="mt-4">
-  <h6 className="font-bold">{userData.first_name}</h6>
-  Tel No: {userData.mobile}
-  <br />Email:{userData.email}<p />
+  <h6 className="font-bold mb-2">{userData.first_name}</h6>
+  Bill No:  {userData.mobile}
+  <br />Tel No:  {userData.mobile}
+  <br />Email:  {userData.email}<p />
 </div>
   )}
       </div>

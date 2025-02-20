@@ -97,9 +97,21 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
     }
   }, [formData]);
 
+// const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+//   const { name, value } = e.target;
+//   if (name === "password") {
+//     setPassword(value); 
+//   } else {
+//     setLocalFormData({ ...localFormData, [name]: value });
+//   }
+// };
+
 const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
   const { name, value } = e.target;
   if (name === "password") {
+    if (/\s/.test(value)) {
+      return; // Prevent spaces from being added
+    }
     setPassword(value); 
   } else {
     setLocalFormData({ ...localFormData, [name]: value });
@@ -109,7 +121,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   
-  if (!localFormData.branch_id.trim() || !branch_id) {
+  if (!branch_id ) {
     setError("All fields are required.");
     return;
   }

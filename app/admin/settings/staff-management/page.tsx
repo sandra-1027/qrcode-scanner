@@ -185,6 +185,7 @@ const page = () => {
   
     setFilteredData(searchFilteredData); 
   };
+  
   const handleFilterSubmit = (e: React.FormEvent) => {
     e.preventDefault(); 
     const newFilteredData = applyFilters();
@@ -660,8 +661,10 @@ onChange={handleSearchChange}
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {filteredData.map((item, index) => ( */}
-                  {currentEntries.map((item, index) => {
+                 
+                  {/* {currentEntries.map((item, index) => { */}
+                  {currentEntries.length > 0 ?(
+currentEntries.map((item,index) =>{
     const formattedDate = new Date(item.date_of_joining).toLocaleDateString('en-GB', {
       day: '2-digit',
       month: 'short',
@@ -717,9 +720,17 @@ onChange={handleSearchChange}
                         </span>
                       </td>
                     </tr>
-                  // ))}
+                 
                 );
-              })}
+              })
+            ):(
+
+              <tr>
+              <td colSpan={7} className="text-center py-4 text-gray-500">
+                No data available
+              </td>
+            </tr>
+            )}
                 </tbody>
               </table>
             </div>

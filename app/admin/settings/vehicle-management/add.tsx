@@ -205,10 +205,10 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
               </label>
 
               <div className="block">
-                <span>RC Document</span>
+                <span>RC Upload</span>
                 <div className="mt-2">
                   <div
-                    className={`w-32 h-32 border rounded ${
+                    className={`w-36 h-32 border rounded ${
                       imagePreview
                         ? "flex justify-center items-center"
                         : "bg-transparant"
@@ -218,7 +218,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                       <img
                         src={imagePreview}
                         alt="Selected"
-                        className="w-32 h-32 object-cover border rounded"
+                        className="w-36 h-32 object-cover border rounded"
                       />
                     ) : (
                       <span className="text-gray-500"></span>
@@ -227,7 +227,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   {!imagePreview ? (
                     <label
                       htmlFor="imageInput"
-                      className="mt-2 flex items-center justify-center cursor-pointer bg-blue-500 text-white rounded px-4 py-2"
+                      className="w-1/3 mt-2 flex items-center justify-center cursor-pointer bg-blue-500 text-white rounded px-4 py-2"
                     >
                       Select Image
                       <input
@@ -241,10 +241,10 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   ) : (
                     <div className="mt-2 flex space-x-2">
                       <label
-                        className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                        className="bg-blue-500 text-white p-2 rounded cursor-pointer px-6"
                         htmlFor="imageUpload"
                       >
-                        Change Image
+                        Change
                       </label>
                       <input
                         id="imageUpload"
@@ -259,7 +259,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                         onClick={handleRemoveImage}
                         className="outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
                       >
-                        Remove Image
+                        Remove
                       </button>
                     </div>
                   )}

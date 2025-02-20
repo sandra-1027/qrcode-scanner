@@ -44,6 +44,15 @@ const [userData, setUserData] = useState<{
    const router = useRouter();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
+
+  const [isCentered, setIsCentered] = useState(false);
+
+  const handleClick = () => {
+    setIsCentered((prev) => !prev);
+    toggleDrawer(); // Keep the original drawer toggle function
+  };
+
+
   const handleToggle = () => {
     setIsSidebarExpanded(!isSidebarExpanded);
   };
@@ -95,82 +104,41 @@ const [userData, setUserData] = useState<{
 
   return (
     <>
-      <nav className="header before:bg-white dark:before:bg-navy-750 print:hidden">
-        {/* App Header  */}
-        <div className="header-container relative flex w-full bg-white dark:bg-navy-700 print:hidden">
-          {/* Header Items */}
-          <div className="flex w-full items-center justify-between">
-            {/* Left: Sidebar Toggle Button */}
-            <div className="size-7">
-              <button
-                onClick={toggleDrawer}
-                className="sidebar-toggle hidden sm:flex ml-0.5 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
-              >
-                <span />
-                <span />
-                <span />
-              </button>
-            </div>
-            <button
-              onClick={toggleDrawer}
-              className="sidebar-toggle ml-0.5 flex size-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80 xl:hidden"
-            >
-              <span />
-              <span />
-              <span />
-            </button>
+     
+    <nav className="header before:bg-white dark:before:bg-navy-750 print:hidden ">
+  {/* App Header  */}
+  <div className="header-container relative flex w-full bg-white dark:bg-navy-700 print:hidden">
+    {/* Header Items */}
+    <div className="flex w-full items-center justify-between">
+      {/* Left: Sidebar Toggle Button */}
+      <div className="size-7">
+        <button
+          onClick={toggleDrawer}
+          className="sidebar-toggle hidden sm:flex ml-0.5 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
+
+      {/* Center/Left Toggle Button */}
+      {/* <div className={`w-full absolute top-0 left-0 transition-all duration-300 ${isCentered ? "flex justify-center" : "flex justify-start ml-2"}`}> */}
+      <div className={`w-full absolute top-0 left-0 transition-all duration-300 ${isCentered ? "flex ml-18" : "flex justify-start ml-2"}`}>
+        <button
+          onClick={handleClick}
+          className="mt-6 ml-4 sidebar-toggle flex size-7 flex-col space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80 xl:hidden"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        </div>
             {/* Right: Header buttons */}
-            <div className="-mr-1.5 flex items-center space-x-2">
+            <div className="flex items-right space-x-2">
               
-
-           
-             {/* Mobile Search Toggle */}
-
-              <button
-                // onClick={toggleDrawer}
-                className="mobile-searchbar-show btn size-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 sm:hidden"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="size-5.5 text-slate-500 dark:text-navy-100"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-              {/* Main Searchbar */}
-              {/* <div id="searchbar-wrapper" className="hidden sm:flex">
-                <div className="relative mr-4 flex h-8">
-                  <input
-                    id="searchbar-ref"
-                    placeholder="Search here..."
-                    className="form-input peer h-full w-60 rounded-full bg-slate-150 px-4 pl-9 text-xs+ text-slate-800 ring-primary/50 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:text-navy-100 dark:placeholder-navy-300 dark:ring-accent/50 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
-                    type="text"
-                  />
-                  <div className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="size-4.5 transition-colors duration-200"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M3.316 13.781l.73-.171-.73.171zm0-5.457l.73.171-.73-.171zm15.473 0l.73-.171-.73.171zm0 5.457l.73.171-.73-.171zm-5.008 5.008l-.171-.73.171.73zm-5.457 0l-.171.73.171-.73zm0-15.473l-.171-.73.171.73zm5.457 0l.171-.73-.171.73zM20.47 21.53a.75.75 0 101.06-1.06l-1.06 1.06zM4.046 13.61a11.198 11.198 0 010-5.115l-1.46-.342a12.698 12.698 0 000 5.8l1.46-.343zm14.013-5.115a11.196 11.196 0 010 5.115l1.46.342a12.698 12.698 0 000-5.8l-1.46.343zm-4.45 9.564a11.196 11.196 0 01-5.114 0l-.342 1.46c1.907.448 3.892.448 5.8 0l-.343-1.46zM8.496 4.046a11.198 11.198 0 015.115 0l.342-1.46a12.698 12.698 0 00-5.8 0l.343 1.46zm0 14.013a5.97 5.97 0 01-4.45-4.45l-1.46.343a7.47 7.47 0 005.568 5.568l.342-1.46zm5.457 1.46a7.47 7.47 0 005.568-5.567l-1.46-.342a5.97 5.97 0 01-4.45 4.45l.342 1.46zM13.61 4.046a5.97 5.97 0 014.45 4.45l1.46-.343a7.47 7.47 0 00-5.568-5.567l-.342 1.46zm-5.457-1.46a7.47 7.47 0 00-5.567 5.567l1.46.342a5.97 5.97 0 014.45-4.45l-.343-1.46zm8.652 15.28l3.665 3.664 1.06-1.06-3.665-3.665-1.06 1.06z" />
-                    </svg>
-                  </div>
-                </div>
-              </div> */}
-
-
-
               {/* Dark Mode Toggle */}
-              <button className="darkmode-toggle btn size-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+              <button className="mt-4 darkmode-toggle btn size-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                 <svg
                   className="darkmode-moon size-6 text-amber-400"
                   fill="currentColor"
@@ -192,476 +160,13 @@ const [userData, setUserData] = useState<{
                 </svg>
               </button>
               {/* Monochrome Mode Toggle */}
-              <button className="monochrome-toggle btn size-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+              <button className="mt-4 monochrome-toggle btn size-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                 <i className="fa-solid fa-palette bg-gradient-to-r from-sky-400 to-blue-600 bg-clip-text text-lg font-semibold text-transparent" />
               </button>
-              {/* Notification*/}
-              {/* <div id="notification-wrapper" className="flex">
-                <button
-                  // onClick={togglePopover}
-                  id="notification-ref"
-                  className="btn relative size-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="size-5 text-slate-500 dark:text-navy-100"
-                    stroke="currentColor"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                      d="M15.375 17.556h-6.75m6.75 0H21l-1.58-1.562a2.254 2.254 0 01-.67-1.596v-3.51a6.612 6.612 0 00-1.238-3.85 6.744 6.744 0 00-3.262-2.437v-.379c0-.59-.237-1.154-.659-1.571A2.265 2.265 0 0012 2c-.597 0-1.169.234-1.591.65a2.208 2.208 0 00-.659 1.572v.38c-2.621.915-4.5 3.385-4.5 6.287v3.51c0 .598-.24 1.172-.67 1.595L3 17.556h12.375zm0 0v1.11c0 .885-.356 1.733-.989 2.358A3.397 3.397 0 0112 22a3.397 3.397 0 01-2.386-.976 3.313 3.313 0 01-.989-2.357v-1.111h6.75z"
-                    />
-                  </svg>
-                  <span className="absolute -top-px -right-px flex size-3 items-center justify-center">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-80" />
-                    <span className="inline-flex size-2 rounded-full bg-secondary" />
-                  </span>
-                </button>
-
-                <div id="notification-box" className="popper-root">
-                
-                  <div className="notification-tab-wrapper popper-box mx-4 mt-1 flex max-h-[calc(100vh-6rem)] w-[calc(100vw-2rem)] flex-col rounded-lg border border-slate-150 bg-white shadow-soft dark:border-navy-800 dark:bg-navy-700 dark:shadow-soft-dark sm:m-0 sm:w-80">
-                    <div className="rounded-t-lg bg-slate-100 text-slate-600 dark:bg-navy-800 dark:text-navy-200">
-                      <div className="flex items-center justify-between px-4 pt-2">
-                        <div className="flex items-center space-x-2">
-                          <h3 className="font-medium text-slate-700 dark:text-navy-100">
-                            Notifications
-                          </h3>
-                          <div className="badge h-5 rounded-full bg-primary/10 px-1.5 text-primary dark:bg-accent-light/15 dark:text-accent-light">
-                            26
-                          </div>
-                        </div>
-                        
-                      </div>
-                      <div className="tabs is-scrollbar-hidden flex shrink-0 overflow-x-auto px-3">
-                        <button
-                          className="tab btn shrink-0 rounded-none border-b-2 px-3.5 py-2.5"
-                          data-active-class="border-primary dark:border-accent text-primary dark:text-accent-light"
-                          data-default-class="border-transparent hover:text-slate-800 focus:text-slate-800 dark:hover:text-navy-100 dark:focus:text-navy-100"
-                          data-target="#notification-all"
-                        >
-                          <span>All</span>
-                        </button>
-                        
-                      </div>
-                    </div>
-                    <div className="flex flex-col overflow-hidden">
-                      <div
-                        className="tab-content tab-shift-left is-scrollbar-hidden space-y-4 overflow-y-auto px-4 py-4"
-                        id="notification-all"
-                      >
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary/10 dark:bg-secondary-light/15">
-                            <i className="fa fa-user-edit text-secondary dark:text-secondary-light" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              User Photo Changed
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              John Doe changed his avatar photo
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-info/10 dark:bg-info/15">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="size-5 text-info"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Mon, June 14, 2021
-                            </p>
-                            <div className="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                              <span className="shrink-0">08:00 - 09:00</span>
-                              <div className="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500" />
-                              <span className="line-clamp-1">
-                                Frontend Conf
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 dark:bg-accent-light/15">
-                            <i className="fa-solid fa-image text-primary dark:text-accent-light" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Images Added
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              Mores Clarke added new image gallery
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-success/10 dark:bg-success/15">
-                            <i className="fa fa-leaf text-success" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Design Completed
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              Robert Nolan completed the design of the CRM
-                              application
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-info/10 dark:bg-info/15">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="size-5 text-info"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Wed, June 21, 2021
-                            </p>
-                            <div className="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                              <span className="shrink-0">16:00 - 20:00</span>
-                              <div className="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500" />
-                              <span className="line-clamp-1">UI/UX Conf</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-warning/10 dark:bg-warning/15">
-                            <i className="fa fa-project-diagram text-warning" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              ER Diagram
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              Team completed the ER diagram app
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-warning/10 dark:bg-warning/15">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="size-5 text-warning"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-                              />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              THU, May 11, 2021
-                            </p>
-                            <div className="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                              <span className="shrink-0">10:00 - 11:30</span>
-                              <div className="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500" />
-                              <span className="line-clamp-1">
-                                Interview, Konnor Guzman
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-error/10 dark:bg-error/15">
-                            <i className="fa fa-history text-error" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Weekly Report
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              The weekly report was uploaded
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        id="notification-alerts"
-                        className="tab-content tab-shift-left is-scrollbar-hidden space-y-4 overflow-y-auto px-4 py-4"
-                      >
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary/10 dark:bg-secondary-light/15">
-                            <i className="fa fa-user-edit text-secondary dark:text-secondary-light" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              User Photo Changed
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              John Doe changed his avatar photo
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 dark:bg-accent-light/15">
-                            <i className="fa-solid fa-image text-primary dark:text-accent-light" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Images Added
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              Mores Clarke added new image gallery
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-success/10 dark:bg-success/15">
-                            <i className="fa fa-leaf text-success" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Design Completed
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              Robert Nolan completed the design of the CRM
-                              application
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-warning/10 dark:bg-warning/15">
-                            <i className="fa fa-project-diagram text-warning" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              ER Diagram
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              Team completed the ER diagram app
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-error/10 dark:bg-error/15">
-                            <i className="fa fa-history text-error" />
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Weekly Report
-                            </p>
-                            <div className="mt-1 text-xs text-slate-400 line-clamp-1 dark:text-navy-300">
-                              The weekly report was uploaded
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        id="notification-events"
-                        className="tab-content tab-shift-left is-scrollbar-hidden space-y-4 overflow-y-auto px-4 py-4"
-                      >
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-info/10 dark:bg-info/15">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="size-5 text-info"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Mon, June 14, 2021
-                            </p>
-                            <div className="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                              <span className="shrink-0">08:00 - 09:00</span>
-                              <div className="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500" />
-                              <span className="line-clamp-1">
-                                Frontend Conf
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-info/10 dark:bg-info/15">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="size-5 text-info"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Wed, June 21, 2021
-                            </p>
-                            <div className="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                              <span className="shrink-0">16:00 - 20:00</span>
-                              <div className="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500" />
-                              <span className="line-clamp-1">UI/UX Conf</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-warning/10 dark:bg-warning/15">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="size-5 text-warning"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-                              />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              THU, May 11, 2021
-                            </p>
-                            <div className="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                              <span className="shrink-0">10:00 - 11:30</span>
-                              <div className="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500" />
-                              <span className="line-clamp-1">
-                                Interview, Konnor Guzman
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-info/10 dark:bg-info/15">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="size-5 text-info"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Mon, Jul 16, 2021
-                            </p>
-                            <div className="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                              <span className="shrink-0">06:00 - 16:00</span>
-                              <div className="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500" />
-                              <span className="line-clamp-1">Laravel Conf</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-warning/10 dark:bg-warning/15">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="size-5 text-warning"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-                              />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-600 dark:text-navy-100">
-                              Wed, Jun 16, 2021
-                            </p>
-                            <div className="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                              <span className="shrink-0">15:30 - 11:30</span>
-                              <div className="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500" />
-                              <span className="line-clamp-1">
-                                Interview, Jonh Doe
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        id="notification-logs"
-                        className="tab-content tab-shift-left is-scrollbar-hidden overflow-y-auto px-4"
-                      >
-                        <div className="mt-8 pb-8 text-center">
-                          <img
-                            className="mx-auto w-36"
-                            src="/images/illustrations/empty-girl-box.svg"
-                            alt="image"
-                          />
-                          <div className="mt-5">
-                            <p className="text-base font-semibold text-slate-700 dark:text-navy-100">
-                              No any logs
-                            </p>
-                            <p className="text-slate-400 dark:text-navy-300">
-                              There are no unread logs yet
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
              
-
-
-
 {/* Profile */}
-<div className="flex flex-col items-center space-y-3 py-3">
-
+{/* <div className="flex flex-col space-y-3 py-3"> */}
+<div className="flex flex-col space-y-3 py-3">
 <div id="profile-wrapper" className="flex">
   <button id="profile-ref" className="avatar size-10">
     <img
@@ -746,14 +251,11 @@ const [userData, setUserData] = useState<{
 </div>
 </div>
 
+</div>
 
- 
-
-
-
-
-            </div>
+           
           </div>
+      
         </div>
       </nav>
     </>

@@ -477,19 +477,23 @@ const page = () => {
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Vehicle No:
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[150px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Rc Document
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[150px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Rc Expiry Date
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[150px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Pucc Expiry Date
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    {/* <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                   
                       Insurance Expiry Date
-                    </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    </th> */}
+                    <th className="max-w-[100px] break-words bg-slate-200 px-2 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100">
+                     Insurance Expiry Date
+                      </th>
+                    <th className="max-w-[150px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Tax Expiry Date
                     </th>
                     <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
@@ -498,7 +502,9 @@ const page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentEntries.map((item, index) => (
+                  {/* {currentEntries.map((item, index) => ( */}
+                  {currentEntries.length > 0 ?(
+currentEntries.map((item,index) =>(
                     <tr
                       key={item.id}
                       className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
@@ -530,6 +536,7 @@ const page = () => {
                       </td>
 
                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                      {/* <td className="whitespace-nowrap px-2 py-3 sm:px-3"> */}
                         {item.insurance_expiry_date}
                       </td>
                       <td className="whitespace-nowrap  px-4 py-3 sm:px-5">
@@ -576,7 +583,14 @@ const page = () => {
                         </span>
                       </td>
                     </tr>
-                  ))}
+                  ))
+                ):(
+                  <tr>
+                  <td colSpan={7} className="text-center py-4 text-gray-500">
+                    No data available
+                  </td>
+                </tr>
+                )}
                 </tbody>
               </table>
             </div>

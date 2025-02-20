@@ -366,10 +366,21 @@ const [formData, setFormData] = useState<Staff | null>(null);
 
 
 
+// const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+//     const { name, value } = e.target;
+//     setFormData((prevData) => prevData ? { ...prevData, [name]: value } : null);
+//   };
+
 const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => prevData ? { ...prevData, [name]: value } : null);
-  };
+ let { name, value } = e.target;
+
+
+     // Remove spaces from password field
+  if (name === "password") {
+    value = value.replace(/\s/g, ""); // Removes all spaces
+}
+  setFormData((prevData) => prevData ? { ...prevData, [name]: value } : null);
+};
 
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -591,22 +602,7 @@ useEffect(() => {
             </label>
   
       
-            {/* <label className="block">
-            <span>Branch Name</span>
-            <span className="relative mt-1.5 flex ">
-              <select name="branch_id" value={formData.branch_id} onChange={handleChange}
-             className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-             >
-                <option value="">Select a Branch</option>
-                {branches.map((branch) => (
-                  <option key={branch.id} value={branch.id}>
-                    {branch.branch_name}
-                  </option>
-                ))}
-              </select>
-              </span>
-              </label> */}
-
+           
 
       <div className="relative w-full" ref={dropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
@@ -665,6 +661,11 @@ useEffect(() => {
         name="password"
         // value={formData.password}
         onChange={handleChange}
+        onKeyDown={(e) => {
+          if (e.key === " ") {
+            e.preventDefault();
+          }
+        }}
         type={showPassword ? "text" : "password"} 
         placeholder="Password"
         className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
@@ -677,7 +678,7 @@ useEffect(() => {
       </span>
     </span>
             </label>
-            
+
             </div>
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
             {loading ? 'Updating...' : 'Update'}
