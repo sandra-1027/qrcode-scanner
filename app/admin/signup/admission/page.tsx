@@ -1235,18 +1235,21 @@ const Admission = () => {
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+   
     const value = e.target.value;
+    console.log("Search Term:", value);
     setSearchTerm(value);
 
-    const searchFilteredData = AdmissionData.filter(
-      (item) =>
-        item.service_name.toLowerCase().includes(value.toLowerCase()) ||
-        item.first_name.toLowerCase().includes(value.toLowerCase()) ||
-        item.email.toLowerCase().includes(value.toLowerCase()) ||
-        item.mobile.toLowerCase().includes(value.toLowerCase()) ||
-        item.pay_status.toLowerCase().includes(value.toLowerCase())
+    const searchFilteredData = AdmissionData.filter((item) =>
+      (item.service_name?.toLowerCase() || "").includes(value.toLowerCase()) ||
+      (item.first_name?.toLowerCase() || "").includes(value.toLowerCase()) ||
+      (item.email?.toLowerCase() || "").includes(value.toLowerCase()) ||
+      (item.mobile?.toLowerCase() || "").includes(value.toLowerCase()) ||
+      (item.due_amount?.toLowerCase() || "").includes(value.toLowerCase()) ||
+      (item.pay_status?.toLowerCase() || "").includes(value.toLowerCase())
     );
 
+    console.log("Filtered Data:", searchFilteredData);
     setFilteredData(searchFilteredData); // Update filtered data in real-time
   };
 
@@ -1786,7 +1789,7 @@ const Admission = () => {
 
                           </div>
                           <button 
-    // onClick={() => window.open(`/admin/report/view-payment/${item.user_id}?cus_service_id=${item.cus_service_id}`, '_blank')}
+ onClick={() => window.open(`/admin/report/view-payment/${item.customer_id}?cus_service_id=${item.id}`, '_blank')}
     className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
 >
     <RiBillFill />
