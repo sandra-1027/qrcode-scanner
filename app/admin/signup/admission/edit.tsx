@@ -1360,6 +1360,8 @@ interface Admission {
   address:string;
   dob:string;
   text:string;
+  admission_no:string;
+  app_no:string;
   
 }
 
@@ -1893,49 +1895,52 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
         {/* Modal Body */}
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col sm:flex-row max-h-[80vh] overflow-y-auto px-4 py-4 sm:px-5 gap-8 ">
-            <div className="flex-1  p-4">
-              <label className="block mb-2 text-lg font-medium text-slate-700 dark:text-navy-100">
+            <div className="flex-1 p-4">
+             
+
+              <div className="flex flex-col space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8">
+                <div className="flex-1 p-4 border border-gray-300 shadow-md rounded-lg ">
+                <label className="p-4 block mb-2 mt-2 text-lg font-medium text-slate-700 dark:text-navy-100">
                 Profile Information
               </label>
-
-              <div className="flex flex-col space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8 mt-2">
-                <div className="flex-1 ">
                   {/* Profile Information */}
-                  <div className="mb-4 mt-4 ">
+                  <div className="mb-4 mt-4 p-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
                   {/* Admission No */}
                   <label className="block">
                         <span>Admission No</span>
                         <span className="relative mt-1.5 flex">
                           <input
-                            name="first_name"
+                            name="admission_no"
                           //  value={formData.name}
-                          value={formData?.first_name|| ""}
+                          value={formData?.admission_no|| ""}
                             onChange={handleChange}
                             className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                            placeholder="name"
+                            placeholder="Admission No"
                             type="text"
                           />
                         </span>
                       </label>
                           {/* Application No */}
-                  <label className="block mt-1.5">
+                  <label className="block">
                         <span>Application No</span>
                         <span className="relative mt-1.5 flex">
                           <input
-                            name="first_name"
+                            name="app_no"
                           //  value={formData.name}
-                          value={formData?.first_name|| ""}
+                          value={formData?.app_no|| ""}
                             onChange={handleChange}
                             className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                            placeholder="name"
+                            placeholder="Application No"
                             type="text"
                           />
                         </span>
                       </label>
+
                         {/* name */}
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
+                    {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2"> */}
                       <label className="block">
-                        <span>Name</span>
+                        <span>Name*</span>
                         <span className="relative mt-1.5 flex">
                           <input
                             name="first_name"
@@ -1949,7 +1954,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         </span>
                       </label>
                       <label className="block">
-                        <span>Mobile</span>
+                        <span>Mobile*</span>
                         <span className="relative mt-1.5 flex">
                           <input
                            name="mobile"
@@ -1984,12 +1989,12 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         <span className="relative mt-1.5 flex">
                        
                           <textarea
-  name="mobile"
+  name="address"
   rows={2}
-  value={formData?.mobile || ""}
+  value={formData?.address || ""}
   onChange={handleChange}
   className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-  placeholder="mobile"
+  placeholder="Address"
 />
                         </span>
                       </label>
@@ -1997,7 +2002,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                     {/* Additional Fields */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
                           {/* Email*/}
-                      <label className="block">
+                      {/* <label className="block">
                         <span>Email</span>
                         <span className="relative mt-1.5 flex">
                           <input
@@ -2008,6 +2013,21 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                             type="text"
                             placeholder="email"
                             className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          />
+                        </span>
+                      </label> */}
+ {/*DL No:*/}
+<label className="block">
+                        <span>DL No:</span>
+                        <span className="relative mt-1.5 flex">
+                          <input
+                            name="first_name"
+                          //  value={formData.name}
+                          value={formData?.first_name|| ""}
+                            onChange={handleChange}
+                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            placeholder="DL No:"
+                            type="text"
                           />
                         </span>
                       </label>
@@ -2101,23 +2121,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
     </div>
 
                     </div>
-                      {/* Document */}
-                    <label className="block mt-2">
-                      <span>Choose Document</span>
-                      <span className="relative mt-1.5 flex">
-                        <select        
-                        name="document_type"               
-                        value={formData?. document_type|| ""}
-                        onChange={handleChange}
-                        className="dark:bg-navy-700 form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
-                          <option value="">Choose Document Type</option>
-                          <option value="sslc">SSLC</option>
-                          <option value="aadhaar">Aadhaar</option>
-                          <option value="birth_certificate">Birth Certificate</option>
-                          <option value="passport">Passport</option>
-                        </select>
-                      </span>
-                    </label>
+                 
 
                     <div className="w-full max-w-3xl mx-auto space-y-6">
                       {/* Grid Container */}
@@ -2151,9 +2155,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
          />
        </div>
      )}
-               
+                <div className="mt-4 flex space-x-2">
                 {!userPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -2169,7 +2173,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                  
 
                  <label
-                       className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                       className="bg-primary hover:bg-primary-focus text-white p-2 px-4 rounded cursor-pointer"
                        htmlFor="imageUpload"
                      >
                        Change
@@ -2192,7 +2196,100 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                </div>
              )}
              </div>
+             </div>
                         </div>
+                           {/* Upload signature */}
+                           <div>
+                          <label className="block mb-2 mt-4">
+                          Signature
+                          </label>
+
+                         
+                          <div className="ml-2">
+               
+               {signaturePreview? (
+       
+       <div className="mb-2">
+         <img
+           src={signaturePreview}
+           alt="Selected"
+           className="w-32 h-32 object-cover border rounded"
+         />
+       </div>
+     ) : (
+      
+       <div className="mb-2">
+         <img
+  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.documents}`}
+           alt="RC Document"
+           className="w-32 h-32 object-cover border rounded"
+         />
+       </div>
+     )}
+                <div className="mt-4 flex space-x-2">
+                {!signaturePreview && (
+               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+                 Select Image
+                 <input
+                   type="file"
+                   accept="image/*"
+                   onChange={handleSignaturechange}
+                   className="hidden"
+                 />
+               </label>
+             )}
+
+             {signaturePreview  && (
+               <div className="mt-2 flex">
+                 
+
+                 <label
+                       className="bg-primary hover:bg-primary-focus text-white p-2 px-4 rounded cursor-pointer"
+                       htmlFor="imageUpload"
+                     >
+                       Change
+                     </label>
+                     <input
+                       id="imageUpload"
+                       type="file"
+                       accept="image/*"
+                       onChange={handleSignaturechange}
+                       className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
+                     />
+
+<button
+                   type="button"
+                   onClick={handleRemovesignature}
+                  className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
+                 >
+                   Remove
+                 </button>
+               </div>
+             )}
+             </div>
+             </div>
+
+                        </div>
+
+
+                             {/* Document */}
+                             <div>
+                    <label className="block mt-2">
+                      <span>Choose Document</span>
+                      <span className="relative mt-1.5 flex">
+                        <select        
+                        name="document_type"               
+                        value={formData?. document_type|| ""}
+                        onChange={handleChange}
+                        className="dark:bg-navy-700 form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
+                          <option value="">Choose Document</option>
+                          <option value="sslc">SSLC</option>
+                          <option value="aadhaar">Aadhaar</option>
+                          <option value="birth_certificate">Birth Certificate</option>
+                          <option value="passport">Passport</option>
+                        </select>
+                      </span>
+                    </label>
                         {/* Upload Document Proof Image Section */}
                         <div>
                           <label className="block mb-2 mt-4">
@@ -2221,9 +2318,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
          />
        </div>
      )}
-               
+                   <div className="mt-4 flex space-x-2">
                 {!documentPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -2239,7 +2336,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                  
 
                  <label
-                       className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                       className="bg-primary hover:bg-primary-focus text-white p-2 px-4 rounded cursor-pointer"
                        htmlFor="imageUpload"
                      >
                        Change
@@ -2262,23 +2359,42 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                </div>
              )}
              </div>
-                        </div>
-
+             </div>
+               </div>
+               </div>
             
-                        {/* Upload signature */}
+                                   {/* Document 2 */}
+                                   <div>
+                    <label className="block mt-2">
+                      <span>Choose Document</span>
+                      <span className="relative mt-1.5 flex">
+                        <select        
+                        name="document_type"               
+                        value={formData?. document_type|| ""}
+                        onChange={handleChange}
+                        className="dark:bg-navy-700 form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
+                          <option value="">Choose Document</option>
+                          <option value="sslc">SSLC</option>
+                          <option value="aadhaar">Aadhaar</option>
+                          <option value="birth_certificate">Birth Certificate</option>
+                          <option value="passport">Passport</option>
+                        </select>
+                      </span>
+                    </label>
+                        {/* Upload Document Proof Image Section */}
                         <div>
                           <label className="block mb-2 mt-4">
-                          Signature
+                          Document Upload
                           </label>
 
                          
                           <div className="ml-2">
                
-               {signaturePreview? (
+               {documentPreview? (
        
        <div className="mb-2">
          <img
-           src={signaturePreview}
+           src={documentPreview}
            alt="Selected"
            className="w-32 h-32 object-cover border rounded"
          />
@@ -2293,25 +2409,25 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
          />
        </div>
      )}
-               
-                {!signaturePreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+                   <div className="mt-4 flex space-x-2">
+                {!documentPreview && (
+               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
                    accept="image/*"
-                   onChange={handleSignaturechange}
+                   onChange={handleDocumentchange}
                    className="hidden"
                  />
                </label>
              )}
 
-             {signaturePreview  && (
+             {documentPreview  && (
                <div className="mt-2 flex">
                  
 
                  <label
-                       className="bg-blue-500 text-white p-2 rounded cursor-pointer"
+                       className="bg-primary hover:bg-primary-focus text-white p-2 px-4 rounded cursor-pointer"
                        htmlFor="imageUpload"
                      >
                        Change
@@ -2320,13 +2436,13 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                        id="imageUpload"
                        type="file"
                        accept="image/*"
-                       onChange={handleSignaturechange}
+                       onChange={handleDocumentchange}
                        className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
                      />
 
 <button
                    type="button"
-                   onClick={handleRemovesignature}
+                   onClick={handleRemovedocument}
                   className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
                  >
                    Remove
@@ -2334,16 +2450,21 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                </div>
              )}
              </div>
-                        </div>
+             </div>
+               </div>
+               </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
+
+
             {/* Right Section: Service Information */}
-            <div className="flex-1 mt-4 sm:mt-0  p-4">
-           
+            <div className="flex-1 mt-4 sm:mt-0 p-4">
+           <div className="p-4 border border-gray-300 shadow-md rounded-lg ">
               <label className="block mb-2 text-lg  font-medium text-slate-700 dark:text-navy-100 mt-4">
                 Service Information
               </label>
@@ -2750,6 +2871,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
             >
           Update
             </button>
+              </div>
               </div>
             </div>
           </div>
