@@ -1043,9 +1043,10 @@ const Admission = () => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
+  const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false);
   const userDropdownRef = useRef<HTMLDivElement>(null);
   const branchDropdownRef = useRef<HTMLDivElement>(null);
-  //  const dropdownRef = useRef(null);
+const dropdownRef = useRef<HTMLDivElement>(null);
 
   const togglemodal = (
     mode: "add" | "edit",
@@ -1479,7 +1480,7 @@ const Admission = () => {
                   )}
                 </div>
 {/* Admission No:Select */}
-                <div className="relative w-full" ref={branchDropdownRef}>
+                <div className="relative w-full" ref={dropdownRef}>
                   <label
                     htmlFor="mobile"
                     className="block text-sm font-medium text-slate-700 dark:text-navy-100"
@@ -1490,7 +1491,7 @@ const Admission = () => {
                   {/* Dropdown Button */}
                   <div
                     onClick={() =>
-                      setIsbranchDropdownOpen(!isbranchDropdownOpen)
+                      setIsadmissionDropdownOpen(!isadmissionDropdownOpen)
                     }
                     className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
                   >
@@ -1499,7 +1500,7 @@ const Admission = () => {
                   </div>
 
                   {/* Dropdown Content */}
-                  {isbranchDropdownOpen && (
+                  {isadmissionDropdownOpen && (
                     <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
                       {/* Search Bar Inside Dropdown */}
                       <input
