@@ -1953,6 +1953,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                           />
                         </span>
                       </label>
+                      {/* mobile*/}
                       <label className="block">
                         <span>Mobile*</span>
                         <span className="relative mt-1.5 flex">
@@ -2563,11 +2564,13 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                          value={formData?.type || ""}
                         onChange={handleChange}
                         name="type"
-                        className="dark:bg-navy-700 form-input peer mt-1  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
-                          <option value=''>Select Type</option>
-                          <option value="lmc">LMC</option>
-                          <option value="mc">MC</option>
-                          <option value="both">BOTH</option>
+                        className="dark:bg-navy-700 form-input peer mt-1  w-full rounded-lg border border-slate-300 bg-transparent px-1 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
+                          <option value=''>Choose Type</option>
+                          <option value="lmc">LMV MC both Study</option>
+                          <option value="mc">LMV MC both Licence</option>
+                          <option value="both">LMV Study MC Licence </option>
+                          <option value="both">LMV Licence MC Study</option>
+                          <option value="both">Both Licence Study</option>
                         </select>
                       </span>
 </label>
@@ -2588,6 +2591,37 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                    />
                  </span>
 </label>
+{/* Discount */}
+<label className="block">
+                    <span>Discount</span>
+                    <span className="relative flex">
+                      <input
+                        name="pay_amount"
+                        value={formData?.pay_amount || ""}
+                        readOnly
+                          // onChange={handleChange}
+                        type="text"
+                        placeholder="Paid Amount"
+                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      />
+                    </span>
+                  </label>
+
+                 {/* Pay Amount */}
+<label className="block">
+                    <span>Pay Amount</span>
+                    <span className="relative flex">
+                      <input
+                        name="pay_amount"
+                        value={formData?.pay_amount || ""}
+                        readOnly
+                          // onChange={handleChange}
+                        type="text"
+                        placeholder="Paid Amount"
+                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      />
+                    </span>
+                  </label> 
 {/* paid amount */}
 <label className="block">
                     <span>Paid Amount</span>
@@ -2618,6 +2652,23 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                       />
                     </span>
                   </label>
+
+
+                                   {/* Trial Amount */}
+<label className="block">
+                    <span>Trial Amount</span>
+                    <span className="relative flex">
+                      <input
+                        name="pay_amount"
+                        value={formData?.pay_amount || ""}
+                        readOnly
+                          // onChange={handleChange}
+                        type="text"
+                        placeholder="Paid Amount"
+                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      />
+                    </span>
+                  </label> 
 </div>
                 {/* Additional Fields */}
                 {(formData?.service_name === "rc transfer" ||
