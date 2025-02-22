@@ -1,5 +1,3 @@
-
-
 // "use client";
 // import React, { useEffect, useRef, useState } from "react";
 // import { FaEdit } from "react-icons/fa";
@@ -150,8 +148,6 @@
 //     fetchAdmissionData();
 //   }, [state]);
 
-
-
 //   // const fetchMobileData = async (searchTerm = null) => {
 //     const fetchMobileData = async (searchTerm: string | null = null) => {
 //     try {
@@ -197,7 +193,7 @@
 //   // const handleSearchMobile = (e) => {
 //   //   const value = e.target.value;
 //   //   setSearchMobile(value);
-//   //   fetchMobileData(value); 
+//   //   fetchMobileData(value);
 //   // };
 //   const handleSearchMobile = (e: React.ChangeEvent<HTMLInputElement>) => {
 //     const value = e.target.value;
@@ -205,13 +201,11 @@
 //     fetchMobileData(value || null);
 //   };
 
-
 //   const handleSelectMobile = (mobile :Admission) => {
 //     setSelectedMobile(mobile.text);
 //     setIsDropdownOpen(false);
 //     setSearchMobile(""); // Reset search field
 //   };
-
 
 //   const updateAccountStatus = async (id: string, status: string) => {
 //     try {
@@ -389,7 +383,6 @@
 //     setIsDropdownOpen(false); // Close dropdown after selection
 //   };
 
-
 //   // useEffect(() => {
 //   //   const handleClickOutside = (event: MouseEvent) => {
 //   //     if (dropdownRef.current && event.target instanceof Node) {
@@ -398,7 +391,7 @@
 //   //       }
 //   //     }
 //   //   };
-  
+
 //   //   document.addEventListener("mousedown", handleClickOutside);
 //   //   return () => document.removeEventListener("mousedown", handleClickOutside);
 //   // }, []);
@@ -415,7 +408,6 @@
 //                 setIsDropdownOpen(false);
 //               }
 //             }
-
 
 //       // if (
 //       //   branchDropdownRef.current &&
@@ -804,9 +796,8 @@
 //                               </button>
 //                             )}
 
-
 //                           </div>
-//                           <button 
+//                           <button
 //     // onClick={() => window.open(`/admin/report/view-payment/${item.user_id}?cus_service_id=${item.cus_service_id}`, '_blank')}
 //     className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
 // >
@@ -942,10 +933,6 @@
 
 // export default Admission;
 
-
-
-
-
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { FaEdit } from "react-icons/fa";
@@ -995,9 +982,12 @@ type Admission = {
   branch_name: string;
   address: string;
   dob: string;
-  text:string;
-  admission_no:string;
-  app_no:string;
+  text: string;
+  admission_no: string;
+  app_no: string;
+  billno: string;
+  discounted_amount: string;
+  discount: string;
 };
 const Admission = () => {
   const { state } = useAuth();
@@ -1016,7 +1006,9 @@ const Admission = () => {
   //  const [search, setSearch] = useState("");
   //const [selectedServices, setSelectedServices] = useState<string>("");
   //  const [selectedBranches, setSelectedBranches] = useState<string>("");
-  const [selectedAdmission, setSelectedAdmission] = useState<Admission | null>(null);
+  const [selectedAdmission, setSelectedAdmission] = useState<Admission | null>(
+    null
+  );
 
   const [editedAdmission, setEditedAdmission] = useState<Admission | null>(
     null
@@ -1032,21 +1024,21 @@ const Admission = () => {
   const [entriesPerPage] = useState(10);
   const [mobileData, setMobileData] = useState([]);
   // const [filteredMobile, setFilteredMobile] = useState([]);
-  const [filteredMobile, setFilteredMobile] =useState<Admission []>([]);
+  const [filteredMobile, setFilteredMobile] = useState<Admission[]>([]);
   const [searchMobile, setSearchMobile] = useState("");
   const [selectedMobile, setSelectedMobile] = useState("");
 
   const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [searchBranch, setSearchBranch] = useState("");
-  const [searchBranchData, setSearchBranchData] = useState<Admission []>([]);
-  const [filteredBranch, setFilteredBranch] = useState<Admission []>([]);
+  const [searchBranchData, setSearchBranchData] = useState<Admission[]>([]);
+  const [filteredBranch, setFilteredBranch] = useState<Admission[]>([]);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
   const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false);
   const userDropdownRef = useRef<HTMLDivElement>(null);
   const branchDropdownRef = useRef<HTMLDivElement>(null);
-const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const togglemodal = (
     mode: "add" | "edit",
@@ -1098,10 +1090,8 @@ const dropdownRef = useRef<HTMLDivElement>(null);
     fetchAdmissionData();
   }, [state]);
 
-
-
   // const fetchMobileData = async (searchTerm = null) => {
-    const fetchMobileData = async (searchTerm: string | null = null) => {
+  const fetchMobileData = async (searchTerm: string | null = null) => {
     try {
       const response = await fetch(
         "/api/admin/report/get_mobile_user_autocomplete",
@@ -1141,25 +1131,17 @@ const dropdownRef = useRef<HTMLDivElement>(null);
     fetchMobileData();
   }, [state]);
 
-  // Handle search input change
-  // const handleSearchMobile = (e) => {
-  //   const value = e.target.value;
-  //   setSearchMobile(value);
-  //   fetchMobileData(value); 
-  // };
   const handleSearchMobile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchMobile(value);
     fetchMobileData(value || null);
   };
 
-
-  const handleSelectMobile = (mobile :Admission) => {
+  const handleSelectMobile = (mobile: Admission) => {
     setSelectedMobile(mobile.text);
     setIsDropdownOpen(false);
     setSearchMobile(""); // Reset search field
   };
-
 
   const updateAccountStatus = async (id: string, status: string) => {
     try {
@@ -1236,23 +1218,49 @@ const dropdownRef = useRef<HTMLDivElement>(null);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-   
-    const value = e.target.value;
+    const value = e.target.value.toLowerCase();
     console.log("Search Term:", value);
     setSearchTerm(value);
 
-    const searchFilteredData = AdmissionData.filter((item) =>
-      (item.service_name?.toLowerCase() || "").includes(value.toLowerCase()) ||
-      (item.first_name?.toLowerCase() || "").includes(value.toLowerCase()) ||
-      (item.email?.toLowerCase() || "").includes(value.toLowerCase()) ||
-      (item.mobile?.toLowerCase() || "").includes(value.toLowerCase()) ||
-      (item.due_amount?.toLowerCase() || "").includes(value.toLowerCase()) ||
-      (item.pay_status?.toLowerCase() || "").includes(value.toLowerCase())
-    );
+    const searchFilteredData = AdmissionData.filter((item) => {
+      // Convert pay_status values before filtering
+      let payStatus = item.pay_status?.toLowerCase() || "";
+
+      if (payStatus === "completed") {
+        payStatus = "fully paid";
+      } else if (payStatus === "remaining") {
+        payStatus = "partially paid";
+      }
+
+      return (
+        (item.service_name?.toLowerCase() || "").includes(value) ||
+        (item.first_name?.toLowerCase() || "").includes(value) ||
+        (item.email?.toLowerCase() || "").includes(value) ||
+        (item.mobile?.toLowerCase() || "").includes(value) ||
+        (item.due_amount?.toLowerCase() || "").includes(value) ||
+        payStatus.includes(value) // Compare transformed pay_status
+      );
+    });
 
     console.log("Filtered Data:", searchFilteredData);
     setFilteredData(searchFilteredData); // Update filtered data in real-time
   };
+
+  // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   console.log("Search Term:", value); // Check the value here
+  //   setSearchTerm(value);
+  //   const searchFilteredData = AdmissionData.filter((item) =>
+  //     (item.service_name?.toLowerCase() || "").includes(value.toLowerCase()) ||
+  //     (item.first_name?.toLowerCase() || "").includes(value.toLowerCase()) ||
+  //     (item.email?.toLowerCase() || "").includes(value.toLowerCase()) ||
+  //     (item.mobile?.toLowerCase() || "").includes(value.toLowerCase()) ||
+  //     (item.due_amount?.toLowerCase() || "").includes(value.toLowerCase()) ||
+  //     (item.pay_status?.toLowerCase() || "").includes(value.toLowerCase())
+  //   );
+  //   console.log("Filtered Data:", searchFilteredData);
+  //   setFilteredData(searchFilteredData); // Update filtered data in real-time
+  // };
 
   const handleFilterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1333,26 +1341,13 @@ const dropdownRef = useRef<HTMLDivElement>(null);
     setFilteredBranch(searchData);
   };
 
-  const handleSelectBranch = (branch:Admission) => {
+  const handleSelectBranch = (branch: Admission) => {
     setSelectedBranch(branch.text);
     // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
     setSearchBranch("");
     setIsDropdownOpen(false); // Close dropdown after selection
   };
 
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (dropdownRef.current && event.target instanceof Node) {
-  //       if (!dropdownRef.current.contains(event.target)) {
-  //         setIsDropdownOpen(false);
-  //       }
-  //     }
-  //   };
-  
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       // if (
@@ -1362,11 +1357,10 @@ const dropdownRef = useRef<HTMLDivElement>(null);
       //   setIsDropdownOpen(false);
       // }
       if (userDropdownRef.current && event.target instanceof Node) {
-              if (!userDropdownRef.current.contains(event.target)) {
-                setIsDropdownOpen(false);
-              }
-            }
-
+        if (!userDropdownRef.current.contains(event.target)) {
+          setIsDropdownOpen(false);
+        }
+      }
 
       // if (
       //   branchDropdownRef.current &&
@@ -1479,7 +1473,7 @@ const dropdownRef = useRef<HTMLDivElement>(null);
                     </div>
                   )}
                 </div>
-{/* Admission No:Select */}
+                {/* Admission No:Select */}
                 <div className="relative w-full" ref={dropdownRef}>
                   <label
                     htmlFor="mobile"
@@ -1533,7 +1527,7 @@ const dropdownRef = useRef<HTMLDivElement>(null);
                   )}
                 </div>
 
-{/* branch Select */}
+                {/* branch Select */}
                 <div className="relative w-full" ref={branchDropdownRef}>
                   <label
                     htmlFor="mobile"
@@ -1631,6 +1625,13 @@ const dropdownRef = useRef<HTMLDivElement>(null);
           <div className="mt-5">
             <div className="gridjs-head">
               <div className="gridjs-search">
+                {/* <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  placeholder="Search by name, branch, or place..."
+                  className="form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                /> */}
                 <input
                   type="text"
                   value={searchTerm}
@@ -1672,105 +1673,105 @@ const dropdownRef = useRef<HTMLDivElement>(null);
                   </tr>
                 </thead>
                 <tbody>
-                  {currentEntries.map((item, index) => (
-                    <tr
-                      key={item.id}
-                      className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
-                    >
-                      <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
-                        {indexOfFirstEntry + index + 1}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.user_name}
-                        <p className="text-slate-400 dark:text-navy-300">
-                          Name: {item.first_name}
-                        </p>
-                      </td>
-                      {/* <td className="max-w-[550px] px-4 py-3"> */}
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            D-O-B:
-                          </span>
-                          {item.dob ? item.dob : "null"}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Address:
-                          </span>{" "}
-                          {item.address ? item.address : "null"}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Email:{" "}
-                          </span>
-                          {item.email}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Blood Group:
-                          </span>
-                          {item.blood_group}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Gender:
-                          </span>
-                          {item.gender}
-                        </p>
-                        <p className="text-slate-400 dark:text-navy-300">
-                          <span className="font-bold mr-2 dark:text-navy-100">
-                            Branch:
-                          </span>
-                          {item.branch_name}
-                        </p>
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.service_name}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.due_amount}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.pay_status === "completed" && (
-                          <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
-                            {/* <div className="size-2 rounded-full bg-current"/> */}
-                            {/* <span>completed</span> */}
-                            <span className="badge bg-orange-transparent">
-                              <IoMdCheckmark className="mr-2" />
-                              Fully Paid
+                  {currentEntries.length > 0 ? (
+                    currentEntries.map((item, index) => (
+                      <tr
+                        // key={item.id}
+                        className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
+                      >
+                        <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
+                          {indexOfFirstEntry + index + 1}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                          {item.user_name}
+                          <p className="text-slate-400 dark:text-navy-300">
+                            Name: {item.first_name}
+                          </p>
+                        </td>
+                        {/* <td className="max-w-[550px] px-4 py-3"> */}
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              D-O-B:
                             </span>
-                          </div>
-                        )}
-                        {item.pay_status === "pending" && (
-                          <div className="badge space-x-2.5 rounded-lg bg-error/10 text-error">
-                            <span className="badge bg-orange-transparent">
-                              <FiClock className="mr-2" />
-                              Pending
+                            {item.dob ? item.dob : "null"}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Address:
+                            </span>{" "}
+                            {item.address ? item.address : "null"}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Email:{" "}
                             </span>
-                          </div>
-                        )}
-                        {item.pay_status === "remaining" && (
-                          <div className="badge space-x-2.5 rounded-lg bg-info/10 text-info">
-                            <span className="badge bg-orange-transparent">
-                              <CgNotes className="mr-2" />
-                              Partially Paid
+                            {item.email}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Blood Group:
                             </span>
+                            {item.blood_group}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Gender:
+                            </span>
+                            {item.gender}
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                            <span className="font-bold mr-2 dark:text-navy-100">
+                              Branch:
+                            </span>
+                            {item.branch_name}
+                          </p>
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                          {item.service_name}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                          {item.due_amount}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                          {item.pay_status === "completed" && (
+                            <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
+                              <span className="badge bg-orange-transparent">
+                                <IoMdCheckmark className="mr-2" />
+                                Fully Paid
+                              </span>
+                            </div>
+                          )}
+                          {item.pay_status === "pending" && (
+                            <div className="badge space-x-2.5 rounded-lg bg-error/10 text-error">
+                              <span className="badge bg-orange-transparent">
+                                <FiClock className="mr-2" />
+                                Pending
+                              </span>
+                            </div>
+                          )}
+                          {item.pay_status === "remaining" && (
+                            <div className="badge space-x-2.5 rounded-lg bg-info/10 text-info">
+                              <span className="badge bg-orange-transparent">
+                                <CgNotes className="mr-2" />
+                                Partially Paid
+                              </span>
+                            </div>
+                          )}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                          {/* {item.added_date} */}
+                          <div className="flex flex-col">
+                            <span>{item.added_date.split(" ")[0]}</span>{" "}
+                            {/* Date */}
+                            <span>{item.added_date.split(" ")[1]}</span>{" "}
+                            {/* Time */}
                           </div>
-                        )}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {/* {item.added_date} */}
-                        <div className="flex flex-col">
-                          <span>{item.added_date.split(" ")[0]}</span>{" "}
-                          {/* Date */}
-                          <span>{item.added_date.split(" ")[1]}</span>{" "}
-                          {/* Time */}
-                        </div>
-                      </td>
-                      <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
-                        <span>
-                          <div className="flex justify-center space-x-2">
+                        </td>
+
+                        <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
+                          <div className="flex flex-wrap gap-2">
+                            {/* Edit Button */}
                             <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
                               <i
                                 className="fa fa-edit"
@@ -1778,6 +1779,7 @@ const dropdownRef = useRef<HTMLDivElement>(null);
                               />
                             </button>
 
+                            {/* Conditional Pay Button */}
                             {item.pay_status !== "completed" && (
                               <button
                                 onClick={() => handleEdit(item)}
@@ -1787,18 +1789,33 @@ const dropdownRef = useRef<HTMLDivElement>(null);
                               </button>
                             )}
 
-
+                            {/* Report Button */}
+                            <button
+                              onClick={() =>
+                                window.open(
+                                  `/admin/report/view-payment/${item.customer_id}?cus_service_id=${item.id}`,
+                                  "_blank"
+                                )
+                              }
+                              className="btn size-7 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+                            >
+                              {/* <RiBillFill/> */}
+                              <RiBillFill className="w-4 h-4" />
+                            </button>
                           </div>
-                          <button 
- onClick={() => window.open(`/admin/report/view-payment/${item.customer_id}?cus_service_id=${item.id}`, '_blank')}
-    className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
->
-    <RiBillFill />
-</button>
-                        </span>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={7}
+                        className="text-center py-4 text-gray-500"
+                      >
+                        No data available
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
@@ -1891,6 +1908,7 @@ const dropdownRef = useRef<HTMLDivElement>(null);
                 payment_method: selectedCost.payment_method ?? "",
                 total_amount: selectedCost.total_amount ?? "",
                 id: selectedCost.id || "",
+                billno: selectedCost.billno || "",
               }
             : undefined
         }

@@ -679,6 +679,7 @@ type Payment = {
   payment_method:string;
   first_name:string;
  email:string;
+ billno:string;
 
 };
 
@@ -904,7 +905,7 @@ type Site = {
       {userData && (
      <div className="mt-4">
   <h6 className="font-bold mb-2">{userData.first_name}</h6>
-  Bill No:  {userData.mobile}
+  Bill No:  {userData.billno}
   <br />Tel No:  {userData.mobile}
   <br />Email:  {userData.email}<p />
 </div>

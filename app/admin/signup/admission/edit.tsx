@@ -1362,7 +1362,9 @@ interface Admission {
   text:string;
   admission_no:string;
   app_no:string;
-  
+  billno:string;
+  discounted_amount:string;
+  discount:string;
 }
 
 interface EditProps {
@@ -2520,7 +2522,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
 <span>Bill No:</span>
                       <span className="relative mt-1.5 flex">
                         <input
-                           value={formData?.tax || ""}
+                           value={formData?.billno || ""}
                            onChange={handleChange}
                           type="text"
                           placeholder="Bill no:"
@@ -2531,9 +2533,30 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                </label>
               </div>
 
- {/* Type,Both type */}
+ {/* Type,checkbox */}
             
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {(formData?.type === "lmv" || 
+                   formData?.type === "mc" || 
+                   formData?.type === "both" || 
+                   formData?.type === "auto" 
+                    ) && (
+                      <div className="block">   
+                
+                <label >
+  <input 
+  className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" 
+  type="checkbox" />
+  <span className="ml-3">Study</span>
+</label>
+ <label className="ml-6">
+ <input 
+ className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent" 
+ type="checkbox" />
+ <span className="ml-3">Licence</span>
+</label>
+</div> 
+)}
                     {(formData?.service_name === "licence fresh" ||
                   formData?.service_name === "renewal licence" ||
                   formData?.service_name === "duplicate licence" ||
@@ -2550,14 +2573,24 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         name="type"
                         className="dark:bg-navy-700 form-input peer mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
                           <option value=''>Select Type</option>
-                          <option value="lmc">LMC</option>
+                          <option value="lmv">LMV</option>
                           <option value="mc">MC</option>
                           <option value="both">BOTH</option>
+                          <option value="auto">Auto rickshaw</option>
                         </select>
                       </span>
 </label>
    )}
-<label className="block">
+
+    {/* BothType*/}
+    {!(
+  formData?.type === "lmv" || 
+  formData?.type === "mc" || 
+  formData?.type === "both" || 
+  formData?.type === "auto" 
+) && ( 
+
+                    <label className="block">
   <span>Both Type</span>
   <span className="relative mt-1 flex">
                          <select 
@@ -2574,6 +2607,8 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         </select>
                       </span>
 </label>
+                   )}
+
 {/* total amount */}
 <label className="block">
                   <span>Total amount</span>
@@ -2596,12 +2631,12 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                     <span>Discount</span>
                     <span className="relative flex">
                       <input
-                        name="pay_amount"
-                        value={formData?.pay_amount || ""}
+                        name="discount"
+                        value={formData?.discount || ""}
                         readOnly
                           // onChange={handleChange}
                         type="text"
-                        placeholder="Paid Amount"
+                        placeholder="Discount"
                         className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
@@ -2612,8 +2647,8 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                     <span>Pay Amount</span>
                     <span className="relative flex">
                       <input
-                        name="pay_amount"
-                        value={formData?.pay_amount || ""}
+                        name="discounted_amount"
+                        value={formData?.discounted_amount || ""}
                         readOnly
                           // onChange={handleChange}
                         type="text"
@@ -2671,13 +2706,13 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                   </label> 
 </div>
                 {/* Additional Fields */}
-                {(formData?.service_name === "rc transfer" ||
+                {/* {(formData?.service_name === "rc transfer" ||
                   formData?.service_name === "cf" ||
                   formData?.service_name === "cf renewal" ||
                   formData?.service_name === "rc renewal" ||
                   formData?.service_name === "sfds") && (
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    {/* tax */}
+                  
                     <label className="block ">
                       <span className="relative mt-1.5 flex">
                         <input
@@ -2689,7 +2724,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         />
                       </span>
                     </label>
-                    {/* pucc */}
+                
                     <label className="block ">
                       <span className="relative mt-1.5 flex">
                         <input
@@ -2703,7 +2738,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                       </span>
                     </label>
 
-                    {/* Upload old rc Section */}
+                   
                     <div>
                           <label className="block mb-2 mt-4">
                           Old RC
@@ -2772,7 +2807,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                            </div>
                     </div>
 
-                    {/* Upload Aadhaar  Section */}
+                
                     <div>
                           <label className="block mb-2 mt-4">
                           Aadhaar
@@ -2843,7 +2878,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
              </div>
                         </div>
 
-                    {/* Upload Insurence Section */}
+                  
                     <div>
                           <label className="block mb-2 mt-4">
                           Insurence
@@ -2914,7 +2949,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
              </div>
                         </div>
                   </div>
-                )}
+                )} */}
 
 <button
               type="submit"
