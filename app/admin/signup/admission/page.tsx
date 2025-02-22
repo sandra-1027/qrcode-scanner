@@ -1036,7 +1036,7 @@ const Admission = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false);
   const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false);
-  const userDropdownRef = useRef<HTMLDivElement>(null);
+  const admissionDropdownRef = useRef<HTMLDivElement>(null);
   const branchDropdownRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -1285,6 +1285,7 @@ const Admission = () => {
     indexOfFirstEntry,
     indexOfLastEntry
   );
+ 
   const totalEntries = filteredData.length;
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
 
@@ -1345,7 +1346,7 @@ const Admission = () => {
     setSelectedBranch(branch.text);
     // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
     setSearchBranch("");
-    setIsDropdownOpen(false); // Close dropdown after selection
+    setIsbranchDropdownOpen(false);  // Close dropdown after selection
   };
 
   useEffect(() => {
@@ -1356,18 +1357,18 @@ const Admission = () => {
       // ) {
       //   setIsDropdownOpen(false);
       // }
-      if (userDropdownRef.current && event.target instanceof Node) {
-        if (!userDropdownRef.current.contains(event.target)) {
+      if (admissionDropdownRef.current && event.target instanceof Node) {
+        if (!admissionDropdownRef.current.contains(event.target)) {
+          setIsadmissionDropdownOpen(false);
+        }
+      }
+
+      if (dropdownRef.current && event.target instanceof Node) {
+        if (!dropdownRef.current.contains(event.target)) {
           setIsDropdownOpen(false);
         }
       }
 
-      // if (
-      //   branchDropdownRef.current &&
-      //   !branchDropdownRef.current.contains(event.target)
-      // ) {
-      //   setIsbranchDropdownOpen(false);
-      // }
       if (branchDropdownRef.current && event.target instanceof Node) {
         if (!branchDropdownRef.current.contains(event.target)) {
           setIsbranchDropdownOpen(false);
@@ -1423,7 +1424,7 @@ const Admission = () => {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {/* mobile Select */}
 
-                <div className="relative w-full" ref={userDropdownRef}>
+                <div className="relative w-full" ref={admissionDropdownRef}>
                   <label
                     htmlFor="mobile"
                     className="block text-sm font-medium text-slate-700 dark:text-navy-100"
