@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import Add from './add';
 import { useAuth } from '@/app/context/AuthContext';
 import Edit from './edit';
+import { FaSpinner } from 'react-icons/fa';
 type Cost = {
   id?: string;
   status: string;
@@ -36,7 +37,9 @@ const page = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>("");
    const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
-   
+
+   const [isLoading, setIsLoading] = useState(false);
+
     const togglemodal = (mode: 'add' | 'edit', cost: Cost | null = null) => {
       setModalMode(mode);  // Set the modal mode to either "add" or "edit"
       setSelectedCost(cost);  // Pass the selected driver if in edit mode
@@ -199,12 +202,20 @@ const page = () => {
         
           setFilteredData(searchFilteredData); // Update filtered data in real-time
         };
-    
+        
     // Handle form submit for additional filters
-    const handleFilterSubmit = (e: React.FormEvent) => {
+ const handleFilterSubmit = async (e: React.FormEvent) => {
       e.preventDefault(); // Prevent page reload
+
+      setIsLoading(true); // Start loading
+        
+          // Simulate a delay to show the loader (you can remove this in production)
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
       const newFilteredData = applyFilters();
       setFilteredData(newFilteredData); // Update filtered data
+
+      setIsLoading(false); // Stop loading
     };
     
     const handleReset = () => {
@@ -244,7 +255,6 @@ const page = () => {
       <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
-      {/* <li>License Class</li> */}
       <li>Fresh Licence cost</li>
     </ul>
   </div>
@@ -254,30 +264,6 @@ const page = () => {
   <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
     <form>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {/* Driver Name Select */}
-        {/* <div className='flex-1'>
-          <label
-            htmlFor="serviceName"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-            Service
-          </label>
-           <select
-            id="driverName"
-            name="driverName"
-            value={selectedServices}
-            onChange={(e) => setSelectedServices(e.target.value)}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          >
-            <option value="">Select a service</option>
-  {service.map((service) => (
-                <option key={service.id} value={service.service_name}>
-                  {service.service_name}
-                </option>
-              ))}
-</select>
-
-        </div> */}
         {/* Status Select */}
         <div className='flex-1'>
           <label
@@ -313,23 +299,7 @@ const page = () => {
         </button>
         </div>
       </div>
-      {/* Buttons */}
-      {/* <div className="mt-4 flex space-x-4">
-        <button
-         onClick={handleFilterSubmit}
-          type="submit"
-          className="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        ><i className='fa fa-filter' style={{marginTop:'3px',marginRight:'3px'}} ></i>
-          Filter
-        </button>
-        <button
-           onClick={handleReset}
-          type="button"
-          className="inline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        ><i className='fa fa-refresh' style={{marginTop:'3px',marginRight:'3px'}}></i>
-          Reset
-        </button>
-      </div> */}
+     
     </form>
   </div>
     </div>
@@ -397,7 +367,15 @@ onChange={handleSearchChange}
               </tr>
             </thead>
             <tbody>
-            {/* {currentEntries.map((item, index) => ( */}
+            {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
+
             {currentEntries.length > 0 ?(
 currentEntries.map((item,index) =>(
               <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
@@ -485,6 +463,8 @@ currentEntries.map((item,index) =>(
   </td>
 </tr>
 )}
+    </>
+  )}
             </tbody>
           </table>
         </div>

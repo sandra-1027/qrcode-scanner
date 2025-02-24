@@ -654,7 +654,7 @@
 "use client";
 import withAuth from "@/hoc/withAuth";
 import React, { useEffect, useRef, useState } from "react";
-import { FaFilter } from "react-icons/fa";
+import { FaFilter, FaSpinner } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 import { LuRefreshCw } from "react-icons/lu";
 import Add from "./add";
@@ -699,7 +699,7 @@ const page = () => {
    const dropdownRef = useRef<HTMLDivElement>(null);
 
 
-
+   const [isLoading, setIsLoading] = useState(false);
 
   const togglemodal = (mode: "add" | "edit", driver: Driver | null = null) => {
     setModalMode(mode);
@@ -782,10 +782,15 @@ const page = () => {
 };
   
  
-  const handleFilterSubmit = (e: React.FormEvent) => {
+const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
+    
+      // Simulate a delay to show the loader (you can remove this in production)
+      await new Promise(resolve => setTimeout(resolve, 1000));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
+    setIsLoading(false); // Stop loading
   };
 
   const handleReset = () => {
@@ -1156,6 +1161,14 @@ const page = () => {
                   </tr>
                 </thead>
                 <tbody>
+                {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
                 {currentEntries.length > 0 ?(
 currentEntries.map((item,index) =>{
     const formattedDate = new Date(item.date_of_joining).toLocaleDateString('en-GB', {
@@ -1237,6 +1250,8 @@ currentEntries.map((item,index) =>{
                         </td>
                       </tr>
                       )}
+                      </>
+  )}
                 </tbody>
               </table>
             </div>

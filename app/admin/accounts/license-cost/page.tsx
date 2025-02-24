@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Add from './add';
 import { useAuth } from '@/app/context/AuthContext';
 import Edit from './edit';
+import { FaSpinner } from 'react-icons/fa';
 
 type Cost = {
   id?: string;
@@ -41,7 +42,7 @@ const page = () => {
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
      const dropdownRef = useRef<HTMLDivElement>(null);
 
-
+     const [isLoading, setIsLoading] = useState(false);
  
   const togglemodal = (mode: 'add' | 'edit', cost: Cost | null = null) => {
     setModalMode(mode);  // Set the modal mode to either "add" or "edit"
@@ -204,11 +205,18 @@ const page = () => {
       setFilteredData(searchFilteredData); // Update filtered data in real-time
     };
     
+
     // Handle form submit for additional filters
-    const handleFilterSubmit = (e: React.FormEvent) => {
+    const handleFilterSubmit = async (e: React.FormEvent) => {
       e.preventDefault(); // Prevent page reload
+          setIsLoading(true); // Start loading
+    
+      // Simulate a delay to show the loader (you can remove this in production)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       const newFilteredData = applyFilters();
       setFilteredData(newFilteredData); // Update filtered data
+      setIsLoading(false); // Stop loading
     };
     
     const handleReset = () => {
@@ -506,6 +514,14 @@ onChange={handleSearchChange}
               </tr>
             </thead>
             <tbody>
+            {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
             {currentEntries.length > 0 ?(
 currentEntries.map((item,index) =>(
               <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
@@ -596,6 +612,8 @@ currentEntries.map((item,index) =>(
   </td>
 </tr>
 )}
+</>
+  )}
             </tbody>
           </table>
         </div>

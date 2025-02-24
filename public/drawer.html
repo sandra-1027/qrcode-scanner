@@ -1,1 +1,72 @@
 
+{isLoading ? (
+  <tr>
+    <td colSpan={8} className="text-center py-4">
+      <div className="flex justify-center items-center h-15">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500" />
+      </div>
+    </td>
+  </tr>
+) : (
+  currentEntries.length > 0 ? (
+    currentEntries.map((item, index) => (
+      <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+        <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
+          {index + indexOfFirstEntry + 1}
+        </td>
+        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+          {item.daily_status === "income" ? item.type : item.expense_name}
+        </td>
+        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+          {item.added_by}
+        </td>
+        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+          {item.branch_name}
+        </td>
+        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+          {item.daily_status === "income" ? (
+            <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
+              <span>Income</span>
+              <HiOutlineArrowNarrowUp />
+            </div>
+          ) : (
+            <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
+              <span>Expense</span>
+              <HiOutlineArrowNarrowDown />
+            </div>
+          )}
+        </td>
+        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+          {item.amount}
+        </td>
+        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+          {item.added_date}
+        </td>
+        <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
+          <span>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => togglemodal('edit', item)}
+                className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+              >
+                <i className="fa fa-edit" />
+              </button>
+              <button
+                className={`btn size-8 p-0 ${item.status === 'active' ? 'text-error' : 'text-primary'} hover:bg-${item.status === 'active' ? 'error' : 'primary'}/20 focus:bg-${item.status === 'active' ? 'error' : 'primary'}/20 active:bg-${item.status === 'active' ? 'error' : 'primary'}/25`}
+                onClick={() => updateAccountStatus(item.id!, item.status)}
+              >
+                <i className={`fa ${item.status === 'active' ? 'fa-trash-alt' : 'fa-check-circle'}`} />
+              </button>
+            </div>
+          </span>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan={8} className="text-center py-4 text-gray-500">
+        No data available
+      </td>
+    </tr>
+  )
+)}

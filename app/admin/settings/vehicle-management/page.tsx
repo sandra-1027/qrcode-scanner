@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Add from "./add";
 import { useAuth } from "@/app/context/AuthContext";
 import Edit from "./edit";
+import { FaSpinner } from "react-icons/fa";
 
 interface Vehicle {
   id: number;
@@ -43,7 +44,7 @@ const page = () => {
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
    const dropdownRef = useRef<HTMLDivElement>(null);
 
-
+   const [isLoading, setIsLoading] = useState(false);
 
 
   const togglemodal = (
@@ -129,10 +130,15 @@ const page = () => {
 
     setFilteredData(searchFilteredData);
   };
-  const handleFilterSubmit = (e: React.FormEvent) => {
+  const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
+    
+      // Simulate a delay to show the loader (you can remove this in production)
+      await new Promise(resolve => setTimeout(resolve, 1000));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
+    setIsLoading(false); // Stop loading
   };
 
   const handleReset = () => {
@@ -502,7 +508,14 @@ const page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {currentEntries.map((item, index) => ( */}
+                {isLoading ? (
+    <tr>
+      <td colSpan={7} className="text-center py-10">
+        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+      </td>
+    </tr>
+  ) : (
+    <>
                   {currentEntries.length > 0 ?(
 currentEntries.map((item,index) =>(
                     <tr
@@ -591,6 +604,8 @@ currentEntries.map((item,index) =>(
                   </td>
                 </tr>
                 )}
+                </>
+  )}
                 </tbody>
               </table>
             </div>
