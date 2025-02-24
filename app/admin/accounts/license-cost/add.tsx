@@ -36,6 +36,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const { state } = useAuth();
   const [services, setServices] = useState<{ id: string; service_name: string }[]>([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [selectedService, setSelectedService] = useState<string>("");
   const [searchService, setSearchService] = useState("");
   // const[searchServiceData,setSearchServiceData] =useState("");
@@ -311,6 +312,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                <option value="Autorickshaw">Auto rickshaw</option>
               </select>
               </label>
+
               <label className="block">
                 <span>Cost</span>
             <input 
@@ -325,7 +327,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               }}
                type="text"
                 placeholder="Cost" 
-                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+                className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
             </label>
             {/* <label className="block">
             <input name="m_cost"
@@ -340,7 +342,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               <div className="text-red-500 text-sm mt-2">{error}</div>
             )}
             <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
-              Add
+            {loading ? 'Adding...' : 'Add'}
             </button>
           </form>
         </div>

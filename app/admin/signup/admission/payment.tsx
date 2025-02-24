@@ -54,7 +54,7 @@ const Payment: React.FC<CreateProps> = ({
     cus_service_id: "",
     billno:"",
   });
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (formData) {
       setLocalFormData({
@@ -292,7 +292,7 @@ const Payment: React.FC<CreateProps> = ({
                 type="submit"
                 className="bg-primary text-white rounded p-2 w-1/5"
               >
-                Pay
+                     {loading ? 'Paying...' : 'Pay'}
               </button>
             </div>
           </form>

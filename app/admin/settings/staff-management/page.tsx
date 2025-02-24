@@ -197,12 +197,17 @@ const page = () => {
     setIsLoading(false); // Stop loading
   };
   
-  const handleReset = () => {
+  const handleReset = async () => {
+    setIsLoading(true); // Start loading
+   
+     // Simulate a delay to show the loader (you can remove this in production)
+     await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setSelectedStaff("");
     setSelectedBranch("");
     setSelectedStatus("");
     setFilteredData(staffData); 
+    setIsLoading(false); // Stop loading
   };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -612,7 +617,7 @@ const page = () => {
 <input type="search" 
 placeholder="Type a keyword..." 
 aria-label="Type a keyword..." 
-className="gridjs-input gridjs-search-input" 
+className="text-sm pl-2 gridjs-input gridjs-search-input" 
 defaultValue="" 
 value={searchTerm}
 onChange={handleSearchChange}

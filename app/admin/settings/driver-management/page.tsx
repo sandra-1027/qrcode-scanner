@@ -793,12 +793,17 @@ const handleFilterSubmit = async (e: React.FormEvent) => {
     setIsLoading(false); // Stop loading
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
+    setIsLoading(true); // Start loading
+   
+     // Simulate a delay to show the loader (you can remove this in production)
+     await new Promise(resolve => setTimeout(resolve, 1000));
     setFilters({ driverName: "", status: "" });
     setFilteredData(driverData);
     setSelectedDriver("");
     setSelectedStatus("");
     setCurrentPage(1);
+    setIsLoading(false); // Stop loading
   };
 
   // Calculate pagination
@@ -1125,7 +1130,7 @@ const handleFilterSubmit = async (e: React.FormEvent) => {
                   type="search"
                   placeholder="Type a keyword..."
                   aria-label="Type a keyword..."
-                  className="gridjs-input gridjs-search-input"
+                  className="text-sm pl-2 gridjs-input gridjs-search-input"
                   defaultValue=""
                   value={searchTerm}
                   onChange={handleSearchChange}

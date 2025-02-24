@@ -135,6 +135,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const { state } = useAuth();
   const [services, setServices] = useState<{ id: string; service_name: string }[]>([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [localFormData, setLocalFormData] = useState(formData || {
     cost: "",
     study_cost:"",
@@ -267,7 +268,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             <label className="block">
               <span>Gender</span>
               <select name="gender" value={localFormData.gender} onChange={handleChange}
-                className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100">
+                className="mt-1 text-sm pl-2 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100">
                 <option value="">Please Select Gender</option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
@@ -291,7 +292,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                   type="text"
                    placeholder="LMV MC both study"
                     // className="form-input w-full rounded-lg border border-slate-300 px-3 py-2"
-                     className="mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                     className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                      />
                 </label>
                 <label className="block">
@@ -309,7 +310,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                    type="text" 
 
                    placeholder="LMV MC both licence"
-                   className="mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+                   className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
                 </label>
                 <label className="block">
                   <span> LMV Study MC Licence</span>
@@ -325,7 +326,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                   }}
                   type="text" 
                   placeholder="LMV study MC licence"
-                    className="mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+                    className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
                 </label>
                 <label className="block">
                   <span>LMV Licence MC Study</span>
@@ -341,7 +342,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                   }}
                    type="text" 
                    placeholder="LMV Licence MC Study"
-                   className="mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+                   className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
                 </label>
               </>
             ):(
@@ -359,7 +360,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               }}
                type="text"
                 placeholder="Study cost" 
-                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+                className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
             </label>
             <label className="block">
               <span>Licence cost</span>
@@ -375,7 +376,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                type="text"
                 placeholder="Licence cost"
                 // className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                 className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 />
            </label>
           
@@ -394,13 +395,15 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               }}
                type="text"
                 placeholder="Cost"
-                className="mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+                className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
            </label>
           </div>
           {error && (
               <div className="text-red-500 text-sm mt-2">{error}</div>
             )}
-          <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">Add</button>
+          <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
+          {loading ? 'Adding...' : 'Add'}
+          </button>
         </form>
       </div>
     </div>

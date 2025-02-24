@@ -201,7 +201,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     value={formData.vehicle_no}
                     onChange={handleChange}
                     placeholder="Vehicle No:"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
@@ -215,7 +215,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     onChange={handleChange}
                     min={today}
                     placeholder="Mobile"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
@@ -230,7 +230,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     onChange={handleChange}
                     min={today}
                     placeholder="Mobile"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
@@ -244,7 +244,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     onChange={handleChange}
                     min={today}
                     placeholder="Mobile"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>
@@ -258,7 +258,7 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
                     onChange={handleChange}
                     min={today}
                     placeholder="Mobile"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
               </label>

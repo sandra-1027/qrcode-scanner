@@ -1336,13 +1336,18 @@ const Admission = () => {
     setCurrentPage(1);
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
+    setIsLoading(true); // Start loading
+   
+     // Simulate a delay to show the loader (you can remove this in production)
+     await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
 
     setSelectedBranch("");
     setSelectedStatus("");
     setFilteredData(AdmissionData);
     setSelectedMobile("");
+    setIsLoading(false); // Stop loading
     setCurrentPage(1);
   };
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -1693,7 +1698,7 @@ const Admission = () => {
                   value={searchTerm}
                   onChange={handleSearchChange}
                   placeholder="Search by name, branch, or place..."
-                  className="form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  className="text-sm pl-2 form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 />
               </div>
             </div>
@@ -1701,29 +1706,29 @@ const Admission = () => {
               <table className="is-hoverable w-full text-left">
                 <thead>
                   <tr>
-                    <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       SL No
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[110px] break-words bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Mobile Number
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Info
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Service Name
                     </th>
-                    <th className="max-w-[110px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[110px] break-words bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Due Amount
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Pay Status
                     </th>
 
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Date
                     </th>
-                    <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Action
                     </th>
                   </tr>

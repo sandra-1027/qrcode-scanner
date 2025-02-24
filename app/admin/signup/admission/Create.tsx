@@ -1450,7 +1450,8 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
     const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false); 
     const userDropdownRef = useRef<HTMLDivElement>(null);
     const branchDropdownRef = useRef<HTMLDivElement>(null);
-
+    const [loading, setLoading] = useState(false);
+    
   const [localFormData, setLocalFormData] = useState(
     formDatas || {
       name: "",
@@ -1999,12 +2000,12 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                    {/* admission no */}
                      <label className="block mt-2">
                          <span>Admission No:</span>
-                          <span className="relative mt-1.5 flex">
+                          <span className="relative mt-1 flex">
                             <input
                             name="admission_no"
                             value={admission_no}
                             onChange={(e) => setadmission_no(e.target.value)}
-                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Admission No:"
                             type="text"
                           />
@@ -2013,12 +2014,12 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
  {/*app no */}
                   <label className="block mt-2">
                         <span>Application No:</span>
-                        <span className="relative mt-1.5 flex">
+                        <span className="relative mt-1 flex">
                           <input
                             name="name"
                             value={name}
                             onChange={(e) => setname(e.target.value)}
-                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Application No"
                             type="text"
                           />
@@ -2028,29 +2029,29 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
                        {/* name */}
-                      <label className="block">
+                      <label className="block mt-2">
                         <span>Name*</span>
-                        <span className="relative mt-1.5 flex">
+                        <span className="relative mt-1 flex">
                           <input
                             name="name"
                             value={name}
                             required
                             onChange={(e) => setname(e.target.value)}
-                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Name"
                             type="text"
                           />
                         </span>
                       </label>
                        {/* mobile */}
-                      <label className="block">
+                      <label className="block mt-2">
                         <span>Mobile*</span>
-                        <span className="relative mt-1.5 flex">
+                        <span className="relative mt-1 flex">
                           <input
                             name="mobile"
                             value={mobile}
                             onChange={(e) => setmobile(e.target.value)}
-                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Mobile"
                             type="text"
                           />
@@ -2060,29 +2061,29 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
                        {/* dob */}
-                      <label className="block">
+                      <label className="block mt-2">
                         <span>D-O-B</span>
-                        <span className="relative mt-1.5 flex">
+                        <span className="relative mt-1 flex">
                           <input
                             name="dob"
                             value={dob}
                             onChange={(e) => setdob(e.target.value)}
-                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Date of Birth"
                             type="date"
                           />
                         </span>
                       </label>
                       {/* address */}
-                      <label className="block">
+                      <label className="block mt-2">
                         <span>Address</span>
-                        <span className="relative mt-1.5 flex">
+                        <span className="relative mt-1 flex">
                           <textarea 
                           rows={2}
                             name="address"
                             value={address}
                             onChange={(e) => setaddress(e.target.value)}
-                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Address" 
                           />
                         </span>
@@ -2106,28 +2107,28 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                         </span>
                       </label> */}
                        {/*DL No: */}
-                       <label className="block">
+                       <label className="block mt-2">
                         <span>DL No:</span>
-                        <span className="relative mt-1.5 flex">
+                        <span className="relative mt-1 flex">
                           <input
                             name="email"
                             value={email}
                             onChange={(e) => setemail(e.target.value)}
                             type="text"
                             placeholder="dl_no"
-                            className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           />
                         </span>
                       </label>
                       {/* blood group */}
-                      <label className="block ">
+                      <label className="block mt-2">
                         <span>Blood Group</span>
-                        <span className="relative mt-1.5 flex">
+                        <span className="relative mt-1 flex">
                           <select
                             name="blood_group"
                             value={blood_group}
                             onChange={(e) => setblood_group(e.target.value)}
-                            className="dark:bg-navy-700 form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2.5 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           >
                             <option>Select Blood Group</option>
                             <option value="A+ve">A+ve</option>
@@ -2144,14 +2145,14 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                     </div>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
                       {/* gender */}
-                      <label className="block ">
+                      <label className="block mt-2">
                         <span>Gender</span>
-                        <span className="relative mt-1.5 flex">
+                        <span className="relative mt-1 flex">
                           <select
                             name="gender"
                             value={gender}
                             onChange={(e) => setgender(e.target.value)}
-                            className="dark:bg-navy-700 form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           >
                             <option>Select a Gender</option>
                             <option value="male">Male</option>
@@ -2162,16 +2163,16 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       </label>
 {/* branch name */}
 <div className="relative w-full" ref={branchDropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
+      <label htmlFor="mobile" className="block mt-2 text-sm font-medium text-slate-700 dark:text-navy-100">
        Branch Name
       </label>
 
       {/* Dropdown Button */}
       <div
         onClick={() => setIsbranchDropdownOpen(!isbranchDropdownOpen)}
-        className="mt-3 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+        className="text-sm pl-2 mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
-        {selectedBranch || "Select a branch"}
+        {selectedBranch || "Select a Branch"}
         <span className="ml-2">&#9662;</span> {/* Down arrow */}
       </div>
 
@@ -2336,12 +2337,12 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
 {/* document */}
 <label className="block mt-2">
                       <span>Choose Document</span>
-                      <span className="relative mt-1.5 flex">
+                      <span className="relative mt-1 flex">
                         <select
                           name="document_type"
                           value={document_type}
                           onChange={(e) => setdocument_type(e.target.value)}
-                          className="dark:bg-navy-700 form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         >
                           <option>Choose Document</option>
                           <option value="sslc">SSLC</option>
@@ -2417,12 +2418,12 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
 {/* document */}
 <label className="block mt-2">
                       <span>Choose Document</span>
-                      <span className="relative mt-1.5 flex">
+                      <span className="relative mt-1 flex">
                         <select
                           name="document_type"
                           value={document_type}
                           onChange={(e) => setdocument_type(e.target.value)}
-                          className="dark:bg-navy-700 form-select peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         >
                           <option>Choose Document</option>
                           <option value="sslc">SSLC</option>
@@ -2572,7 +2573,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                             name="name"
                             value={name}
                             onChange={(e) => setname(e.target.value)}
-                            className="form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            className="text-sm pl-2 form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Bill No:"
                             type="text"
                           />
@@ -2649,12 +2650,12 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
          
            <label className="block">
            <span>Trial Amount</span>
-           <span className="relative mt-1.5 flex">
+           <span className="relative mt-1 flex">
              <input
                type="text"
                placeholder="Trial Amount"
                value={selectedAmount}
-               className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+               className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
              />
            </span>
          </label>
@@ -2668,13 +2669,13 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                   selectedService === "licence reentry" ||
                   selectedService === "rc transfer") && (
                     // type
-                  <label className="block ">
+                  <label className="block">
                      <span>Type</span>
-                    <span className="relative mt-1.5 flex">
+                    <span className="relative mt-1 flex">
                       <select
                         value={type}
                         onChange={(e) => settype(e.target.value)}
-                        className="dark:bg-navy-700 form-input peer mt-1.5  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       >
                         <option>Select Type</option>
                         <option value="lmv">LMV</option>
@@ -2689,13 +2690,13 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                 {/* Common Fields */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                    {/* Payment Method */}
-                  <label className="block ">
+                  <label className="block">
                     <span>Payment Method</span>
-                    <span className="relative mt-1.5 flex">
+                    <span className="relative mt-1 flex">
                       <select
                         value={payment_method}
                         onChange={(e) => setpayment_method(e.target.value)}
-                        className="px-5 py-2.5 dark:bg-navy-700 form-input peer mt-1.5  w-full rounded-lg border border-slate-300 bg-transparent placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="px-5 py-2.5 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       >
                         <option>Select Method</option>
                         <option value="cash">Cash</option>
@@ -2706,61 +2707,61 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                         {/* Service Amount */}
                         <label className="block">
                     <span>Service Amount</span>
-                    <span className="relative mt-1.5 flex">
+                    <span className="relative mt-1 flex">
                       <input
                         type="text"
-                        placeholder="service_amount"
+                        placeholder="Service Amount"
                         value={selectedAmount}
-                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
                   </label>
                        {/* Discount */}
                        <label className="block">
                     <span>Discount</span>
-                    <span className="relative mt-1.5 flex">
+                    <span className="relative mt-1 flex">
                       <input
                         type="text"
                         placeholder="Discount"
                         value={selectedAmount}
-                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
                   </label>
                      {/*Pay Amount */}
                   <label className="block">
                     <span>Pay Amount</span>
-                    <span className="relative mt-1.5 flex">
+                    <span className="relative mt-1 flex">
                       <input
                         type="text"
-                        placeholder="Total amount"
+                        placeholder="Total Amount"
                         value={selectedAmount}
-                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
                   </label>
                    {/* Payable Amount */}
                    <label className="block ">
                     <span>Paying Amount</span>
-                    <span className="relative mt-1.5 flex">
+                    <span className="relative mt-1 flex">
                       <input
                         type="number"
-                        placeholder=""
+                        placeholder="Pay Amount"
                         value={pay_amount}
                         onChange={(e) => setpay_amount(e.target.value)}
-                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
                   </label>
                       {/* Total Amount */}
                       <label className="block">
                     <span>Total Amount</span>
-                    <span className="relative mt-1.5 flex">
+                    <span className="relative mt-1 flex">
                       <input
                         type="text"
                         placeholder="Total amount"
                         value={selectedAmount}
-                        className="form-input peer mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
                   </label>
@@ -2772,7 +2773,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                   type="submit"
                   className="btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
                 >
-                  Add
+                   {loading ? 'Adding...' : 'Add'}
                 </button>
               </div>
            

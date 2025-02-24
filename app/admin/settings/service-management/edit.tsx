@@ -35,22 +35,7 @@ const Edit = ({ showModal, toggleModal, serviceData, onSave }: EditProps) => {
     }
   }, [serviceData]);
 
-  // const handleChange = (
-  //   e: React.ChangeEvent<HTMLInputElement> | string,
-  //   fieldName?: string
-  // ) => {
-  //   if (typeof e === "string" && fieldName) {
-  //     setFormData((prevData) =>
-  //       prevData ? { ...prevData, [fieldName]: e } : null
-  //     );
-  //   } else{
-  //     const event =e as React.ChangeEvent<HTMLInputElement>;
-  //     const { name, value } = e.target;
-  //     setFormData((prevData) =>
-  //       prevData ? { ...prevData, [name]: value } : null
-  //     );
-  //   }
-  // };
+ 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | string,
     fieldName?: string
@@ -169,7 +154,7 @@ const Edit = ({ showModal, toggleModal, serviceData, onSave }: EditProps) => {
                 <label className="block">
                   <span>Service Name</span>
                   <input
-                    className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Service Name"
                     name="service_name"
                     type="text"
@@ -180,7 +165,7 @@ const Edit = ({ showModal, toggleModal, serviceData, onSave }: EditProps) => {
                 <label className="block">
                   <span>Amount</span>
                   <input
-                    className="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    className="text-sm pl-2 form-input mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Amount"
                     name="amount"
                     type="text"
@@ -195,7 +180,7 @@ const Edit = ({ showModal, toggleModal, serviceData, onSave }: EditProps) => {
                   />
                 </label>
 
-                <div className="mt-1.5 w-full">
+                <div className="mt-1 w-full">
                   <span>Description</span>
                   <TextEditor
                     value={formData.description}

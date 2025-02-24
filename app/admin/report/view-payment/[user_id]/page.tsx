@@ -945,6 +945,9 @@ type Site = {
       </th> 
     </tr>
   </thead>
+
+
+
   <tbody>
     {paymentData.map((item, index) => (
       <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
@@ -952,7 +955,8 @@ type Site = {
           {index + 1}
         </td>
         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-          {item.amount_total}
+          {/* {item.amount_total} */}
+          {index === 0 ? item.amount_total : ""} 
         </td>
         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
           {item.pay_amount}

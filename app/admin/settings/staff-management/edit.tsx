@@ -548,20 +548,20 @@ useEffect(() => {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="block">
             <span>Staff Name</span>
-    <span className="relative mt-1.5 flex">
+    <span className="relative mt-1 flex">
             <input 
             name="first_name" 
             value={formData.first_name}
              onChange={handleChange} 
              type="text"
               placeholder="Staff Name" 
-              className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" 
+              className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" 
               />
             </span>
             </label>
             <label className="block">
             <span>Mobile</span>
-    <span className="relative mt-1.5 flex">
+    <span className="relative mt-1 flex">
             <input 
             name="mobile"
              value={formData.mobile}
@@ -574,30 +574,30 @@ useEffect(() => {
               }}
               type="text" 
               placeholder="Mobile"
-              className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
+              className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
             </span>
             </label>
             <label className="block">
             <span>Address</span>
-    <span className="relative mt-1.5 flex">
+    <span className="relative mt-1 flex">
             <input
              name="address"
              value={formData.address}
               onChange={handleChange} 
               type="text"
                placeholder="Place"
-               className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
+               className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
             </span>
             </label>
             <label className="block">
             <span>Email</span>
-    <span className="relative mt-1.5 flex">
+    <span className="relative mt-1 flex">
             <input name="email" 
             value={formData.email}
              onChange={handleChange} 
              type="text" 
              placeholder="Email" 
-             className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+             className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
             </span>
             </label>
   
@@ -612,7 +612,7 @@ useEffect(() => {
 
       <div
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+        className="text-sm pl-2 mt-2 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         { selectedBranch || formData.branch_name || "Select a branch"}
         <span className="ml-2">&#9662;</span> 
@@ -620,7 +620,7 @@ useEffect(() => {
 
      
       {isDropdownOpen && (
-        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+        <div className="text-sm pl-2 absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
      
           <input
             type="text"
@@ -668,7 +668,7 @@ useEffect(() => {
         }}
         type={showPassword ? "text" : "password"} 
         placeholder="Password"
-        className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
       <span
         onClick={() => setShowPassword(!showPassword)} 

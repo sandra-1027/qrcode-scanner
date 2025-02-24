@@ -284,18 +284,18 @@ const fetchSearchBranch = async () => {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 ">
             <label className="block">
             <span>Staff Name</span>
-    <span className="relative mt-1.5 flex">
+    <span className="relative mt-1 flex">
      
             <input name="name" 
             value={ localFormData.name}
              onChange={handleChange} type="text"
               placeholder="Staff Name" 
-              className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+              className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
             </span>
             </label>
             <label className="block">
             <span>Mobile</span>
-    <span className="relative mt-1.5 flex">
+    <span className="relative mt-1 flex">
      
             <input name="mobile"
              value={localFormData.mobile}
@@ -308,7 +308,7 @@ const fetchSearchBranch = async () => {
               }}
               type="text" 
               placeholder="Mobile"
-              className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+              className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
               />
 
 
@@ -316,26 +316,26 @@ const fetchSearchBranch = async () => {
             </label>
             <label className="block">
             <span>Place</span>
-    <span className="relative mt-1.5 flex">
+    <span className="relative mt-1 flex">
      
             <input name="place"
              value={localFormData.place}
               onChange={handleChange} 
               type="text"
                placeholder="Place"
-               className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
+               className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"/>
             </span>
             </label>
             <label className="block">
             <span>Email</span>
-    <span className="relative mt-1.5 flex">
+    <span className="relative mt-1 flex">
       
             <input name="email" 
             value={localFormData.email}
              onChange={handleChange} 
              type="text" 
              placeholder="Email" 
-             className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+             className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
             </span>
             </label>
   
@@ -391,14 +391,14 @@ const fetchSearchBranch = async () => {
               <label className="block">
     <span>Password</span>
 
-            <span className="relative mt-1.5 flex">
+            <span className="relative mt-1 flex">
       <input
         name="password"
         value={password}
         onChange={handleChange}
         type={showPassword ? "text" : "password"} 
         placeholder="Password"
-        className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
       <span
         onClick={() => setShowPassword(!showPassword)} 

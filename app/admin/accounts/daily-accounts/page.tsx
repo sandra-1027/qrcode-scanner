@@ -923,11 +923,7 @@ const page = () => {
   };
   
  
-  // const handleFilterSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault(); 
-  //   const newFilteredData = applyFilters();
-  //   setFilteredData(newFilteredData); 
-  // };
+
   const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
@@ -940,13 +936,19 @@ const page = () => {
   
     setIsLoading(false); // Stop loading
   };
-  const handleReset = () => {
+  //const handleReset = () => {
+   const handleReset = async () => {
+   setIsLoading(true); // Start loading
+  
+    // Simulate a delay to show the loader (you can remove this in production)
+    await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setdailystatusselected("");
     setSelectedStatus("");
     setSelectedDate("");
     setFilteredData(accountData); 
     setSelectedBranch("");
+    setIsLoading(false); // Stop loading
   };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -1257,8 +1259,9 @@ const fetchSearchBranch = async () => {
       type="text"
       value={searchTerm}
       onChange={handleSearchChange}
-      placeholder="Search by name, branch, or place..."
-      className="form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+        placeholder="Type a keyword..."
+                  aria-label="Type a keyword..."
+      className="text-sm form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
     />
             </div>
           </div>
