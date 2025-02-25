@@ -1329,7 +1329,7 @@ const Admission = () => {
     setIsLoading(true); // Start loading
   
     // Simulate a delay to show the loader (you can remove this in production)
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 300));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
     setIsLoading(false); // Stop loading
@@ -1340,7 +1340,7 @@ const Admission = () => {
     setIsLoading(true); // Start loading
    
      // Simulate a delay to show the loader (you can remove this in production)
-     await new Promise(resolve => setTimeout(resolve, 1000));
+     await new Promise(resolve => setTimeout(resolve, 300));
     setSearchTerm("");
 
     setSelectedBranch("");
@@ -1697,7 +1697,8 @@ const Admission = () => {
                   type="text"
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  placeholder="Search by name, branch, or place..."
+                  placeholder="Type a keyword..."
+                  aria-label="Type a keyword..."
                   className="text-sm pl-2 form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 />
               </div>
@@ -1707,7 +1708,7 @@ const Admission = () => {
                 <thead>
                   <tr>
                     <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      SL No
+                      #
                     </th>
                     <th className="max-w-[110px] break-words bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Mobile Number
@@ -1755,6 +1756,11 @@ const Admission = () => {
                           {item.user_name}
                           <p className="text-slate-400 dark:text-navy-300">
                             Name: {item.first_name}
+                           
+                          </p>
+                          <p className="text-slate-400 dark:text-navy-300">
+                           
+                            Admission No:{item.admission_no}
                           </p>
                         </td>
                         {/* <td className="max-w-[550px] px-4 py-3"> */}

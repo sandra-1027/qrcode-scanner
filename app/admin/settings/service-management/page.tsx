@@ -129,7 +129,7 @@ const page = () => {
     setIsLoading(true); // Start loading
     
       // Simulate a delay to show the loader (you can remove this in production)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 300));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
     setIsLoading(false); // Stop loading
@@ -140,7 +140,7 @@ const page = () => {
     setIsLoading(true); // Start loading
    
      // Simulate a delay to show the loader (you can remove this in production)
-     await new Promise(resolve => setTimeout(resolve, 1000));
+     await new Promise(resolve => setTimeout(resolve, 300));
     setSearchTerm("");
     setSelectedService("");
     setSelectedStatus("");
@@ -297,7 +297,7 @@ const page = () => {
               />
             </svg>
           </li>
-          <li>Settings</li>
+          <li>Master</li>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="size-4"
@@ -312,7 +312,7 @@ const page = () => {
               d="M9 5l7 7-7 7"
             />
           </svg>
-          <li>Service Management</li>
+          <li>Service</li>
         </ul>
       </div>
 
@@ -452,7 +452,7 @@ const page = () => {
                 <thead>
                   <tr>
                     <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      SL No
+                    #
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Service Name

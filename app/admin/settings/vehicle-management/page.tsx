@@ -135,7 +135,7 @@ const page = () => {
     setIsLoading(true); // Start loading
     
       // Simulate a delay to show the loader (you can remove this in production)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 300));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
     setIsLoading(false); // Stop loading
@@ -145,7 +145,7 @@ const page = () => {
     setIsLoading(true); // Start loading
    
      // Simulate a delay to show the loader (you can remove this in production)
-     await new Promise(resolve => setTimeout(resolve, 1000));
+     await new Promise(resolve => setTimeout(resolve, 300));
     setSearchTerm("");
     setSelectedVehicle("");
     setSelectedStatus("");
@@ -303,7 +303,7 @@ const page = () => {
               />
             </svg>
           </li>
-          <li>Settings</li>
+          <li>Master</li>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="size-4"
@@ -318,7 +318,7 @@ const page = () => {
               d="M9 5l7 7-7 7"
             />
           </svg>
-          <li>Vehicle Management</li>
+          <li>Vehicle</li>
         </ul>
       </div>
 
@@ -327,29 +327,7 @@ const page = () => {
           <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
             <form>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                {/* Driver Name Select */}
-                {/* <div className="flex-1">
-                  <label
-                    htmlFor="serviceName"
-                    className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-                  >
-                    Vehicle Name
-                  </label>
-                  <select
-                    id="vehicleName"
-                    name="vehicleName"
-                    value={selectedVehicle}
-                    onChange={(e) => setSelectedVehicle(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-                  >
-                    <option value="">select a vehicle</option>
-                    {vehicleData.map((vehicle) => (
-                      <option key={vehicle.id} value={vehicle.vehicle_no}>
-                        {vehicle.vehicle_no}
-                      </option>
-                    ))}
-                  </select>
-                </div> */}
+                
   <div className="relative w-full" ref={dropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
        Vehicle Name
@@ -483,7 +461,7 @@ const page = () => {
                 <thead>
                   <tr>
                     <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      SL No
+                    #
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Vehicle No:

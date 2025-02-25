@@ -212,7 +212,7 @@ const page = () => {
           setIsLoading(true); // Start loading
     
       // Simulate a delay to show the loader (you can remove this in production)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       const newFilteredData = applyFilters();
       setFilteredData(newFilteredData); // Update filtered data
@@ -223,7 +223,7 @@ const page = () => {
       setIsLoading(true); // Start loading
      
        // Simulate a delay to show the loader (you can remove this in production)
-       await new Promise(resolve => setTimeout(resolve, 1000));
+       await new Promise(resolve => setTimeout(resolve, 300));
       setSearchTerm("");
       setSelectedService("");
       setSelectedStatus("");
@@ -492,7 +492,7 @@ onChange={handleSearchChange}
             <thead>
               <tr>
                 <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                SL No
+                #
                 </th>
                 <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                 Service Name

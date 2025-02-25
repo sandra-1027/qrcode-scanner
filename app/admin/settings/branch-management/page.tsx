@@ -123,7 +123,7 @@ const page = () => {
     setIsLoading(true); // Start loading
     
       // Simulate a delay to show the loader (you can remove this in production)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 300));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
     setIsLoading(false); // Stop loading
@@ -133,7 +133,7 @@ const page = () => {
     setIsLoading(true); // Start loading
    
      // Simulate a delay to show the loader (you can remove this in production)
-     await new Promise(resolve => setTimeout(resolve, 1000));
+     await new Promise(resolve => setTimeout(resolve, 300));
     setSearchTerm("");
     setSelectedBranch("");
     setSelectedStatus("");
@@ -289,7 +289,7 @@ const page = () => {
               />
             </svg>
           </li>
-          <li>Settings</li>
+          <li>Master</li>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="size-4"
@@ -304,7 +304,7 @@ const page = () => {
               d="M9 5l7 7-7 7"
             />
           </svg>
-          <li>Branch Management</li>
+          <li>Branch</li>
         </ul>
       </div>
 
@@ -473,7 +473,7 @@ const page = () => {
                 <thead>
                   <tr>
                     <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      SL No
+                    #
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Branch Name
@@ -519,13 +519,10 @@ currentEntries.map((item,index) =>(
                           dangerouslySetInnerHTML={{ __html: item.description }}
                         />
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.status}
-                      </td>
                       {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.added_date}
+                        {item.status}
                       </td> */}
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                         {item.status === "active" && (
                           <div className="badge space-x-2.5 rounded-full bg-success/10 text-success">
                             <div className="size-2 rounded-full bg-current" />
@@ -539,6 +536,10 @@ currentEntries.map((item,index) =>(
                           </div>
                         )}
                       </td>
+                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {item.added_date}
+                      </td>
+                     
                       <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                         <span>
                           <div className="flex justify-center space-x-2">
