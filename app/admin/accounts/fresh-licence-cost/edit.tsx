@@ -254,7 +254,12 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                type="text"
                 placeholder="vehicle_type"
                 readOnly
-                className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+                // className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" 
+               className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 
+               bg-slate-200 dark:bg-navy-600 px-3 py-2 placeholder:text-slate-400/70 
+               hover:border-slate-400 focus:border-primary dark:border-navy-450 
+               dark:hover:border-navy-400 dark:focus:border-accent"
+                />
               </label>
 
 
@@ -267,7 +272,11 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                type="text"
                 placeholder="gender"
                 readOnly
-                className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
+                className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 
+                bg-slate-200 dark:bg-navy-600 px-3 py-2 placeholder:text-slate-400/70 
+                hover:border-slate-400 focus:border-primary dark:border-navy-450 
+                dark:hover:border-navy-400 dark:focus:border-accent"
+                />
               </label>
               {( formData.vehicle_type === 'lmc_mc' ||
                 formData.vehicle_type === 'both'||

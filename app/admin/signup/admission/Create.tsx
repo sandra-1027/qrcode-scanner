@@ -1414,7 +1414,7 @@ const Create: React.FC<CreateProps> = ({
   const [insurence, setinsurence] = useState<File | null>(null);
   const [payment_method, setpayment_method] = useState("");
   const [service_id, setservice_id] = useState("");
-
+  const [error, setError] = useState('');
   const [pay_amount, setpay_amount] = useState("");
   const [type, settype] = useState("");
   const [amount, setamount] = useState("");
@@ -1451,7 +1451,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
     const userDropdownRef = useRef<HTMLDivElement>(null);
     const branchDropdownRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(false);
-    
+
   const [localFormData, setLocalFormData] = useState(
     formDatas || {
       name: "",
@@ -1605,9 +1605,23 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
     if (insurence) formData.append("insurence", insurence);
 
     for (const [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
+      //console.log(`${key}:`, value);
     }
+
     console.log("submitting formdata", Object.fromEntries(formData.entries()));
+    if ( ! localFormData.name) {
+      setError("Name field is required.");
+      return;
+    }
+    if ( ! localFormData.mobile) {
+      setError("Mobile field is required.");
+      return;
+    }
+    if ( !localFormData.service_id ) {
+      setError("Service field is required.");
+      return;
+    }
+   
     try {
       const response = await fetch("/api/admin/signup/admission", {
         method: "POST",
@@ -1658,7 +1672,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
    }
   
    const data = await response.json();
-   console.log("Search mobile data", data.data);
+  // console.log("Search mobile data", data.data);
   
    if (data.success) {
    setMobileData(data.data.mobile_details || []);
@@ -1705,7 +1719,7 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
            }
      
            const data = await response.json();
-           console.log("Search mobile data", data.data);
+          // console.log("Search mobile data", data.data);
      
            if (data.success) {
              setSearchBranchData(data.data.branch_details || []);
@@ -1783,14 +1797,24 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
          };
        
          
-         const handleSelectService = (service:Admission) => {
-           setSelectedService(service.text);
+        //  const handleSelectService = (service:Admission) => {
+        //    setSelectedService(service.text);
           
-           setSearchService("");
-           setIsDropdownOpen(false); 
-         };
+        //    setSearchService("");
+        //    setIsDropdownOpen(false); 
+        //  };
 
-
+        const handleSelectService = (service: any) => {
+          setSelectedService(service.text); // Set selected service
+        
+          // Reset dependent fields
+          setSelectedOption("");
+          settype("");
+       
+          setSelectedAmount("");
+        
+          setIsserviceDropdownOpen(false); // Close dropdown
+        };
 
          useEffect(() => {
           if (typeof window !== "undefined" && globalThis.document) {
@@ -2050,6 +2074,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                           <input
                             name="mobile"
                             value={mobile}
+                            required
                             onChange={(e) => setmobile(e.target.value)}
                             className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Mobile"
@@ -2130,7 +2155,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                             onChange={(e) => setblood_group(e.target.value)}
                             className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           >
-                            <option>Select Blood Group</option>
+                            <option>Please select Blood Group</option>
                             <option value="A+ve">A+ve</option>
                             <option value="O+ve">O+ve</option>
                             <option value="B+ve">B+ve</option>
@@ -2154,7 +2179,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                             onChange={(e) => setgender(e.target.value)}
                             className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           >
-                            <option>Select a Gender</option>
+                            <option>Please select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             <option value="others">Others</option>
@@ -2344,7 +2369,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                           onChange={(e) => setdocument_type(e.target.value)}
                           className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         >
-                          <option>Choose Document</option>
+                          <option>Choose a Document</option>
                           <option value="sslc">SSLC</option>
                           <option value="aadhaar">Aadhaar</option>
                           <option value="birthcertificate">
@@ -2425,7 +2450,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                           onChange={(e) => setdocument_type(e.target.value)}
                           className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         >
-                          <option>Choose Document</option>
+                          <option>Choose a Document</option>
                           <option value="sslc">SSLC</option>
                           <option value="aadhaar">Aadhaar</option>
                           <option value="birthcertificate">
@@ -2529,7 +2554,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
         onClick={() => setIsserviceDropdownOpen(!isserviceDropdownOpen)}
         className="mt-1.5 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
-        {selectedService || "Select a service"}
+        {selectedService || "Select a Service"}
         <span className="ml-2">&#9662;</span> {/* Down arrow */}
       </div>
 
@@ -2542,6 +2567,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
             value={searchService}
             onChange={handleSearchService}
             placeholder="Search..."
+            required
             className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
           />
 
@@ -2627,11 +2653,11 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
   {type === "both" && (
      <label className="block ">
      <span>Both Type</span>
-    <span className="relative mt-1.5 flex">
+    <span className="relative mt-1 flex">
       <select
         // value={type}
         // onChange={(e) => settype(e.target.value)}
-        className="dark:bg-navy-700 form-input peer mt-1.5  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+        className="text-sm pl-2 dark:bg-navy-700 form-input peer  w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       >
         <option>Choose Type</option>
         <option value="lmv">LMV MC both Study</option>
@@ -2689,6 +2715,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
 
                 {/* Common Fields */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
                    {/* Payment Method */}
                   <label className="block">
                     <span>Payment Method</span>
@@ -2705,7 +2732,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                     </span>
                   </label>
                         {/* Service Amount */}
-                        <label className="block">
+                        {/* <label className="block">
                     <span>Service Amount</span>
                     <span className="relative mt-1 flex">
                       <input
@@ -2715,8 +2742,23 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                         className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
+                  </label> */}
+                     
+                       </div>
+                       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                               {/* Total Amount */}
+                      <label className="block">
+                    <span>Total Amount</span>
+                    <span className="relative mt-1 flex">
+                      <input
+                        type="text"
+                        placeholder="Total amount"
+                        value={selectedAmount}
+                        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      />
+                    </span>
                   </label>
-                       {/* Discount */}
+                    {/* Discount */}
                        <label className="block">
                     <span>Discount</span>
                     <span className="relative mt-1 flex">
@@ -2740,7 +2782,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       />
                     </span>
                   </label>
-                   {/* Payable Amount */}
+                   {/* Paying Amount */}
                    <label className="block ">
                     <span>Paying Amount</span>
                     <span className="relative mt-1 flex">
@@ -2753,18 +2795,20 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                       />
                     </span>
                   </label>
-                      {/* Total Amount */}
-                      <label className="block">
-                    <span>Total Amount</span>
-                    <span className="relative mt-1 flex">
-                      <input
-                        type="text"
-                        placeholder="Total amount"
-                        value={selectedAmount}
-                        className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                      />
-                    </span>
-                  </label>
+                   {/* Remarks*/}
+                   <label className="block ">
+                        <span>Remarks</span>
+                        <span className="relative mt-1 flex">
+                          <textarea 
+                          rows={2}
+                            name="address"
+                            value={address}
+                            onChange={(e) => setaddress(e.target.value)}
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                            // placeholder="Address" 
+                          />
+                        </span>
+                      </label>
                 </div>
                 {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-2">
                  

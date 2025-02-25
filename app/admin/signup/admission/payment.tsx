@@ -74,9 +74,10 @@ const Payment: React.FC<CreateProps> = ({
     }
   }, [formData]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  // const handleChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  // ) => {
     const { name, value } = e.target;
     setLocalFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -254,38 +255,23 @@ const Payment: React.FC<CreateProps> = ({
                   />
                 </span>
               </label>
+                 {/* Remarks*/}
+                 <label className="block ">
+                        <span>Remarks</span>
+                        <span className="relative mt-1 flex">
+                          <textarea 
+                          rows={2}
+                           name="payed_amount"
+                            value={localFormData.payed_amount}
+                            onChange={handleChange}
+                            className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                           
+                          />
+                        </span>
+                      </label>
             </div>
 
-            {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
-              <label className="block">
-                <span>Due Amount</span>
-                <span className="relative mt-1.5 flex">
-                  <input
-                    name="due_amount"
-                    value={localFormData.due_amount}
-                    readOnly
-                    type="text"
-                    placeholder="Enter Due Amount"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                  />
-                </span>
-              </label>
-              <label className="block">
-                <span>Payable Amount</span>
-                <span className="relative mt-1.5 flex">
-                  <input
-                    name="payed_amount"
-                    value={localFormData.payed_amount}
-                    onChange={handleChange}
-                    type="number"
-                    placeholder="Enter Paying Amount"
-                    step="1"
-                    min="0"
-                    className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                  />
-                </span>
-              </label>
-            </div> */}
+          
 
             <div className="mt-4">
               <button

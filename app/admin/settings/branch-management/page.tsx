@@ -522,8 +522,22 @@ currentEntries.map((item,index) =>(
                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                         {item.status}
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                      {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                         {item.added_date}
+                      </td> */}
+                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {item.status === "active" && (
+                          <div className="badge space-x-2.5 rounded-full bg-success/10 text-success">
+                            <div className="size-2 rounded-full bg-current" />
+                            <span>active</span>
+                          </div>
+                        )}
+                        {item.status === "inactive" && (
+                          <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
+                            <div className="size-2 rounded-full bg-current" />
+                            <span>inactive</span>
+                          </div>
+                        )}
                       </td>
                       <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                         <span>

@@ -705,6 +705,8 @@ type Site = {
 
   const [paymentData, setpaymentData] = useState<Payment[]>([]);
   
+  //const [amount, setamount] = useState<Payment | null>(null);
+
   const [userData, setuserData] = useState<Payment | null>(null);
   const [admissionData, setAdmissionData] = useState<Payment[]>([]);
 
@@ -801,11 +803,13 @@ type Site = {
       }
   
       const data = await response.json();
-      console.log(data, "data");
+     // console.log(data, "data");
   
       if (data.success) {
         setpaymentData(data.data.payment_details);
         setuserData(data.data.user_details);
+       //console.log(data.data.payment_details)
+     
       } else {
         setError(data.msg || "Failed to fetch data");
       }
@@ -815,6 +819,7 @@ type Site = {
     }
   };
 
+  const totalAmount = paymentData[0]?.amount_total;
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -905,7 +910,7 @@ type Site = {
       {userData && (
      <div className="mt-4">
   <h6 className="font-bold mb-2">{userData.first_name}</h6>
-  Bill No:  {userData.billno}
+  Total Amount:  {totalAmount}
   <br />Tel No:  {userData.mobile}
   <br />Email:  {userData.email}<p />
 </div>
@@ -913,6 +918,7 @@ type Site = {
       </div>
 
     </div>
+
 
 
 
@@ -926,7 +932,7 @@ type Site = {
         SL No
       </th>
       <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-        Total Amount
+        Bill NO
       </th>
       <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
         Pay Amount
@@ -955,8 +961,8 @@ type Site = {
           {index + 1}
         </td>
         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-          {/* {item.amount_total} */}
-          {index === 0 ? item.amount_total : ""} 
+           {item.amount_total} 
+          {/* {index === 0 ? item.amount_total : ""}  */}
         </td>
         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
           {item.pay_amount}

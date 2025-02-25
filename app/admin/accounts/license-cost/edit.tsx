@@ -242,16 +242,20 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
       {/* Dropdown Button */}
       <div
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="mt-1 text-sm pl-2 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+        // className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 
+        // bg-slate-200 dark:bg-navy-600 px-3 py-2 placeholder:text-slate-400/70 
+        // hover:border-slate-400 focus:border-primary dark:border-navy-450 
+        // dark:hover:border-navy-400 dark:focus:border-accent"
+         className="mt-1 text-sm pl-2 flex w-full items-center justify-between rounded-md border dark:hover:border-navy-400 dark:focus:border-accent text-slate-400/70 border-slate-300 bg-slate-200 dark:bg-navy-600 py-2 px-3 shadow-sm cursor-pointer hover:border-slate-400 focus:border-primary dark:border-navy-450 sm:text-sm "
       >
         {selectedService || formData.service_name || "Select a service"}
         <span className="ml-2">&#9662;</span> {/* Down arrow */}
       </div>
 
       {/* Dropdown Content */}
-      {isDropdownOpen && (
+      {/* {isDropdownOpen && (
         <div className="absolute z-10 mt-2 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
-          {/* Search Bar Inside Dropdown */}
+        
           <input
             type="text"
             value={searchService}
@@ -260,7 +264,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
             className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
           />
 
-          {/* Dropdown Options */}
+        
           <ul className="max-h-48 overflow-y-auto hide-scrollbar">
             {filteredService.length > 0 ? (
               filteredService.map((service) => (
@@ -277,7 +281,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
             )}
           </ul>
         </div>
-      )}
+      )} */}
     </div>
 
   {/* vehicle Type */}

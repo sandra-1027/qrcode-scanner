@@ -6,7 +6,7 @@
 // import { strict } from 'assert';
 // import { useAuth } from '@/app/context/AuthContext';
 // import Add from './add';
-// import { FaRegCheckCircle } from 'react-icons/fa';
+// import { FaRegCheckCircle, FaSpinner } from 'react-icons/fa';
 // import Edit from './edit';
 // import { HiOutlineArrowNarrowDown, HiOutlineArrowNarrowUp } from 'react-icons/hi';
 // type Account = {
@@ -45,6 +45,8 @@
 //   const [selectedBranch, setSelectedBranch] = useState<string>("");
 //   const [selectedStatus, setSelectedStatus] = useState<string>("");
 //   const [selectedDate, setSelectedDate] = useState<string>("");
+//   const [filteredDate, setFilteredDate] = useState("");
+
 //   const [dailystatusselected, setdailystatusselected] = useState<string>("");
 //   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null); 
 //   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
@@ -57,6 +59,8 @@
 //      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 //       // const dropdownRef = useRef(null);
 //       const dropdownRef = useRef<HTMLDivElement>(null);
+
+//       const [isLoading, setIsLoading] = useState(false);
 
 //   const togglemodal = (mode: 'add' | 'edit', account: Account | null = null) => {
 //     setModalMode(mode);
@@ -190,19 +194,32 @@
 //   };
   
  
-//   const handleFilterSubmit = (e: React.FormEvent) => {
-//     e.preventDefault(); 
-//     const newFilteredData = applyFilters();
-//     setFilteredData(newFilteredData); 
-//   };
+
+//   const handleFilterSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     setIsLoading(true); // Start loading
   
-//   const handleReset = () => {
+//     // Simulate a delay to show the loader (you can remove this in production)
+//     await new Promise(resolve => setTimeout(resolve, 1000));
+  
+//     const newFilteredData = applyFilters();
+//     setFilteredData(newFilteredData);
+//     setFilteredDate(selectedDate);
+//     setIsLoading(false); // Stop loading
+//   };
+//   //const handleReset = () => {
+//    const handleReset = async () => {
+//    setIsLoading(true); // Start loading
+  
+//     // Simulate a delay to show the loader (you can remove this in production)
+//     await new Promise(resolve => setTimeout(resolve, 1000));
 //     setSearchTerm("");
 //     setdailystatusselected("");
 //     setSelectedStatus("");
 //     setSelectedDate("");
 //     setFilteredData(accountData); 
 //     setSelectedBranch("");
+//     setIsLoading(false); // Stop loading
 //   };
 
 //   const indexOfLastEntry = currentPage * entriesPerPage;
@@ -307,16 +324,7 @@
 //       setIsDropdownOpen(false); 
 //     };
   
-//     // Close dropdown when clicking outside
-//     // useEffect(() => {
-//     //   const handleClickOutside = (event) => {
-//     //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-//     //       setIsDropdownOpen(false);
-//     //     }
-//     //   };
-//     //   document.addEventListener("mousedown", handleClickOutside);
-//     //   return () => document.removeEventListener("mousedown", handleClickOutside);
-//     // }, []);
+
 //     useEffect(() => {
 //       const handleClickOutside = (event: MouseEvent) => {
 //         if (dropdownRef.current && event.target instanceof Node) {
@@ -330,6 +338,12 @@
 //       return () => document.removeEventListener("mousedown", handleClickOutside);
 //     }, []);
     
+//     // todays date
+// useEffect(() => {
+//     const today = new Date().toISOString().split("T")[0];
+//     setSelectedDate(today);
+//     setFilteredDate(today); // Set initial date
+//   }, []);
    
 //   return (
 //     <div className=" w-full  pb-8">
@@ -516,14 +530,16 @@
 //   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6" >
 //   <div className="card px-4 pb-4 sm:px-5">
 //   <div className="mt-5">
+//     <h2>Date:{filteredDate}</h2>
 //   <div className="gridjs-head">
 //             <div className="gridjs-search">
 //             <input
 //       type="text"
 //       value={searchTerm}
 //       onChange={handleSearchChange}
-//       placeholder="Search by name, branch, or place..."
-//       className="form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+//         placeholder="Type a keyword..."
+//                   aria-label="Type a keyword..."
+//       className="text-sm form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
 //     />
 //             </div>
 //           </div>
@@ -561,75 +577,78 @@
 //               </tr>
 //             </thead>
 //             <tbody>
-//             {/* {currentEntries.map((item, index) => ( */}
-//             {currentEntries.length > 0 ?(
-//               currentEntries.map((item, index) =>(
-
-             
-//               <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-//                 <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
-//                 {index +indexOfFirstEntry+1}
-//                 </td>
-//                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                 {item.daily_status === "income" ? item.type : item.expense_name}
-//                 </td>
-//                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                 {item.added_by}
-//                 </td>
-//                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                 {item.branch_name}
-//                 </td>
-//                   <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-//                 {item.daily_status === "income" ? (
-//     <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
-//       <span>Income</span>
-//       <HiOutlineArrowNarrowUp/>
-//                 </div>
+//   {isLoading ? (
+//     <tr>
+//       <td colSpan={7} className="text-center py-10">
+//         <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
+//       </td>
+//     </tr>
 //   ) : (
 //     <>
-//       <div className="badge space-x-2.5 rounded-full bg-error/10 text-error"> 
-//                <span>Expense</span>
-//                <HiOutlineArrowNarrowDown/>
+//       {currentEntries.length > 0 ? (
+//         currentEntries.map((item, index) => (
+//           <tr key={item.id} className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+//             <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
+//               {index + indexOfFirstEntry + 1}
+//             </td>
+//             <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//               {item.daily_status === "income" ? item.type : item.expense_name}
+//             </td>
+//             <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//               {item.added_by}
+//             </td>
+//             <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//               {item.branch_name}
+//             </td>
+//             <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+//               {item.daily_status === "income" ? (
+//                 <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
+//                   <span>Income</span>
+//                   <HiOutlineArrowNarrowUp />
 //                 </div>
+//               ) : (
+//                 <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
+//                   <span>Expense</span>
+//                   <HiOutlineArrowNarrowDown />
+//                 </div>
+//               )}
+//             </td>
+//             <td className="whitespace-nowrap px-4 py-3 sm:px-5">{item.amount}</td>
+//             <td className="whitespace-nowrap px-4 py-3 sm:px-5">{item.added_date}</td>
+//             <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
+//               <div className="flex space-x-2">
+//                 <button
+//                   onClick={() => togglemodal("edit", item)}
+//                   className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+//                 >
+//                   <i className="fa fa-edit" />
+//                 </button>
+//                 <button
+//                   className={`btn size-8 p-0 ${
+//                     item.status === "active" ? "text-error" : "text-primary"
+//                   } hover:bg-${item.status === "active" ? "error" : "primary"}/20 focus:bg-${
+//                     item.status === "active" ? "error" : "primary"
+//                   }/20 active:bg-${item.status === "active" ? "error" : "primary"}/25`}
+//                   onClick={() => updateAccountStatus(item.id!, item.status)}
+//                 >
+//                   <i className={`fa ${item.status === "active" ? "fa-trash-alt" : "fa-check-circle"}`} />
+//                 </button>
+//               </div>
+//             </td>
+//           </tr>
+//         ))
+//       ) : (
+//         <tr>
+//           <td colSpan={7} className="text-center py-4 text-gray-500">
+//             No data available
+//           </td>
+//         </tr>
+//       )}
 //     </>
 //   )}
-//                 </td>
-//                 <td className="whitespace-nowrap  px-4 py-3 sm:px-5">
-//                 {item.amount}
-//                 </td>
-//                 <td className="whitespace-nowrap  px-4 py-3 sm:px-5">
-//                 {item.added_date}
-//                 </td>
-//                 <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
-//                 <span>
-//                       <div className="flex  space-x-2">
-//                         <button 
-//                         onClick={() => togglemodal('edit', item)}
-//                         className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
-//                           <i className="fa fa-edit"/>
-//                         </button>
-//                         <button
-//                         className={`btn size-8 p-0 ${item.status === 'active' ? 'text-error' : 'text-primary'} hover:bg-${item.status === 'active' ? 'error' : 'primary'}/20 focus:bg-${item.status === 'active' ? 'error' : 'primary'}/20 active:bg-${item.status === 'active' ? 'error' : 'primary'}/25`}
-//                         onClick={() => updateAccountStatus(item.id!, item.status)} // Pass the current status
-//                       >
-//                         <i className={`fa ${item.status === 'active' ? 'fa-trash-alt' : 'fa-check-circle'}`} />
-//                       </button>
-//                       </div>
-//                     </span>
-//                 </td>
-//               </tr>
-  
-//               //  {/* ))} */}
-//               ))
-//             ):(
-//               <tr>
-//               <td colSpan={7} className="text-center py-4 text-gray-500">
-//                 No data available
-//               </td>
-//             </tr>
-//             )
-//           }
-//             </tbody>
+// </tbody>
+
+
 //           </table>
 //         </div>
 
@@ -730,6 +749,9 @@
 // export default page
 
 
+
+
+
 'use client'
 import withAuth from '@/hoc/withAuth';
 import React, { useEffect, useRef, useState } from 'react'
@@ -776,17 +798,16 @@ const page = () => {
   const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const [filteredDate, setFilteredDate] = useState("");
+
   const [dailystatusselected, setdailystatusselected] = useState<string>("");
   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null); 
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   
     const [searchBranch, setSearchBranch] = useState("");
-    // const[searchBranchData,setSearchBranchData] =useState("");
-    // const[filteredBranch,setFilteredBranch]=useState("");
     const[searchBranchData,setSearchBranchData] = useState<Account []>([]);
     const [filteredBranch, setFilteredBranch] = useState<Account[]>([]);
      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-      // const dropdownRef = useRef(null);
       const dropdownRef = useRef<HTMLDivElement>(null);
 
       const [isLoading, setIsLoading] = useState(false);
@@ -798,12 +819,8 @@ const page = () => {
     fetchStaffData();
   };
 
-
   const fetchStaffData = async () => {
-  
-
     try {
-
       const response = await fetch('/api/admin/accounts/accounts_details', {
         method: 'POST',
         headers: {
@@ -813,7 +830,8 @@ const page = () => {
         body: JSON.stringify({ 
           id: null,
           status: null,
-          date: null, }),
+          date:filteredDate, // Include the selected date in the request
+        }),
       });
       if (!response.ok) {
         const errorData = await response.json();
@@ -834,7 +852,11 @@ const page = () => {
   };
   useEffect(() => {
     fetchStaffData();
-  }, [state]);
+  }, [filteredDate]);
+
+  // useEffect(() => {
+  //   fetchStaffData();
+  // }, [state]);
 
 
   const fetchBranchData = async () => {
@@ -876,6 +898,37 @@ const page = () => {
   const [currentPage,setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(10);
 
+  // const applyFilters = () => {
+  //   let newFilteredData = accountData;
+  
+  //   // Apply form filters
+  //   if (dailystatusselected) {
+  //     newFilteredData = newFilteredData.filter(
+  //       (item) => item.daily_status === dailystatusselected
+  //     );
+  //   }
+  //   if (selectedStatus) {
+  //     newFilteredData = newFilteredData.filter(
+  //       (item) => item.status === selectedStatus
+  //     );
+  //   }
+  
+  //   if (selectedDate) {
+  //     newFilteredData = newFilteredData.filter((item) => {
+      
+  //       const itemDate = item.added_date.split(" ")[0]; 
+  //       return itemDate === selectedDate;
+  //     });
+  //   }
+
+  //   if (selectedBranch){
+  //     newFilteredData = newFilteredData.filter(
+  //       (item) => item.branch_name=== selectedBranch
+  //     );
+  //   }
+  //   return newFilteredData; 
+  // };
+  
   const applyFilters = () => {
     let newFilteredData = accountData;
   
@@ -891,17 +944,23 @@ const page = () => {
       );
     }
   
-    if (selectedDate) {
+    // if (selectedDate) {
+    //   newFilteredData = newFilteredData.filter((item) => {
+    //     const itemDate = item.added_date.split(" ")[0]; 
+    //      return itemDate === selectedDate;
+        
+    //   });
+    // }
+    if (filteredDate) {
       newFilteredData = newFilteredData.filter((item) => {
-      
         const itemDate = item.added_date.split(" ")[0]; 
-        return itemDate === selectedDate;
+         return itemDate === filteredDate;
+        
       });
     }
-
     if (selectedBranch){
       newFilteredData = newFilteredData.filter(
-        (item) => item.branch_name=== selectedBranch
+        (item) => item.branch_name === selectedBranch
       );
     }
     return newFilteredData; 
@@ -922,34 +981,61 @@ const page = () => {
     setFilteredData(searchFilteredData); 
   };
   
- 
-
   const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
   
     // Simulate a delay to show the loader (you can remove this in production)
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 300));
   
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
-  
+    setFilteredDate(selectedDate);
     setIsLoading(false); // Stop loading
   };
-  //const handleReset = () => {
-   const handleReset = async () => {
-   setIsLoading(true); // Start loading
+  
+  const handleReset = async () => {
+    setIsLoading(true); // Start loading
   
     // Simulate a delay to show the loader (you can remove this in production)
     await new Promise(resolve => setTimeout(resolve, 1000));
     setSearchTerm("");
     setdailystatusselected("");
     setSelectedStatus("");
-    setSelectedDate("");
+    const today = new Date().toISOString().split("T")[0];
+   setSelectedDate(today); 
+    setFilteredDate(today);
     setFilteredData(accountData); 
     setSelectedBranch("");
     setIsLoading(false); // Stop loading
   };
+
+  // const handleFilterSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsLoading(true); // Start loading
+  
+  //   // Simulate a delay to show the loader (you can remove this in production)
+  //   await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  //   const newFilteredData = applyFilters();
+  //   setFilteredData(newFilteredData);
+  //   setFilteredDate(selectedDate);
+  //   setIsLoading(false); // Stop loading
+  // };
+  // //const handleReset = () => {
+  //  const handleReset = async () => {
+  //  setIsLoading(true); // Start loading
+  
+  //   // Simulate a delay to show the loader (you can remove this in production)
+  //   await new Promise(resolve => setTimeout(resolve, 1000));
+  //   setSearchTerm("");
+  //   setdailystatusselected("");
+  //   setSelectedStatus("");
+  //   setSelectedDate("");
+  //   setFilteredData(accountData); 
+  //   setSelectedBranch("");
+  //   setIsLoading(false); // Stop loading
+  // };
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -1067,6 +1153,12 @@ const fetchSearchBranch = async () => {
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
     
+    // todays date
+useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    setSelectedDate(today);
+    setFilteredDate(today); // Set initial date
+  }, []);
    
   return (
     <div className=" w-full  pb-8">
@@ -1253,6 +1345,7 @@ const fetchSearchBranch = async () => {
   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6" >
   <div className="card px-4 pb-4 sm:px-5">
   <div className="mt-5">
+    <h2>Date:{filteredDate}</h2>
   <div className="gridjs-head">
             <div className="gridjs-search">
             <input
