@@ -224,6 +224,7 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import Head from "next/head";
 import MobileSearchbar from "./MobileSearchbar";
+import Footer from "./Footer";
 
 export default function DashboardLayout({
   children,
@@ -283,7 +284,9 @@ export default function DashboardLayout({
              {/* <div className="app-preloader-inner"> */}
             {children}
             {/* </div> */}
+           
           </main>
+          <Footer/>
         </div>
       </div>
 

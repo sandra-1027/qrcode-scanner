@@ -12,6 +12,7 @@ type CreateProps = {
     amount: string;
     type: string;
     expense_name: string;
+    payment_method:string;
     id?: string;
   };
   isEditing?: boolean;
@@ -21,6 +22,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const { state } = useAuth();
   const [accountType, setAccountType] = useState(formData?.daily_status || 'expense');
   const [expenseType, setExpenseType] = useState(formData?.type || '');
+  const [payment_method, setpayment_method] = useState(formData?.payment_method || '');
   const [amount, setAmount] = useState(formData?.amount || '');
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -143,6 +145,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
               </label>
             </div>
 
+
           
 
 {accountType === 'expense' && (
@@ -223,6 +226,21 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
     </label>
   </div>
 )}
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+ {/* Payment Method */}
+ <label className="block">
+      <select
+        value={payment_method}
+        onChange={(e) => setExpenseType(e.target.value)}
+        className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+      >
+        <option value="">Please select Payment Method</option>
+        <option value="google_pay">Google Pay</option>
+        <option value="cash">Cash</option>
+        
+      </select>
+    </label>
+    </div>
             {/* Submit Button */}
             <button
               type="submit"

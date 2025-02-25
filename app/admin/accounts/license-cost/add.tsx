@@ -21,7 +21,7 @@ type CreateProps = {
 };
 
 type Cost = {
-  id?: string;
+  id: string;
   status: string;
   service_name: string;
   f_cost: string;
@@ -38,6 +38,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedService, setSelectedService] = useState<string>("");
+  const [selectedServiceid, setSelectedServiceid] = useState<string>("");
   const [searchService, setSearchService] = useState("");
   // const[searchServiceData,setSearchServiceData] =useState("");
   // const[filteredService,setFilteredService]=useState("");
@@ -50,7 +51,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal, formData, isEditin
   const [localFormData, setLocalFormData] = useState(formData || {
     f_cost: "",
     m_cost: "",
-service_id: selectedService,
+service_id: selectedServiceid,
     vehicle_type: "",
     id:"",
   });
@@ -97,11 +98,12 @@ service_id: selectedService,
 
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  if (!localFormData.service_id.trim() || !localFormData.vehicle_type.trim()) {
-    setError("All fields are required.");
-    return;
-  }
-  
+  // if (!localFormData.service_id.trim() || !localFormData.vehicle_type.trim()) {
+  //   if (!localFormData.service_id.trim()) {
+  //   setError("All fields are required.");
+  //   return;
+  // }
+  console.log(formData?.service_id,"service_id")
   try {
     const response = await fetch("/api/admin/accounts/add_license_cost", {
       method: "POST",
@@ -119,12 +121,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const responseJson = await response.json();
     console.log("Response from backend:", responseJson);
 
-    // if (!response.ok) {
-    //   alert(`Failed to ${isEditing ? 'update' : 'add'} license. Status code: ${response.status}`);
-    //   return;
-    // }
-
-    // alert(`License added successfully!`);
     togglemodal(); 
   } catch (error) {
     console.error("Error submitting form:", error);
@@ -152,7 +148,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         }
   
         const data = await response.json();
-        console.log("Search mobile data", data.data);
+       // console.log("Search mobile data", data.data);
   
         if (data.success) {
           setSearchServiceData(data.data.service_details || []);
@@ -184,8 +180,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   
     
     const handleSelectService = (service :Cost) => {
+      // console.log(service.id,"servicetext")
       setSelectedService(service.text);
-     
+      setSelectedServiceid(service.id);
+    
       // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
       setSearchService("");
       setIsDropdownOpen(false); // Close dropdown after selection
@@ -216,6 +214,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
               {isEditing ? "Edit License Cost" : "Add License Cost"}
             </h3>
+            {/* {localFormData ? <p>Selected: {localFormData.service_id}</p> : <p>No service selected</p>} */}
             <button onClick={togglemodal} className="btn -mr-1.5 size-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
 
                    <svg

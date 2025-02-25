@@ -327,10 +327,10 @@ const Admission = () => {
               <table className="is-hoverable w-full text-left">
                 <thead>
                   <tr>
-                    <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      SL No
+                    <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                      #
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[110px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Mobile Number
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
@@ -339,7 +339,7 @@ const Admission = () => {
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Service Name
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[110px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Due Amount
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
@@ -348,7 +348,7 @@ const Admission = () => {
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Date
                     </th>
-                    <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Action
                     </th>
                   </tr>
@@ -423,18 +423,23 @@ const Admission = () => {
                           </div>
                         )}
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.added_date}
-                      </td>
+                      {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {item.added_date} 
+                        
+                      </td> */}
+                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                          {/* {item.added_date} */}
+                          <div className="flex flex-col">
+                            <span>{item.added_date.split(" ")[0]}</span>{" "}
+                            {/* Date */}
+                            <span>{item.added_date.split(" ")[1]}</span>{" "}
+                            {/* Time */}
+                          </div>
+                        </td>
                       <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                         <span>
                           <div className="flex justify-center space-x-2">
-                            {/* <button className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
-                              <i
-                                className="fa fa-edit"
-                                onClick={() => togglemodal("edit", item)}
-                              />
-                            </button> */}
+                          
                             {item.pay_status !== "completed" && (
                               <button
                                 onClick={() => handleEdit(item)}

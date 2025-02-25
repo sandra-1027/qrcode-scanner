@@ -523,7 +523,9 @@ useEffect(() => {
                 </button>
                
             </div>  
-             <p className="font-medium text-center mb-2 block sm:hidden">Date: {filteredDate}</p>             
+             <p className="font-medium text-center mb-2 block sm:hidden">Date: {filteredDate}</p>     
+             
+                     
   <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6" >
   <div className="card px-4 pb-4 sm:px-5">
 

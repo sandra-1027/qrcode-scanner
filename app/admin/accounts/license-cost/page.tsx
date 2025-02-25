@@ -257,7 +257,7 @@ const page = () => {
         }
   
         const data = await response.json();
-        console.log("Search mobile data", data.data);
+        //console.log("Search mobile data", data.data);
   
         if (data.success) {
           setSearchServiceData(data.data.service_details || []);

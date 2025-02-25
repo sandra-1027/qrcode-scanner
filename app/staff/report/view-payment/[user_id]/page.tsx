@@ -102,17 +102,43 @@ const page = ({ params }: { params: Promise<{ user_id: string }> }) => {
     }
   };
 
+  // const handlePrint = () => {
+  //   const printContents = document.querySelector(".copy")?.innerHTML;
+  //   if (printContents) {
+  //     const originalContents = document.body.innerHTML;
+  //     document.body.innerHTML = printContents;
+  //     window.print();
+  //     document.body.innerHTML = originalContents;
+  //     window.location.reload(); 
+  //   }
+  // };
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    return now.toLocaleString(); // Adjust format as needed
+  };
+  
   const handlePrint = () => {
-    const printContents = document.querySelector(".copy")?.innerHTML;
-    if (printContents) {
+    const printContents = document.querySelector('.copy')?.innerHTML;
+    const currentDateTime = getCurrentDateTime();
+    
+    if (printContents && billData) { // Check if siteData is available
       const originalContents = document.body.innerHTML;
-      document.body.innerHTML = printContents;
+  
+      const customHeader = `
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <p class="print-date-time" style="margin: 0;">${currentDateTime}</p>
+          <p class="print-header" style="text-align: center; flex-grow: 1; margin: 0;">View Payment Details | ${billData.name}</p>
+        </div>
+      `;
+  
+      document.body.innerHTML = customHeader + printContents;
       window.print();
       document.body.innerHTML = originalContents;
-      window.location.reload(); 
+      window.location.reload(); // Reload to restore the original content
     }
   };
 
+  const totalAmount = paymentData[0]?.amount_total;
   return (
     <div className="w-full pb-8">
       <div className="flex items-center space-x-4 py-5 lg:py-6">
@@ -160,7 +186,8 @@ const page = ({ params }: { params: Promise<{ user_id: string }> }) => {
       {userData && (
      <div className="mt-4">
   <h6 className="font-bold mb-2">{userData.first_name}</h6>
-  Bill No:  {userData.mobile}
+  {/* Bill No:  {userData.mobile} */}
+  Total Amount:  {totalAmount}
   <br />Tel No:  {userData.mobile}
   <br />Email:  {userData.email}<p />
 </div>
@@ -188,7 +215,7 @@ const page = ({ params }: { params: Promise<{ user_id: string }> }) => {
                       SL No
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      Total Amount
+                      Bill no
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Pay Amount

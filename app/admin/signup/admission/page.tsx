@@ -1707,29 +1707,29 @@ const Admission = () => {
               <table className="is-hoverable w-full text-left">
                 <thead>
                   <tr>
-                    <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       #
                     </th>
-                    <th className="max-w-[110px] break-words bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[110px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Mobile Number
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Info
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Service Name
                     </th>
-                    <th className="max-w-[110px] break-words bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="max-w-[110px] break-words bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Due Amount
                     </th>
-                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Pay Status
                     </th>
 
-                    <th className="whitespace-nowrap bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Date
                     </th>
-                    <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-1 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    <th className="whitespace-nowrap rounded-r-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Action
                     </th>
                   </tr>
@@ -1749,22 +1749,22 @@ const Admission = () => {
                         // key={item.id}
                         className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
                       >
-                        <td className="whitespace-nowrap rounded-l-lg px-1 py-3 sm:px-5">
+                        <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
                           {indexOfFirstEntry + index + 1}
                         </td>
-                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                           {item.user_name}
                           <p className="text-slate-400 dark:text-navy-300">
                             Name: {item.first_name}
                            
                           </p>
                           <p className="text-slate-400 dark:text-navy-300">
-                           
+                          
                             Admission No:{item.admission_no}
                           </p>
                         </td>
                         {/* <td className="max-w-[550px] px-4 py-3"> */}
-                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                           <p className="text-slate-400 dark:text-navy-300">
                             <span className="font-bold mr-2 dark:text-navy-100">
                               D-O-B:
@@ -1802,13 +1802,13 @@ const Admission = () => {
                             {item.branch_name}
                           </p>
                         </td>
-                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                           {item.service_name}
                         </td>
-                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                           {item.due_amount}
                         </td>
-                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                           {item.pay_status === "completed" && (
                             <div className="badge space-x-2.5 rounded-lg bg-success/10 text-success">
                               <span className="badge bg-orange-transparent">
@@ -1834,7 +1834,7 @@ const Admission = () => {
                             </div>
                           )}
                         </td>
-                        <td className="whitespace-nowrap px-1 py-3 sm:px-5">
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                           {/* {item.added_date} */}
                           <div className="flex flex-col">
                             <span>{item.added_date.split(" ")[0]}</span>{" "}

@@ -184,7 +184,7 @@ const Page = () => {
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
                   >
-                    <option value="">select Status</option>
+                    <option value="">Select Status</option>
                     <option value="pending">Pending</option>
                     <option value="remaining">Partially Paid</option>
                     <option value="completed">Fully paid</option>
@@ -233,7 +233,7 @@ const Page = () => {
                   type="search"
                   placeholder="Type a keyword..."
                   aria-label="Type a keyword..."
-                  className="gridjs-input gridjs-search-input"
+                  className="text-sm ml-2 gridjs-input gridjs-search-input"
                   defaultValue=""
                   value={searchTerm}
                   onChange={handleSearchChange}
@@ -245,13 +245,13 @@ const Page = () => {
                 <thead>
                   <tr>
                     <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      SL No
+                      #
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Mobile
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      Service_name
+                      Service name
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Amount
