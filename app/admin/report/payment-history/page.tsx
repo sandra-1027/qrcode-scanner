@@ -507,14 +507,55 @@ const Page = () => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
+
     const searchFilteredData = paymentData.filter(
-      (item) =>
+      (item) =>{
+        // Convert pay_status values before filtering
+      let payStatus = item.payment_status?.toLowerCase() || "";
+
+      if (payStatus === "completed") {
+        payStatus = "fully paid";
+      } else if (payStatus === "remaining") {
+        payStatus = "partially paid";
+      }
+      return (
         item.service_name.toLowerCase().includes(value.toLowerCase()) ||
         item.mobile.toLowerCase().includes(value.toLowerCase()) ||
-        item.payment_status.toLowerCase().includes(value.toLowerCase())
-    );
+        payStatus.includes(value) 
+      )
+   } );
     setFilteredData(searchFilteredData);
   };
+
+  // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value.toLowerCase();
+  //   console.log("Search Term:", value);
+  //   setSearchTerm(value);
+
+  //   const searchFilteredData = AdmissionData.filter((item) => {
+  //     // Convert pay_status values before filtering
+  //     let payStatus = item.pay_status?.toLowerCase() || "";
+
+  //     if (payStatus === "completed") {
+  //       payStatus = "fully paid";
+  //     } else if (payStatus === "remaining") {
+  //       payStatus = "partially paid";
+  //     }
+
+  //     return (
+  //       (item.service_name?.toLowerCase() || "").includes(value) ||
+  //       (item.first_name?.toLowerCase() || "").includes(value) ||
+  //       (item.email?.toLowerCase() || "").includes(value) ||
+  //       (item.mobile?.toLowerCase() || "").includes(value) ||
+  //       (item.due_amount?.toLowerCase() || "").includes(value) ||
+  //       payStatus.includes(value) // Compare transformed pay_status
+  //     );
+  //   });
+
+  //   console.log("Filtered Data:", searchFilteredData);
+  //   setFilteredData(searchFilteredData); // Update filtered data in real-time
+  // };
+
 
    const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -1314,6 +1314,7 @@ const Admission = () => {
         (item.email?.toLowerCase() || "").includes(value) ||
         (item.mobile?.toLowerCase() || "").includes(value) ||
         (item.due_amount?.toLowerCase() || "").includes(value) ||
+      //  (item.gender?.toLowerCase() || "").includes(value) ||
         payStatus.includes(value) // Compare transformed pay_status
       );
     });
