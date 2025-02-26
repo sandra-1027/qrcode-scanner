@@ -655,7 +655,6 @@
 
 
 
-
 'use client'
 import { useAuth } from '@/app/context/AuthContext';
 import withAuth from '@/hoc/withAuth';
@@ -865,7 +864,7 @@ type Site = {
       document.body.innerHTML = customHeader + printContents;
       window.print();
       document.body.innerHTML = originalContents;
-      window.location.reload(); // Reload to restore the original content
+      window.location.reload();
     }
     else {
       alert("Printing is blocked by the browser. Try enabling pop-ups.");

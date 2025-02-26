@@ -315,8 +315,8 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               <label className="block">
                 <span>Cost</span>
             <input 
-            name="f_cost"
-             value={ localFormData.f_cost}
+            name="m_cost"
+             value={ localFormData.m_cost}
               onChange={handleChange}
               onKeyPress={(e) => {
                 // Allow only numbers, backspace, and dot
