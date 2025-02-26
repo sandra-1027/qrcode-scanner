@@ -826,7 +826,29 @@ type Site = {
     return now.toLocaleString(); // Adjust format as needed
   };
   
-  const handlePrint = () => {
+  // const handlePrint = () => {
+  //   const printContents = document.querySelector('.copy')?.innerHTML;
+  //   const currentDateTime = getCurrentDateTime();
+    
+  //   if (printContents && siteData) { // Check if siteData is available
+  //     const originalContents = document.body.innerHTML;
+  
+  //     const customHeader = `
+  //       <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+  //         <p class="print-date-time" style="margin: 0;">${currentDateTime}</p>
+  //         <p class="print-header" style="text-align: center; flex-grow: 1; margin: 0;">View Payment Details | ${siteData.name}</p>
+  //       </div>
+  //     `;
+  
+  //     document.body.innerHTML = customHeader + printContents;
+  //     window.print();
+  //     document.body.innerHTML = originalContents;
+  //     window.location.reload(); // Reload to restore the original content
+  //   }
+  // };
+ 
+
+    const handlePrint = () => {
     const printContents = document.querySelector('.copy')?.innerHTML;
     const currentDateTime = getCurrentDateTime();
     
@@ -845,19 +867,13 @@ type Site = {
       document.body.innerHTML = originalContents;
       window.location.reload(); // Reload to restore the original content
     }
+    else {
+      alert("Printing is blocked by the browser. Try enabling pop-ups.");
+    }
   };
-  // const handlePrint = () => {
-  //   const printContents = document.querySelector('.copy')?.innerHTML;
-  //   if (printContents) {
-  //     const originalContents = document.body.innerHTML;
-  //     document.body.innerHTML = printContents;
-  //     window.print();
-  //     document.body.innerHTML = originalContents;
-  //     window.location.reload(); // Reload to restore the original content
-  //   }
-  // };
+  
   return (
-  // <div className="w-full pb-8">
+ 
  
  <div className="w-full pb-8">
     <div className="flex items-center space-x-4 py-5 lg:py-6">
@@ -881,44 +897,38 @@ type Site = {
     
   </div>
 
-
-
     <div  className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6 copy">
    
   <div className="card px-4 pb-4 sm:px-5 mt-5">
  
   <div className="mt-5 ">
- 
-  <div className="flex justify-between p-4">
-  {/* {siteData.map((item, index) => ( */}
+<div className="p-4 flex flex-col lg:flex-row lg:justify-between">
   {siteData && (
-      <div>
-        <p>Billed From</p>
-       <div className="mt-4">
- <h6 className="font-bold">{siteData.name}</h6> 
-<div dangerouslySetInnerHTML={{__html:siteData.address}}/>
- <p>
-    <br />Tel No: {siteData.phone}
-    <br />Email: {siteData.email}</p>
-</div>
-
+    <div className="text-left">
+      <p>Billed From</p>
+      <div className="mt-4">
+        <h6 className="font-bold">{siteData.name}</h6>
+        <div dangerouslySetInnerHTML={{ __html: siteData.address }} />
+        <p>
+          <br />Tel No: {siteData.phone}
+          <br />Email: {siteData.email}
+        </p>
       </div>
-  )}
-      {/* ))} */}
-      <div className='text-right'>
-      <p>Billed To</p>
-      {userData && (
-     <div className="mt-4">
-  <h6 className="font-bold mb-2">{userData.first_name}</h6>
-  Total Amount:  {totalAmount}
-  <br />Tel No:  {userData.mobile}
-  <br />Email:  {userData.email}<p />
-</div>
-  )}
-      </div>
-
     </div>
+  )}
 
+  {userData && (
+    <div className="mt-4 lg:mt-0 text-right">
+      <p>Billed To</p>
+      <div className="mt-4">
+        <h6 className="font-bold mb-2">{userData.first_name}</h6>
+        Total Amount: {totalAmount}
+        <br />Tel No: {userData.mobile}
+        <br />Email: {userData.email}
+      </div>
+    </div>
+  )}
+</div>
 
 
 
