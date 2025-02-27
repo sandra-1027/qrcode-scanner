@@ -9,6 +9,7 @@ import {
   FaLinkedin,
   FaTwitter,
 } from "react-icons/fa";
+import { HiEye, HiEyeOff } from "react-icons/hi";
 
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { ToastContainer, toast } from "react-toastify";
@@ -180,10 +181,20 @@ const StaffProfile = () => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    setChangePasswordData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+   
+    if (/\s/.test(value)) {
+      setMessage("Password should not contain spaces.");
+    } else {
+      setMessage(""); // Clear error when valid
+    }
+    
+    
+        setChangePasswordData((prevData) => ({
+          ...prevData,
+          // [name]: value,
+          [name]: value.replace(/\s/g, ""),
+        }));
+
   };
 
   const handlePasswordChange = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -512,8 +523,8 @@ const StaffProfile = () => {
                       <span>First Name </span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                          placeholder="User name"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          placeholder="User Name"
                           type="text"
                           name="first_name"
                           value={userData.first_name}
@@ -528,8 +539,8 @@ const StaffProfile = () => {
                       <span>Last Name </span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                          placeholder="Enter name"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          placeholder="Enter Name"
                           type="text"
                           name="second_name"
                           value={userData.second_name}
@@ -544,8 +555,8 @@ const StaffProfile = () => {
                       <span>Email Address </span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                          placeholder="Enter email address"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          placeholder="Enter your Email"
                           type="text"
                           name="email"
                           value={userData.email}
@@ -560,12 +571,18 @@ const StaffProfile = () => {
                       <span>Phone Number</span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                          placeholder="Enter phone number"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          placeholder="Enter Phone Number"
                           type="text"
                           name="mobile"
                           value={userData.mobile}
                           onChange={handleInputChange}
+                          onKeyPress={(e) => {
+                            // Allow only numbers, backspace, and dot
+                            if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                         <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                           <i className="fa fa-phone" />
@@ -581,7 +598,7 @@ const StaffProfile = () => {
                           rows={3}
                           placeholder=" "
                           name="address"
-                          className="form-textarea mt-1.5 w-full resize-none rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-textarea mt-1.5 w-full resize-none rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           value={userData.address}
                           onChange={handleInputChange}
                         />
@@ -593,7 +610,7 @@ const StaffProfile = () => {
                       <span>City </span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           placeholder=""
                           type="text"
                           name="city"
@@ -606,18 +623,24 @@ const StaffProfile = () => {
                       <span>Zipcode</span>
                       <span className="relative mt-1.5 flex">
                         <input
-                          className="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                          className="text-sm form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                           placeholder=""
                           type="text"
                           name="zip_code"
                           value={userData.zip_code}
                           onChange={handleInputChange}
+                          onKeyPress={(e) => {
+                            // Allow only numbers, backspace, and dot
+                            if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+                              e.preventDefault();
+                            }
+                          }}
                         />
                       </span>
                     </label>
                   </div>
 
-                  <div className="mb-4">
+                  <div className="mb-4 mt-4">
                     <label className="block mb-2 font-medium">User Photo</label>
                     <div className="w-32 h-32">
                       {profileImage ? (
@@ -651,7 +674,7 @@ const StaffProfile = () => {
                   )}
                   {profileImage && (
                     <>
-                      <label className="cursor-pointer bg-primary hover:bg-primary-focus text-white font-bold py-2 px-4 rounded">
+                      <label className="cursor-pointer bg-primary hover:bg-primary-focus text-white font-bold py-3 px-4 rounded">
                         Change
                         <input
                           type="file"
@@ -662,7 +685,7 @@ const StaffProfile = () => {
                       </label>
                       <button
                         onClick={handleRemoveImage}
-                        className="outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
+                        className="ml-4 outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
                       >
                         Remove
                       </button>
@@ -697,37 +720,40 @@ const StaffProfile = () => {
                       <input
                         type={showPassword ? "text" : "password"}
                         name="new_password"
-                        className="form-input peer mt-1.5 w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm form-input peer mt-1.5 w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         placeholder="Enter new password"
                         value={changePasswordData.new_password}
                         onChange={handlePasswordInputChange}
                         required
                       />
                       <span
-                        className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500 dark:text-gray-400 mt-4"
+                        className="mr-4 absolute inset-y-0 right-3 flex items-center cursor-pointer text-slate-400 hover:text-primary dark:text-navy-400 dark:hover:text-accent mt-6"
                         onClick={togglePasswordVisibility}
                       >
-                        {showPassword ? <IoEye /> : <IoEyeOff />}
+                         {showPassword ? <HiEye size={16} /> : <HiEyeOff size={16} />}
+                       
                       </span>
                     </div>
-                    <div className="relative">
+                    <div className="relative mt-3">
                       <label className="block mt-1.5">
                         Confirm New Password:
                       </label>
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         name="confirm_password"
-                        className="form-input peer mt-1.5 w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm form-input peer mt-1.5 w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         placeholder="Confirm new password"
                         value={changePasswordData.confirm_password}
                         onChange={handlePasswordInputChange}
                         required
                       />
                       <span
-                        className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500 dark:text-gray-400 mt-4"
+                        className="mr-4 absolute inset-y-0 right-3 flex items-center cursor-pointer text-slate-400 hover:text-primary dark:text-navy-400 dark:hover:text-accent mt-6"
                         onClick={toggleConfirmPasswordVisibility}
                       >
-                        {showConfirmPassword ? <IoEye /> : <IoEyeOff />}
+                         {/* {showPassword ? <HiEye size={20} /> : <HiEyeOff size={20} />} */}
+
+                        {showConfirmPassword ? <HiEye size={16}/> : <HiEyeOff size={16} />}
                       </span>
                     </div>
                     {message && (

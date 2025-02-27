@@ -302,21 +302,21 @@ const page = () => {
   <div className="col-span-4 sm:col-span-1 card px-4 pb-4 sm:px-5 pt-10">
     <div className="p-3 rounded-lg bg-slate-100 dark:bg-navy-800">
       <div className="card top-countries-card">
-      {expenseData && (
+      {/* {expenseData && ( */}
         <div className="list-group border">
         
           <div className="flex list-group-item border p-2" >
             <p className='mr-8'>Total Income </p>
-            <span className='font-bold'>{expenseData.total_income}</span>
+            <span className='font-bold'> {expenseData?.total_income ?? "₹ 0"}</span>
           </div>
 
           <div className="flex list-group-item p-2">
             <p className='mr-8'>Total Expense </p>
-            <span className='font-bold'>{expenseData.total_expense}</span>
+            <span className='font-bold'>{expenseData?.total_expense ?? "₹ 0"}</span>
           </div>
        
         </div>
-         )}
+         {/* )} */}
       </div>
     </div>
   </div>

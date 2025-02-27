@@ -532,6 +532,12 @@ const handleSelectBranch = (branch : Account) => {
          name="amount"
         value={formData.amount}
         onChange={handleChange}
+        onKeyPress={(e) => {
+          // Allow only numbers, backspace, and dot
+          if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+            e.preventDefault();
+          }
+        }}
         className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
       />
     </label>

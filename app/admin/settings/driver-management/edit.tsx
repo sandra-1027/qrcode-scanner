@@ -1,5 +1,6 @@
 import { useAuth } from "@/app/context/AuthContext";
 import { useState, useEffect } from "react";
+import { HiEye, HiEyeOff } from "react-icons/hi";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -232,10 +233,11 @@ const Edit = ({ showModal, toggleModal, driverData, onSave }: EditProps) => {
                     onChange={handleChange}
                   />
                   <span
-                    className="absolute right-3 flex items-center justify-center text-slate-400 cursor-pointer mt-3"
+                    className="absolute right-4 flex items-center justify-center text-slate-400 hover:text-primary dark:text-navy-400 dark:hover:text-accent cursor-pointer mt-2.5"
                     onClick={togglePasswordVisibility}
                   >
-                    {showPassword ? <IoEye /> : <IoEyeOff />}
+                    {showPassword ? <HiEye size={16} /> : <HiEyeOff size={16} />} 
+                    {/* {showPassword ? <IoEye /> : <IoEyeOff />} */}
                   </span>
                 </span>
               </label>

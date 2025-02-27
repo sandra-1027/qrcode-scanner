@@ -1416,6 +1416,7 @@ const Create: React.FC<CreateProps> = ({
   const [service_id, setservice_id] = useState("");
   const [error, setError] = useState('');
   const [pay_amount, setpay_amount] = useState("");
+  const [discount, setdiscount] = useState("");
   const [type, settype] = useState("");
   const [amount, setamount] = useState("");
   const [document_type, setdocument_type] = useState("");
@@ -2101,6 +2102,12 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                             value={mobile}
                             required
                             onChange={(e) => setmobile(e.target.value)}
+                            onKeyPress={(e) => {
+                              // Allow only numbers, backspace, and dot
+                              if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
+                                e.preventDefault();
+                              }
+                            }}
                             className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Mobile"
                             type="text"
@@ -2164,6 +2171,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                             name="email"
                             value={email}
                             onChange={(e) => setemail(e.target.value)}
+                            
                             type="text"
                             placeholder="Dl No"
                             className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
@@ -2788,9 +2796,10 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                     <span>Discount</span>
                     <span className="relative mt-1 flex">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Discount"
-                        value={selectedAmount}
+                        value={discount}
+                        onChange={(e) => setdiscount(e.target.value)}
                         className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>

@@ -772,8 +772,6 @@
 
 
 
-
-
 'use client'
 import withAuth from '@/hoc/withAuth';
 import React, { useEffect, useRef, useState } from 'react'
@@ -843,16 +841,17 @@ const page = () => {
 
   const fetchStaffData = async () => {
     try {
+      console.log("Fetching data for date:", filteredDate); // Debug log
       const response = await fetch('/api/admin/accounts/accounts_details', {
         method: 'POST',
         headers: {
-           'authorizations': state?.accessToken ?? '', 
+          'authorizations': state?.accessToken ?? '', 
           'api_key': '10f052463f485938d04ac7300de7ec2b', 
         },
         body: JSON.stringify({ 
           id: null,
           status: null,
-          date:filteredDate, // Include the selected date in the request
+          date: filteredDate, // Use filteredDate here
         }),
       });
       if (!response.ok) {
@@ -861,21 +860,28 @@ const page = () => {
       }
       
       const data = await response.json();
+      console.log("Fetched data:", data); // Debug log
      
       if (data.success) {
         setAccountData(data.data.accounts_details);
-        setFilteredData(data.data.accounts_details);
-        setExpenseData(data.data.expenses);
-      //  console.log(data.data.expenses,"expensee")
+        setFilteredData(data.data.accounts_details); // Update filteredData with the new data
+        console.log("Updated filteredData:", data.data.accounts_details); // Debug log
       } else {
+        // Handle the case when no data is found
+        setAccountData([]); // Clear accountData
+        setFilteredData([]); // Clear filteredData
+        console.log("No data found for the selected date"); // Debug log
       }
+      setExpenseData(data.data.expenses || null); // Handle case when expenses data is not available
     } catch (error) {
       console.error("Fetch error:", error);
     }
   };
+
   useEffect(() => {
+   // console.log("filteredDate changed:", filteredDate);
     fetchStaffData();
-  }, [filteredDate]);
+  }, [filteredDate]); 
 
   const fetchBranchData = async () => {
     try {
@@ -912,12 +918,9 @@ const page = () => {
   }, [state]);
 
   const [filterStatus,setFilterStatus] = useState("all");
-  
   const [currentPage,setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(10);
 
-
-  
   const applyFilters = () => {
     let newFilteredData = accountData;
   
@@ -978,23 +981,19 @@ const page = () => {
   
   const handleReset = async () => {
     setIsLoading(true); // Start loading
-  
-    // delay to show the loader
-    await new Promise(resolve => setTimeout(resolve, 300));
     setSearchTerm("");
     setdailystatusselected("");
     setSelectedStatus("");
     const today = new Date().toISOString().split("T")[0];
-   setSelectedDate(today); 
-    setFilteredDate(today);
-   setFilteredData(accountData); 
+    setSelectedDate(today); 
+    setFilteredDate(today); // Update filteredDate to today
     setSelectedBranch("");
-
+  
+    // Delay to show the loader
+    await new Promise(resolve => setTimeout(resolve, 300));
+  
     setIsLoading(false); // Stop loading
-    
   };
-
-
 
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
@@ -1004,10 +1003,6 @@ const page = () => {
   );
   const totalEntries = filteredData.length;
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
-
-
-
-
 
     const updateAccountStatus = async (id: string, status: string) => {
       try {
@@ -1089,8 +1084,7 @@ const fetchSearchBranch = async () => {
   
       setFilteredBranch(searchData);
     };
-  
-    
+
     const handleSelectBranch = (branch :Account) => {
       setSelectedBranch(branch.text);
       
@@ -1098,7 +1092,6 @@ const fetchSearchBranch = async () => {
       setIsDropdownOpen(false); 
     };
   
-
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (dropdownRef.current && event.target instanceof Node) {
