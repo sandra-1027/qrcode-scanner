@@ -36,13 +36,13 @@ const Footer = () => {
         <span className="text-muted">Powered By Neo MLM Software</span> 
         <span className="text-dark fw-semibold"> 2025 ©</span>.
         Designed with <FaHeart className="inline-block mx-1 text-red-600" /> |  
-        <a
+          <a
           href="https://signaturesoftwarelab.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="fw-semibold text-primary text-decoration-underline"
         >
-          Signature Software Lab
+            Signature Software Lab
         </a>
       </div>
     </footer>

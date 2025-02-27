@@ -4,7 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import Create from "./Create";
 import { useAuth } from "@/app/context/AuthContext";
 import { CgNotes } from "react-icons/cg";
-import { RiCurrencyLine } from "react-icons/ri";
+import { RiBillFill, RiCurrencyLine } from "react-icons/ri";
 import Payment from "./payment";
 import { FiClock } from "react-icons/fi";
 import { IoMdCheckmark } from "react-icons/io";
@@ -43,9 +43,9 @@ type Admission = {
   insurence: File | null;
   user_photo: File | null;
   documents: File | null;
-  address:string;
-  dob:string;
-  branch_name:string;
+  address: string;
+  dob: string;
+  branch_name: string;
 };
 const Admission = () => {
   const { state } = useAuth();
@@ -73,9 +73,9 @@ const Admission = () => {
     mode: "add" | "edit",
     admission: Admission | null = null
   ) => {
-    setModalMode(mode); 
-    setEditedAdmission(admission); 
-    setShowmodal((prev) => !prev); 
+    setModalMode(mode);
+    setEditedAdmission(admission);
+    setShowmodal((prev) => !prev);
   };
   const togglemodals = () => {
     setShowmodals((prev) => !prev);
@@ -142,7 +142,7 @@ const Admission = () => {
       }
 
       const data = await response.json();
-      console.log("API Response:", data); 
+      console.log("API Response:", data);
 
       if (data.success) {
         fetchAdmissionData();
@@ -366,7 +366,7 @@ const Admission = () => {
                         {item.user_name}
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                      <p>
+                        <p>
                           <span className="font-bold mr-2">D-O-B: </span>
                           {item.dob}
                         </p>
@@ -427,16 +427,16 @@ const Admission = () => {
                         {item.added_date} 
                         
                       </td> */}
-                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                          {/* {item.added_date} */}
-                          <div className="flex flex-col">
-                            <span>{item.added_date.split(" ")[0]}</span>{" "}
-                            {/* Date */}
-                            <span>{item.added_date.split(" ")[1]}</span>{" "}
-                            {/* Time */}
-                          </div>
-                        </td>
-                      <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
+                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {/* {item.added_date} */}
+                        <div className="flex flex-col">
+                          <span>{item.added_date.split(" ")[0]}</span>{" "}
+                          {/* Date */}
+                          <span>{item.added_date.split(" ")[1]}</span>{" "}
+                          {/* Time */}
+                        </div>
+                      </td>
+                      {/* <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                         <span>
                           <div className="flex justify-center space-x-2">
                           
@@ -450,6 +450,43 @@ const Admission = () => {
                             )}
                           </div>
                         </span>
+                        <button
+  onClick={() => {
+    sessionStorage.setItem('viewPaymentData', JSON.stringify({
+      user_id: item.customer_id,
+      cus_service_id: item.id
+    }));
+    window.open(`/staff/report/view-payment`, '_blank');
+  }}
+  className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+>
+  <RiBillFill />
+</button>
+                      </td> */}
+                      <td className="whitespace-nowrap rounded-r-lg py-3 sm:px-5">
+                        <div className="flex flex-wrap gap-2">
+                        {item.pay_status !== "completed" && (
+                              <button
+                                onClick={() => handleEdit(item)}
+                                className="btn size-7 p-0 text-error focus:bg-error/20 active:bg-error/25 border border-error rounded"
+                              >
+                                <RiCurrencyLine />
+                              </button>
+                            )}
+
+<button
+  onClick={() => {
+    sessionStorage.setItem('viewPaymentData', JSON.stringify({
+      user_id: item.customer_id,
+      cus_service_id: item.id
+    }));
+    window.open(`/staff/report/view-payment`, '_blank');
+  }}
+  className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+>
+  <RiBillFill />
+</button>
+                        </div>
                       </td>
                     </tr>
                   ))}

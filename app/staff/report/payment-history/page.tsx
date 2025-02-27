@@ -312,7 +312,7 @@ currentEntries.map((item,index) =>(
                       <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
                         <span>
                           <div className="flex justify-center space-x-2">
-                            <button
+                            {/* <button
                               onClick={() =>
                                 window.open(
                                   `/staff/report/view-payment/${item.user_id}?cus_service_id=${item.cus_service_id}`,
@@ -322,7 +322,19 @@ currentEntries.map((item,index) =>(
                               className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
                             >
                               <RiBillFill />
-                            </button>
+                            </button> */}
+            <button
+  onClick={() => {
+    sessionStorage.setItem('viewPaymentData', JSON.stringify({
+      user_id: item.user_id,
+      cus_service_id: item.cus_service_id
+    }));
+    window.open(`/staff/report/view-payment`, '_blank');
+  }}
+  className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+>
+  <RiBillFill />
+  </button>
                           </div>
                         </span>
                       </td>

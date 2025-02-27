@@ -72,11 +72,11 @@ export default function DashboardLayout({
           >
             {children}
           </main>
-          <Footer/>
+         
         </div>
       
       </div>
-
+      <Footer/>
       <script src="/dist/js/app.js" defer></script>
       <script src="/dist/js/main.js" defer></script>
     </>

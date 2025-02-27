@@ -14,6 +14,7 @@ interface Admission {
   blood_group:string;
   gender: string;
   document_type:string;
+  document_type1:string;
   service_id:string;
   due_amount:string;
   amount?: string; 
@@ -26,11 +27,12 @@ interface Admission {
   first_name:string;
   userfile: File | null;
   document:File | null;
-  old_rc:File | null;
+  signature:File | null;
   adhar:File | null;
   insurence:File | null;
    user_photo:File | null;
    documents:File | null;
+   document1:File | null;
   service_name: string;
   // User_photo:File;
   customer_id:string;
@@ -45,6 +47,8 @@ interface Admission {
   billno:string;
   discounted_amount:string;
   discount:string;
+  dl_no:string;
+  
 }
 
 interface EditProps {
@@ -67,6 +71,9 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
 
   const [documentchange, setDocumentchange] = useState(false);
   const [documentPreview, setDocumentPreview] = useState<string | null>(null);
+
+  const [documentchange1, setDocumentchange1] = useState(false);
+  const [documentPreview1, setDocumentPreview1] = useState<string | null>(null);
 
   const [signaturechange, setSignaturechange] = useState(false);
   const [signaturePreview, setSignaturePreview] = useState<string | null>(null);
@@ -251,7 +258,22 @@ const handleRemovesignature = () => {
   setFormData((prevData) => (prevData ? { ...prevData, document: null } : null)); 
 };
 
-
+const handleDocumentchange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      setDocumentPreview1(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+    setFormData((prevData) => (prevData ? { ...prevData, document1: file } : null)); 
+    setDocumentchange1(true); 
+  }
+};
+const handleRemovedocument1 = () => {
+  setDocumentPreview1(null); 
+  setFormData((prevData) => (prevData ? { ...prevData, document1: null } : null)); 
+};
 
 const handleDocumentchange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const file = e.target.files?.[0];
@@ -384,8 +406,8 @@ const handleSubmit = async (e: React.FormEvent) => {
     // Handle file uploads
     await handleFileUpload("userfile", formData.userfile);
     await handleFileUpload("document", formData.document);
-    await handleFileUpload("old_rc", formData.old_rc);
-    await handleFileUpload("adhar", formData.adhar);
+    await handleFileUpload("signature", formData.signature);
+    await handleFileUpload("document1", formData.document1);
     await handleFileUpload("insurence", formData.insurence);
 
     console.log("Submitting FormData:");
@@ -763,9 +785,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                         <span>DL No:</span>
                         <span className="relative flex mt-1">
                           <input
-                            name="first_name"
+                            name="dl_no"
                           //  value={formData.name}
-                          value={formData?.first_name|| ""}
+                          value={formData?.dl_no|| ""}
                             onChange={handleChange}
                             className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="DL No:"
@@ -961,9 +983,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
      ) : (
       
        <div className="mb-2">
-         <img
-  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.documents}`}
-           alt="RC Document"
+         <img  
+  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.signature}`}
+           alt="signature"
            className="w-32 h-32 object-cover border rounded"
          />
        </div>
@@ -1111,13 +1133,13 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                       <span>Choose Document</span>
                       <span className="relative mt-1 flex">
                         <select        
-                        name="document_type"               
-                        value={formData?. document_type|| ""}
+                        name="document_type1"               
+                        value={formData?.document_type1|| ""}
                         onChange={handleChange}
                         className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
                           <option value="">Choose Document</option>
                           <option value="sslc">SSLC</option>
-                          <option value="aadhaar">Aadhaar</option>
+                          <option value="Adhar">Aadhaar</option>
                           <option value="birth_certificate">Birth Certificate</option>
                           <option value="passport">Passport</option>
                         </select>
@@ -1132,11 +1154,11 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                          
                           <div className="ml-2">
                
-               {documentPreview? (
+               {documentPreview1? (
        
        <div className="mb-2">
          <img
-           src={documentPreview}
+           src={documentPreview1}
            alt="Selected"
            className="w-32 h-32 object-cover border rounded"
          />
@@ -1145,26 +1167,26 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
       
        <div className="mb-2">
          <img
-  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.documents}`}
-           alt="RC Document"
+  src={`https://our-demos.com/n/drivingschool_api/assets/images/documents/${formData?.document1}`}
+           alt="Document"
            className="w-32 h-32 object-cover border rounded"
          />
        </div>
      )}
                    <div className="mt-4 flex space-x-2">
-                {!documentPreview && (
+                {!documentPreview1 && (
                <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
                    accept="image/*"
-                   onChange={handleDocumentchange}
+                   onChange={handleDocumentchange1}
                    className="hidden"
                  />
                </label>
              )}
 
-             {documentPreview  && (
+             {documentPreview1  && (
                <div className="mt-2 flex">
                  
 
@@ -1178,13 +1200,13 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
                        id="imageUpload"
                        type="file"
                        accept="image/*"
-                       onChange={handleDocumentchange}
+                       onChange={handleDocumentchange1}
                        className="hidden outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
                      />
 
 <button
                    type="button"
-                   onClick={handleRemovedocument}
+                   onClick={handleRemovedocument1}
                   className="outline-dark border-[1px] border-dark font-bold py-1.5 px-4 rounded ml-3"
                  >
                    Remove
@@ -1462,6 +1484,7 @@ type="checkbox" />
 
 
 {/* Trial Amount */}
+{formData?.service_name === "licence fresh" &&(
 <label className="block">
                     <span>Trial Amount</span>
                     <span className="relative flex">
@@ -1476,6 +1499,7 @@ type="checkbox" />
                       />
                     </span>
                   </label> 
+)}
                      {/* Remarks*/}
                      <label className="block ">
                         <span>Remarks</span>

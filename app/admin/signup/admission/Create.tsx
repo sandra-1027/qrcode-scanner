@@ -1439,16 +1439,20 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
   const[searchServiceData,setSearchServiceData] =useState<Admission[]>([]);
   const[filteredService,setFilteredService]=useState<Admission[]>([]);
 
-
+  const [selectedAdmission, setSelectedAdmission] = useState<string>("");
+  const [searchAdmission, setSearchAdmission] = useState("");
+  const[searchAdmissionData,setSearchAdmissionData] =useState<Admission[]>([]);
+  const[filteredAdmission,setFilteredAdmission]=useState<Admission[]>([]);
 
 
    const [isserviceDropdownOpen, setIsserviceDropdownOpen] = useState(false);
    const serviceDropdownRef = useRef<HTMLDivElement>(null);
    
-
+   const [isadmissionDropdownOpen, setIsadmissionDropdownOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isbranchDropdownOpen, setIsbranchDropdownOpen] = useState(false); 
     const userDropdownRef = useRef<HTMLDivElement>(null);
+    const admissionDropdownRef = useRef<HTMLDivElement>(null);
     const branchDropdownRef = useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(false);
 
@@ -1734,6 +1738,27 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
          fetchSearchBranch();
        }, [state]);
      
+
+       const handleSearchAdmission = (e : any) => {
+        const value = e.target.value;
+        setSearchAdmission(value);
+    
+        const searchData = searchAdmissionData.filter(
+          (item) =>
+            item.text.toLowerCase().includes(value.toLowerCase())
+        );
+    
+        setFilteredAdmission(searchData);
+      };
+    
+      
+      const handleSelectAdmission = (branch:Admission) => {
+        setSelectedAdmission(branch.text);
+        setSearchAdmission("");
+        setIsDropdownOpen(false); 
+      };
+
+
        const handleSearchBranch = (e : any) => {
          const value = e.target.value;
          setSearchBranch(value);
@@ -1970,39 +1995,39 @@ const [selectedBranch, setSelectedBranch] = useState<string>("");
                     )}
                     </div>
 
-<div className="relative w-full mt-4" ref={userDropdownRef}>
+<div className="relative w-full mt-4" ref={admissionDropdownRef}>
 <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
 Enter Admission No
 </label>
 
 {/* Dropdown Button */}
 <div
-onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+onClick={() => setIsadmissionDropdownOpen(!isadmissionDropdownOpen)}
 className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
 >
-{selectedMobile || "Select an Admission No"}
+{selectedAdmission || "Select an Admission No"}
 <span className="ml-2">&#9662;</span> {/* Down arrow */}
 </div>
 
 {/* Dropdown Content */}
-{isDropdownOpen && (
+{isadmissionDropdownOpen && (
 <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
 {/* Search Bar Inside Dropdown */}
 <input
 type="text"
-value={searchMobile}
-onChange={handleSearchMobile}
+value={searchAdmission}
+onChange={handleSearchAdmission}
 placeholder="Search..."
 className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
 />
 
 {/* Dropdown Options */}
 <ul className="max-h-48 overflow-y-auto hide-scrollbar">
-{filteredMobile.length > 0 ? (
-filteredMobile.map((mobile) => (
+{filteredAdmission.length > 0 ? (
+filteredAdmission.map((mobile) => (
 <li
 key={mobile.id}
-onClick={() => handleSelectMobile(mobile)}
+onClick={() => handleSelectAdmission(mobile)}
 className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
 >
 {mobile.text}
