@@ -26,15 +26,12 @@ type Payment = {
   address: string;
 };
 
-// const page = ({ params }: { params: Promise<{ user_id: string }> }) => {
+
     const page = () => {
         const [paymentData, setPaymentData] = useState<{ user_id: string; cus_service_id: string } | null>(null);
-  const searchParams = useSearchParams();
+  
   const { state } = useAuth();
 
-//   const [userId, setUserId] = useState<string | undefined>(undefined);
-//   const [serviceId, setServiceId] = useState<string | undefined>(undefined);
-  const [id, setId] = useState<string | undefined>(undefined);
 
   const [paymentDatas, setpaymentDatas] = useState<Payment[]>([]);
   const [userData, setuserData] = useState<Payment | null>(null);
@@ -94,16 +91,7 @@ type Payment = {
   useEffect(() => {
     fetchpaymenthistory();
   }, [state]);
-  // const handlePrint = () => {
-  //   const printContents = document.querySelector(".copy")?.innerHTML;
-  //   if (printContents) {
-  //     const originalContents = document.body.innerHTML;
-  //     document.body.innerHTML = printContents;
-  //     window.print();
-  //     document.body.innerHTML = originalContents;
-  //     window.location.reload(); 
-  //   }
-  // };
+
   const getCurrentDateTime = () => {
     const now = new Date();
     return now.toLocaleString(); // Adjust format as needed
