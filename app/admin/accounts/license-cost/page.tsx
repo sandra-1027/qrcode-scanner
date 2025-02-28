@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Add from './add';
 import { useAuth } from '@/app/context/AuthContext';
 import Edit from './edit';
-import { FaSpinner } from 'react-icons/fa';
+import { FaChevronDown, FaSpinner } from 'react-icons/fa';
 
 type Cost = {
   id?: string;
@@ -345,29 +345,7 @@ const page = () => {
     <form>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {/* Driver Name Select */}
-        {/* <div className='flex-1'>
-          <label
-            htmlFor="serviceName"
-            className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-          >
-            Service
-          </label>
-           <select
-            id="driverName"
-            name="driverName"
-            value={selectedServices}
-            onChange={(e) => setSelectedServices(e.target.value)}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          >
-            <option value="">Select a service</option>
-  {service.map((service) => (
-                <option key={service.id} value={service.service_name}>
-                  {service.service_name}
-                </option>
-              ))}
-</select>
 
-        </div> */}
 <div className="relative w-full" ref={dropdownRef}>
       <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
        Service Name
@@ -379,7 +357,9 @@ const page = () => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {selectedService || "Select a service"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        <span className="ml-2 dark:text-slate-400/70">
+          <FaChevronDown />
+          </span> 
       </div>
 
       {/* Dropdown Content */}

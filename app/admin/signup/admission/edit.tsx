@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import "./create.css";
 import { toast } from "react-toastify";
+import { FaChevronDown } from "react-icons/fa";
 
 
 interface Admission {
@@ -854,8 +855,12 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {/* {selectedBranch || "Select a branch"} */}
-        {branch_text || formData?.branch_name || "Select a branch"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+      
+     {branch_text || formData?.branch_name || "Select a branch"}
+        <span className="ml-2 dark:text-slate-400/70">
+          {/* &#9662; */}
+          <FaChevronDown />
+          </span> {/* Down arrow */}
       </div>
 
       {/* Dropdown Content */}
@@ -1252,9 +1257,13 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
         onClick={() => setIsserviceDropdownOpen(!isserviceDropdownOpen)}
         className="text-sm pl-2 mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
-        {selectedService || formData?.service_name || "Select a service"}
         
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        
+        {selectedService || formData?.service_name || "Select a service"}
+        <span className="ml-2 dark:text-slate-400/70">
+          
+          <FaChevronDown />
+          </span> 
       </div>
 
       {/* Dropdown Content */}
@@ -1383,11 +1392,8 @@ type="checkbox" />
    )}
 
     {/* BothType*/}
-    {!(
-  formData?.type === "lmv" || 
-  formData?.type === "mc" || 
-  formData?.type === "both" || 
-  formData?.type === "auto" 
+    {(
+  formData?.type === "both" 
 ) && ( 
 
                     <label className="block">

@@ -1,5 +1,6 @@
 import { useAuth } from "@/app/context/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 interface Cost {
    
@@ -249,7 +250,9 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
          className="mt-1 text-sm pl-2 flex w-full items-center justify-between rounded-md border dark:hover:border-navy-400 dark:focus:border-accent text-slate-400/70 border-slate-300 bg-slate-200 dark:bg-navy-600 py-2 px-3 shadow-sm cursor-pointer hover:border-slate-400 focus:border-primary dark:border-navy-450 sm:text-sm "
       >
         {selectedService || formData.service_name || "Select a service"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        <span className="ml-2 dark:text-slate-400/70">
+          <FaChevronDown />
+          </span> 
       </div>
 
       {/* Dropdown Content */}

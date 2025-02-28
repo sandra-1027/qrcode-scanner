@@ -654,7 +654,7 @@
 "use client";
 import withAuth from "@/hoc/withAuth";
 import React, { useEffect, useRef, useState } from "react";
-import { FaFilter, FaSpinner } from "react-icons/fa";
+import { FaChevronDown, FaFilter, FaSpinner } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 import { LuRefreshCw } from "react-icons/lu";
 import Add from "./add";
@@ -1023,7 +1023,9 @@ const handleFilterSubmit = async (e: React.FormEvent) => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {selectedDriver || "Select a user"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        <span className="ml-2 dark:text-slate-400/70">
+          <FaChevronDown />
+          </span> 
       </div>
 
       {/* Dropdown Content */}

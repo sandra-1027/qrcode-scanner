@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Add from "./add";
 import { useAuth } from "@/app/context/AuthContext";
 import Edit from "./edit";
-import { FaSpinner } from "react-icons/fa";
+import { FaChevronDown, FaSpinner } from "react-icons/fa";
 
 type Branch = {
   branch_name: string;
@@ -313,29 +313,7 @@ const page = () => {
           <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
             <form>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                {/* Branch Name Select */}
-                {/* <div className="flex-1">
-                  <label
-                    htmlFor="serviceName"
-                    className="block text-sm font-medium text-slate-700 dark:text-navy-100"
-                  >
-                    Branch Name
-                  </label>
-                  <select
-                    id="driverName"
-                    name="branch_name"
-                    value={selectedBranch}
-                    onChange={(e) => setSelectedBranch(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-                  >
-                    <option value="">select a Branch</option>
-                    {branchData.map((branch) => (
-                      <option key={branch.id} value={branch.branch_name}>
-                        {branch.branch_name}
-                      </option>
-                    ))}
-                  </select>
-                </div> */}
+               
 
 
        {/* Branch Select */}
@@ -351,7 +329,9 @@ const page = () => {
         className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
       >
         {selectedBranch || "Select a Branch"}
-        <span className="ml-2">&#9662;</span> {/* Down arrow */}
+        <span className="ml-2 dark:text-slate-400/70">
+          <FaChevronDown />
+          </span> 
       </div>
 
       {/* Dropdown Content */}
