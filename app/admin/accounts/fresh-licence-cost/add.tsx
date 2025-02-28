@@ -402,7 +402,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           {error && (
               <div className="text-red-500 text-sm mt-2">{error}</div>
             )}
-          <button type="submit" className="bg-primary text-white rounded p-2 w-1/5 mt-4">
+          <button type="submit" className="bg-primary hover:bg-primary-focus text-white rounded p-2 w-1/5 mt-4">
           {loading ? 'Adding...' : 'Add'}
           </button>
         </form>

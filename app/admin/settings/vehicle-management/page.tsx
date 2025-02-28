@@ -415,7 +415,7 @@ const page = () => {
                   <button
                     type="button"
                     onClick={handleReset}
-                    className=" ml-4 inline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className=" ml-4 inline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     <i
                       className="fa fa-refresh"
@@ -436,7 +436,7 @@ const page = () => {
         </span>
 
         <button
-          className="px-4 py-2 bg-[#4f46e5] text-white rounded-md"
+          className="px-4 py-2 bg-primary hover:bg-primary-focus text-white rounded-md"
           onClick={() => togglemodal("add")}
         >
           Add Vehicle
@@ -546,8 +546,8 @@ currentEntries.map((item,index) =>(
                           <div className="flex justify-center space-x-2">
                             <button
                               onClick={() => togglemodal("edit", item)}
-                              className="btn size-8 p-0  bg-primary hover:bg-primary-focus text-white"
-                            >
+                              className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
+                            
                               <i className="fa fa-edit" />
                             </button>
 

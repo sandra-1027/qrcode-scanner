@@ -932,7 +932,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
      )}
                 <div className="mt-4 flex space-x-2">
                 {!userPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+               <label className="flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -1003,7 +1003,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
      )}
                 <div className="mt-4 flex space-x-2">
                 {!signaturePreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+               <label className="flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -1095,7 +1095,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
      )}
                    <div className="mt-4 flex space-x-2">
                 {!documentPreview && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+               <label className="flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -1186,7 +1186,7 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
      )}
                    <div className="mt-4 flex space-x-2">
                 {!documentPreview1 && (
-               <label className="flex items-center justify-center border rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
+               <label className="flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                  Select Image
                  <input
                    type="file"
@@ -1530,7 +1530,7 @@ type="checkbox" />
 
 <button
               type="submit"
-              className="bg-primary text-white rounded p-2"
+              className="bg-primary hover:bg-primary-focus text-white rounded p-2"
             >
           {loading ? 'Updating...' : 'Update'}
             </button>

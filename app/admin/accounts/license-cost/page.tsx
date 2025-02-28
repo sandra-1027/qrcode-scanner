@@ -424,7 +424,7 @@ const page = () => {
         <button
            onClick={handleReset}
           type="button"
-          className="ml-4 nline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warningfocus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="ml-4 nline-flex justify-center rounded-md border border-gray-300 bg-warning py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         ><i className='fa fa-refresh' style={{marginTop:'3px',marginRight:'3px'}}></i>
           Reset
         </button>
@@ -440,7 +440,7 @@ const page = () => {
                 <span className="text-lg font-medium text-slate-800 dark:text-navy-50">
                 License Cost
                 </span>
-                <button className="px-4 py-2 bg-[#4f46e5] text-white rounded-md" 
+                <button className="px-4 py-2 bg-primary hover:bg-primary-focus text-white rounded-md" 
                 // onClick={togglemodal}
                 onClick={() => togglemodal('add')}
                 >  
