@@ -137,7 +137,6 @@ const Add: React.FC<AddProps> = ({ showmodal, togglemodal }) => {
                 />
               </label>
 
-
               {/* <label className="block">
                 <span>Amount</span>
                 <input
@@ -151,29 +150,29 @@ const Add: React.FC<AddProps> = ({ showmodal, togglemodal }) => {
                   }
                 />
               </label> */}
-<label className="block">
-  <span>Amount</span>
-  <input
-    className="text-sm pl-2 form-input mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-    placeholder="Amount"
-    name="amount"
-    type="text" // Change to text
-    value={formData.amount}
-    onChange={(e) => {
-      const value = e.target.value;
-      // Allow only numbers and empty string
-      if (/^\d*\.?\d*$/.test(value)) {
-        setFormData({ ...formData, amount: value });
-      }
-    }}
-    onKeyPress={(e) => {
-      // Allow only numbers, backspace, and dot
-      if (!/[0-9.]/.test(e.key) && e.key !== 'Backspace') {
-        e.preventDefault();
-      }
-    }}
-  />
-</label>
+              <label className="block">
+                <span>Amount</span>
+                <input
+                  className="text-sm pl-2 form-input mt-1 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  placeholder="Amount"
+                  name="amount"
+                  type="text" // Change to text
+                  value={formData.amount}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Allow only numbers and empty string
+                    if (/^\d*\.?\d*$/.test(value)) {
+                      setFormData({ ...formData, amount: value });
+                    }
+                  }}
+                  onKeyPress={(e) => {
+                    // Allow only numbers, backspace, and dot
+                    if (!/[0-9.]/.test(e.key) && e.key !== "Backspace") {
+                      e.preventDefault();
+                    }
+                  }}
+                />
+              </label>
 
               <div className="mt-1 w-full">
                 <span>Description</span>
@@ -185,14 +184,14 @@ const Add: React.FC<AddProps> = ({ showmodal, togglemodal }) => {
                 />
               </div>
               {error && (
-              <div className="text-red-500 text-sm mt-2">{error}</div>
-            )}
+                <div className="text-red-500 text-sm mt-2">{error}</div>
+              )}
               <button
                 type="submit"
                 className="bg-primary hover:bg-primary-focus text-white rounded p-2 w-1/5"
                 disabled={loading}
               >
-                 {loading ? 'Adding...' : 'Add'}
+                {loading ? "Adding..." : "Add"}
               </button>
             </div>
           </form>

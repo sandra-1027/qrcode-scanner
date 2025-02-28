@@ -12,7 +12,7 @@ type Branch = {
   status: string;
   [key: string]: any;
   description: string;
-  text:string;
+  text: string;
 };
 type BranchData = {
   data: Branch[];
@@ -34,12 +34,12 @@ const page = () => {
   const [searchBranch, setSearchBranch] = useState("");
   // const[searchBranchData,setSearchBranchData] =useState("");
   // const[filteredBranch,setFilteredBranch]=useState("");
-  const[searchBranchData,setSearchBranchData] = useState<Branch []>([]);
+  const [searchBranchData, setSearchBranchData] = useState<Branch[]>([]);
   const [filteredBranch, setFilteredBranch] = useState<Branch[]>([]);
-   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const togglemodal = (mode: "add" | "edit", branch: Branch | null = null) => {
     setModalMode(mode);
@@ -121,9 +121,9 @@ const page = () => {
   const handleFilterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true); // Start loading
-    
-      // Simulate a delay to show the loader (you can remove this in production)
-      await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Simulate a delay to show the loader (you can remove this in production)
+    await new Promise((resolve) => setTimeout(resolve, 300));
     const newFilteredData = applyFilters();
     setFilteredData(newFilteredData);
     setIsLoading(false); // Stop loading
@@ -131,9 +131,9 @@ const page = () => {
 
   const handleReset = async () => {
     setIsLoading(true); // Start loading
-   
-     // Simulate a delay to show the loader (you can remove this in production)
-     await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Simulate a delay to show the loader (you can remove this in production)
+    await new Promise((resolve) => setTimeout(resolve, 300));
     setSearchTerm("");
     setSelectedBranch("");
     setSelectedStatus("");
@@ -186,76 +186,79 @@ const page = () => {
     }
   };
 
-
   const fetchSearchBranch = async () => {
-      try {
-        const response = await fetch("/api/admin/report/get_branch_autocomplete", {
+    try {
+      const response = await fetch(
+        "/api/admin/report/get_branch_autocomplete",
+        {
           method: "POST",
           headers: {
             authorizations: state?.accessToken ?? "",
             api_key: "10f052463f485938d04ac7300de7ec2b",
           },
           body: JSON.stringify({}),
-        });
-  
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(`HTTP error! Status: ${response.status} - ${errorData.message || "Unknown error"}`);
         }
-  
-        const data = await response.json();
-        console.log("Search mobile data", data.data);
-  
-        if (data.success) {
-          setSearchBranchData(data.data.branch_details || []);
-          setFilteredBranch(data.data.branch_details || []);
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `HTTP error! Status: ${response.status} - ${
+            errorData.message || "Unknown error"
+          }`
+        );
+      }
+
+      const data = await response.json();
+      console.log("Search mobile data", data.data);
+
+      if (data.success) {
+        setSearchBranchData(data.data.branch_details || []);
+        setFilteredBranch(data.data.branch_details || []);
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSearchBranch();
+  }, [state]);
+
+  const handleSearchBranch = (e: any) => {
+    const value = e.target.value;
+    setSearchBranch(value);
+
+    const searchData = searchBranchData.filter(
+      (item) => item.text.toLowerCase().includes(value.toLowerCase())
+      // item.user_name.toLowerCase().includes(value.toLowerCase()) ||
+      // item.email.toLowerCase().includes(value.toLowerCase()) ||
+      // item.pay_status.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setFilteredBranch(searchData);
+  };
+
+  const handleSelectBranch = (branch: Branch) => {
+    setSelectedBranch(branch.text);
+    // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
+    setSearchBranch("");
+    setIsDropdownOpen(false); // Close dropdown after selection
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && event.target instanceof Node) {
+        if (!dropdownRef.current.contains(event.target)) {
+          setIsDropdownOpen(false);
         }
-      } catch (error) {
-        console.error("Fetch error:", error);
       }
     };
-  
-    useEffect(() => {
-      fetchSearchBranch();
-    }, [state]);
-  
-    const handleSearchBranch = (e : any) => {
-      const value = e.target.value;
-      setSearchBranch(value);
-  
-      const searchData = searchBranchData.filter(
-        (item) =>
-          item.text.toLowerCase().includes(value.toLowerCase())
-          // item.user_name.toLowerCase().includes(value.toLowerCase()) ||
-          // item.email.toLowerCase().includes(value.toLowerCase()) ||
-          // item.pay_status.toLowerCase().includes(value.toLowerCase())
-      );
-  
-      setFilteredBranch(searchData);
-    };
-  
-    
-    const handleSelectBranch = (branch : Branch) => {
-      setSelectedBranch(branch.text);
-      // setSelectedMobile(`${mobile.text} - ${mobile.term}`);
-      setSearchBranch("");
-      setIsDropdownOpen(false); // Close dropdown after selection
-    };
-  
-    // Close dropdown when clicking outside
-    useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (dropdownRef.current && event.target instanceof Node) {
-          if (!dropdownRef.current.contains(event.target)) {
-            setIsDropdownOpen(false);
-          }
-        }
-      };
-    
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-  
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div className=" w-full  pb-8">
@@ -313,61 +316,60 @@ const page = () => {
           <div className="p-4 rounded-lg bg-slate-100 dark:bg-navy-800">
             <form>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-               
+                {/* Branch Select */}
 
+                <div className="relative w-full" ref={dropdownRef}>
+                  <label
+                    htmlFor="mobile"
+                    className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                  >
+                    Branch Name
+                  </label>
 
-       {/* Branch Select */}
-        
-       <div className="relative w-full" ref={dropdownRef}>
-      <label htmlFor="mobile" className="block text-sm font-medium text-slate-700 dark:text-navy-100">
-       Branch Name
-      </label>
+                  {/* Dropdown Button */}
+                  <div
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                  >
+                    {selectedBranch || "Select a Branch"}
+                    <span className="ml-2 dark:text-slate-400/70">
+                      <FaChevronDown />
+                    </span>
+                  </div>
 
-      {/* Dropdown Button */}
-      <div
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-      >
-        {selectedBranch || "Select a Branch"}
-        <span className="ml-2 dark:text-slate-400/70">
-          <FaChevronDown />
-          </span> 
-      </div>
+                  {/* Dropdown Content */}
+                  {isDropdownOpen && (
+                    <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
+                      {/* Search Bar Inside Dropdown */}
+                      <input
+                        type="text"
+                        value={searchBranch}
+                        onChange={handleSearchBranch}
+                        placeholder="Search..."
+                        className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                      />
 
-      {/* Dropdown Content */}
-      {isDropdownOpen && (
-        <div className="absolute z-10 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-navy-600 dark:bg-navy-700">
-          {/* Search Bar Inside Dropdown */}
-          <input
-            type="text"
-            value={searchBranch}
-            onChange={handleSearchBranch}
-            placeholder="Search..."
-            className="w-full border-b border-gray-300 px-3 py-2 text-sm focus:outline-none dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
-          />
-
-          {/* Dropdown Options */}
-          <ul className="max-h-48 overflow-y-auto hide-scrollbar">
-            {filteredBranch.length > 0 ? (
-              filteredBranch.map((branch) => (
-                <li
-                  key={branch.id}
-                  onClick={() => handleSelectBranch(branch)}
-                  className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
-                >
-                   {branch.text}
-                </li>
-              ))
-            ) : (
-              <li className="px-3 py-2 text-gray-500 dark:text-gray-400">No results found</li>
-            )}
-          </ul>
-        </div>
-      )}
-    </div>
-
-
-
+                      {/* Dropdown Options */}
+                      <ul className="max-h-48 overflow-y-auto hide-scrollbar">
+                        {filteredBranch.length > 0 ? (
+                          filteredBranch.map((branch) => (
+                            <li
+                              key={branch.id}
+                              onClick={() => handleSelectBranch(branch)}
+                              className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-navy-500"
+                            >
+                              {branch.text}
+                            </li>
+                          ))
+                        ) : (
+                          <li className="px-3 py-2 text-gray-500 dark:text-gray-400">
+                            No results found
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+                </div>
 
                 {/* Status Select */}
                 <div className="flex-1">
@@ -453,7 +455,7 @@ const page = () => {
                 <thead>
                   <tr>
                     <th className="whitespace-nowrap rounded-l-lg bg-slate-200 px-3 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                    #
+                      #
                     </th>
                     <th className="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                       Branch Name
@@ -473,100 +475,111 @@ const page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {isLoading ? (
-    <tr>
-      <td colSpan={7} className="text-center py-10">
-        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
-      </td>
-    </tr>
-  ) : (
-    <>
-                {currentEntries.length > 0 ?(
-currentEntries.map((item,index) =>(
-                    <tr
-                      key={item.id}
-                      className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
-                    >
-                      <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
-                        {index + indexOfFirstEntry + 1}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.branch_name}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {/* {item.description} */}
-                        <div
-                          dangerouslySetInnerHTML={{ __html: item.description }}
-                        />
-                      </td>
-                      {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.status}
-                      </td> */}
-                       <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.status === "active" && (
-                          <div className="badge space-x-2.5 rounded-full bg-success/10 text-success">
-                            <div className="size-2 rounded-full bg-current" />
-                            <span>active</span>
-                          </div>
-                        )}
-                        {item.status === "inactive" && (
-                          <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
-                            <div className="size-2 rounded-full bg-current" />
-                            <span>inactive</span>
-                          </div>
-                        )}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                        {item.added_date}
-                      </td>
-                     
-                      <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
-                        <span>
-                          <div className="flex justify-center space-x-2">
-                            <button
-                              onClick={() => togglemodal("edit", item)}
-                              className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
-                            >
-                              <i className="fa fa-edit" />
-                            </button>
-                            <button
-                              onClick={() =>
-                                updateAccountStatus(item.id!, item.status)
-                              }
-                              className={`btn size-8 p-0 ${
-                                item.status === "active"
-                                  ? "text-error"
-                                  : "text-primary"
-                              } hover:bg-${
-                                item.status === "active" ? "error" : "primary"
-                              }/20 focus:bg-${
-                                item.status === "active" ? "error" : "primary"
-                              }/20 active:bg-${
-                                item.status === "active" ? "error" : "primary"
-                              }/25`}
-                            >
-                              <i
-                                className={`fa ${
-                                  item.status === "active"
-                                    ? "fa-trash-alt"
-                                    : "fa-check-circle"
-                                }`}
-                              />
-                            </button>
-                          </div>
-                        </span>
+                  {isLoading ? (
+                    <tr>
+                      <td colSpan={7} className="text-center py-10">
+                        <FaSpinner className="animate-spin text-4xl text-indigo-500 mx-auto" />
                       </td>
                     </tr>
-                 ))
-                ):(
-                  <tr>
-                  <td colSpan={7} className="text-center py-4 text-gray-500">
-                    No data available
-                  </td>
-                </tr>
-                )}
-                </>
-  )}
+                  ) : (
+                    <>
+                      {currentEntries.length > 0 ? (
+                        currentEntries.map((item, index) => (
+                          <tr
+                            key={item.id}
+                            className="border-y border-transparent border-b-slate-200 dark:border-b-navy-500"
+                          >
+                            <td className="whitespace-nowrap rounded-l-lg px-4 py-3 sm:px-5">
+                              {index + indexOfFirstEntry + 1}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              {item.branch_name}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              {/* {item.description} */}
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: item.description,
+                                }}
+                              />
+                            </td>
+                            {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {item.status}
+                      </td> */}
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              {item.status === "active" && (
+                                <div className="badge space-x-2.5 rounded-full bg-success/10 text-success">
+                                  <div className="size-2 rounded-full bg-current" />
+                                  <span>active</span>
+                                </div>
+                              )}
+                              {item.status === "inactive" && (
+                                <div className="badge space-x-2.5 rounded-full bg-error/10 text-error">
+                                  <div className="size-2 rounded-full bg-current" />
+                                  <span>inactive</span>
+                                </div>
+                              )}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                              {item.added_date}
+                            </td>
+
+                            <td className="whitespace-nowrap rounded-r-lg px-4 py-3 sm:px-5">
+                              <span>
+                                <div className="flex justify-center space-x-2">
+                                  <button
+                                    onClick={() => togglemodal("edit", item)}
+                                    className="btn size-8 p-0 text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+                                  >
+                                    <i className="fa fa-edit" />
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      updateAccountStatus(item.id!, item.status)
+                                    }
+                                    className={`btn size-8 p-0 ${
+                                      item.status === "active"
+                                        ? "text-error"
+                                        : "text-primary"
+                                    } hover:bg-${
+                                      item.status === "active"
+                                        ? "error"
+                                        : "primary"
+                                    }/20 focus:bg-${
+                                      item.status === "active"
+                                        ? "error"
+                                        : "primary"
+                                    }/20 active:bg-${
+                                      item.status === "active"
+                                        ? "error"
+                                        : "primary"
+                                    }/25`}
+                                  >
+                                    <i
+                                      className={`fa ${
+                                        item.status === "active"
+                                          ? "fa-trash-alt"
+                                          : "fa-check-circle"
+                                      }`}
+                                    />
+                                  </button>
+                                </div>
+                              </span>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td
+                            colSpan={7}
+                            className="text-center py-4 text-gray-500"
+                          >
+                            No data available
+                          </td>
+                        </tr>
+                      )}
+                    </>
+                  )}
                 </tbody>
               </table>
             </div>

@@ -67,10 +67,10 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
         save: "submit",
       });
 
-     // setTimeout(() => togglemodal(), 2000);
+      // setTimeout(() => togglemodal(), 2000);
     } catch (err: any) {
       // setError(err.message || "An error occurred");
-       toast.error(err.message || "An error occurred");
+      toast.error(err.message || "An error occurred");
       console.error(err);
     } finally {
       setLoading(false);
@@ -144,14 +144,14 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   />
                 </div>
                 {error && (
-              <div className="text-red-500 text-sm mt-2">{error}</div>
-            )}
+                  <div className="text-red-500 text-sm mt-2">{error}</div>
+                )}
                 <button
                   type="submit"
                   className="bg-primary hover:bg-primary-focus text-white rounded p-2 w-1/5"
                   disabled={loading}
                 >
-                   {loading ? 'Adding...' : 'Add'}
+                  {loading ? "Adding..." : "Add"}
                 </button>
               </div>
             </form>

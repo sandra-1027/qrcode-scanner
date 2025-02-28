@@ -18,7 +18,7 @@ const Add: React.FC<CreateProps> = ({ showModal, togglemodal }) => {
   const [amount, setAmount] = useState("");
   const [driverName, setDriverName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [place,setPlace] = useState("");
+  const [place, setPlace] = useState("");
   const [drivingLicenceNo, setdrivingLicenceNo] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -47,8 +47,8 @@ const Add: React.FC<CreateProps> = ({ showModal, togglemodal }) => {
       setError("Password should not contain spaces.");
       return;
     }
-    if (!password || password.length <6){
-      setError ("password must be at least 6 characters long");
+    if (!password || password.length < 6) {
+      setError("password must be at least 6 characters long");
       return;
     }
     setError("");
@@ -61,7 +61,7 @@ const Add: React.FC<CreateProps> = ({ showModal, togglemodal }) => {
     const formData = {
       driver_name: driverName,
       mobile,
-      place:place,
+      place: place,
       password,
       driving_licence_no: drivingLicenceNo,
     };
@@ -84,13 +84,13 @@ const Add: React.FC<CreateProps> = ({ showModal, togglemodal }) => {
           }`
         );
       }
-if (response.ok){
-  console.log(response,"response")
-      const result = await response.json();
-      toast.success("Driver added successfully!");
-      setSuccess(true);
-      console.log("Driver added successfully:", result);
-}
+      if (response.ok) {
+        console.log(response, "response");
+        const result = await response.json();
+        toast.success("Driver added successfully!");
+        setSuccess(true);
+        console.log("Driver added successfully:", result);
+      }
       // Clear form fields
       setDriverName("");
       setMobile("");
@@ -162,25 +162,25 @@ if (response.ok){
               <label className="block">
                 <span>Mobile </span>
                 <span className="relative mt-1 flex">
-                <input
-  className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-  placeholder="Enter Mobile No"
-  type="text" // Change to text to avoid spinner
-  value={mobile}
-  onChange={(e) => {
-    const value = e.target.value;
-    // Allow only numbers
-    if (/^\d*$/.test(value) || value === '') {
-      setMobile(value);
-    }
-  }}
-  onKeyPress={(e) => {
-    // Allow only numbers and backspace
-    if (!/[0-9]/.test(e.key) && e.key !== 'Backspace') {
-      e.preventDefault();
-    }
-  }}
-/>
+                  <input
+                    className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Enter Mobile No"
+                    type="text" // Change to text to avoid spinner
+                    value={mobile}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Allow only numbers
+                      if (/^\d*$/.test(value) || value === "") {
+                        setMobile(value);
+                      }
+                    }}
+                    onKeyPress={(e) => {
+                      // Allow only numbers and backspace
+                      if (!/[0-9]/.test(e.key) && e.key !== "Backspace") {
+                        e.preventDefault();
+                      }
+                    }}
+                  />
                 </span>
               </label>
 
@@ -194,10 +194,8 @@ if (response.ok){
                     value={place}
                     onChange={(e) => setPlace(e.target.value)}
                   />
-
                 </span>
               </label>
-
 
               <label className="block">
                 <span>Driving Licence No</span>
@@ -221,32 +219,32 @@ if (response.ok){
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={password}
-                  //  onChange={(e) => setPassword(e.target.value)}
-                  onChange={(e) => {
-                    const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
-                    setPassword(newValue);
-                  }}
-
+                    //  onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      const newValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+                      setPassword(newValue);
+                    }}
                   />
                   <span
                     className="absolute right-4 flex items-center justify-center text-slate-400 hover:text-primary dark:text-navy-400 dark:hover:text-accent cursor-pointer mt-2.5"
                     onClick={togglePasswordVisibility}
                   >
-                     {showPassword ? <HiEye size={16} /> : <HiEyeOff size={16} />}
-               
+                    {showPassword ? (
+                      <HiEye size={16} />
+                    ) : (
+                      <HiEyeOff size={16} />
+                    )}
                   </span>
                 </span>
               </label>
             </div>
 
-            {error && (
-              <div className="text-red-500 text-sm mt-2">{error}</div>
-            )}
+            {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
             <button
               type="submit"
               className="bg-primary hover:bg-primary-focus text-white rounded p-2 w-1/5 mt-4"
             >
-               {loading ? 'Adding...' : 'Add'}
+              {loading ? "Adding..." : "Add"}
             </button>
           </form>
         </div>
