@@ -1365,9 +1365,10 @@ const Create: React.FC<CreateProps> = ({
                 </div>
 
                 {/* check box */}
-                <div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+               
                   {(type === "lmc" || type === "mc" || type === "auto") && (
-                    <>
+                    <div className="relative w-full pl-6 mt-4">
                       <label className="inline-flex items-center space-x-2">
                         <input
                           className="form-checkbox is-basic size-5 rounded-sm border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
@@ -1382,12 +1383,13 @@ const Create: React.FC<CreateProps> = ({
                         />
                         <span>Licence</span>
                       </label>
-                    </>
+                   </div>
                   )}
-
+              
+                <div className="relative w-full">
                   {/* LMV Trial */}
                   {selectedService === "licence fresh" && (
-                    <label className="inline-flex items-center space-x-2 ml-6">
+                    <label className="inline-flex items-center space-x-2 ml-6 mt-4">
                       <input
                         value="lmv_trial"
                         checked={selectedOption === "lmv_trial"}
@@ -1400,6 +1402,7 @@ const Create: React.FC<CreateProps> = ({
                       <span>LMV Trial</span>
                     </label>
                   )}
+                </div>
                 </div>
 
                 {/* both dropdown */}
@@ -1425,7 +1428,7 @@ const Create: React.FC<CreateProps> = ({
 
                 {/*Trial Amount */}
                 {selectedOption === "lmv_trial" && (
-                  <label className="block">
+                  <label className="block mt-4">
                     <span>Trial Amount</span>
                     <span className="relative mt-1 flex">
                       <input
@@ -1445,7 +1448,7 @@ const Create: React.FC<CreateProps> = ({
                   selectedService === "licence reentry" ||
                   selectedService === "rc transfer") && (
                   // type
-                  <label className="block">
+                  <label className="block mt-4">
                     <span>Type</span>
                     <span className="relative mt-1 flex">
                       <select
@@ -1466,13 +1469,13 @@ const Create: React.FC<CreateProps> = ({
                 {/* Common Fields */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {/* Payment Method */}
-                  <label className="block">
+                  <label className="block mt-4">
                     <span>Payment Method</span>
                     <span className="relative mt-1 flex">
                       <select
                         value={payment_method}
                         onChange={(e) => setpayment_method(e.target.value)}
-                        className="px-5 py-2.5 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                        className="text-sm px-5 py-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       >
                         <option>Select Method</option>
                         <option value="cash">Cash</option>
@@ -1493,7 +1496,7 @@ const Create: React.FC<CreateProps> = ({
                     </span>
                   </label> */}
                 </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {/* Total Amount */}
                   <label className="block">
                     <span>Total Amount</span>
