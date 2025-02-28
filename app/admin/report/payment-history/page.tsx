@@ -640,7 +640,7 @@ const Page = () => {
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
           >
-            <option value="">select Status</option>
+            <option value="">Select Status</option>
             <option value="remaining">Remaining</option>
           <option value="completed">Completed</option>
           </select>

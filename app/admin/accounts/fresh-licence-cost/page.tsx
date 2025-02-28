@@ -282,7 +282,7 @@ const page = () => {
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
           >
-            <option value="">select Status</option>
+            <option value="">Select Status</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
@@ -383,10 +383,31 @@ currentEntries.map((item,index) =>(
                 {index +indexOfFirstEntry+1}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.vehicle_type}
+                {/* {item.vehicle_type} */}
+                {item.vehicle_type === "lmc"&& (
+                  <span>LMV</span>
+                )}
+               
+                  {item.vehicle_type === "mc" && (
+                  <span>MC</span>
+                )}
+                  {item.vehicle_type === "lmc_mc" && (
+                  <span>Both</span>
+                )}
+                   {item.vehicle_type === "auto" && (
+                  <span>Auto</span>
+                )}
+                 {/* {!(item.vehicle_type === "lmc" ||
+                item.vehicle_type === "mc" ||
+                item.vehicle_type === "lmc_mc" ||
+                item.vehicle_type === "auto"
+              )&& (
+                  <span>{item.vehicle_type} </span>
+                )} */}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.gender}
+                {/* {item.gender} */}
+                {item.gender.charAt(0).toUpperCase() + item.gender.slice(1)}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.cost}

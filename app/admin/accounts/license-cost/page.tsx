@@ -517,7 +517,19 @@ currentEntries.map((item,index) =>(
                 {item.service_name}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
-                {item.vehicle_type}
+                {/* {item.vehicle_type} */}
+                {item.vehicle_type === "lmc" && (
+                  <span>LMV</span>
+                )}
+                  {item.vehicle_type === "mc" && (
+                  <span>MC</span>
+                )}
+                  {item.vehicle_type === "lmc_mc" && (
+                  <span>Both</span>
+                )}
+                   {item.vehicle_type === "auto" && (
+                  <span>Auto</span>
+                )}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                 {item.f_cost}

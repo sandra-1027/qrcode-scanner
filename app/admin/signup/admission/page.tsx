@@ -1819,9 +1819,12 @@ const Admission = () => {
                             {item.branch_name}
                           </p>
                         </td>
-                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+                        {/* <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                           {item.service_name}
-                        </td>
+                        </td> */}
+                        <td className="whitespace-nowrap px-4 py-3 sm:px-5">
+  {item.service_name.replace(/\b\w/g, (char) => char.toUpperCase())}
+</td>
                         <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                           {item.due_amount}
                         </td>

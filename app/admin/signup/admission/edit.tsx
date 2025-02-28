@@ -1341,9 +1341,9 @@ const handleSelect = (service: { id: string; service_name: string; amount: strin
 
 {formData?.service_name === "licence fresh" &&(
 <>
-{(formData?.type === "lmv" || 
+{(formData?.type === "lmc" || 
   formData?.type === "mc" || 
-  formData?.type === "both" || 
+  formData?.type === "lmc_mc" || 
   formData?.type === "auto" 
    ) && (
      <div className="block">   
@@ -1382,9 +1382,9 @@ type="checkbox" />
                         name="type"
                         className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent">
                           <option value=''>Select Type</option>
-                          <option value="lmv">LMV</option>
+                          <option value="lmc">LMV</option>
                           <option value="mc">MC</option>
-                          <option value="both">BOTH</option>
+                          <option value="lmc_mc">BOTH</option>
                           <option value="auto">Auto rickshaw</option>
                         </select>
                       </span>

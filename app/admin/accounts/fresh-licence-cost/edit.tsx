@@ -135,78 +135,18 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     }
   };
   
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-    
-  //   try {
-  //     if (!formData) return;
-  
-  //     const transformedData = {
-  //       id: formData.id,
-  //       type: 'cost',
-  //       study_cost: formData.study_cost,
-  //       licence_cost: formData.licence_cost,
-  //       cost: formData.cost,
-  //       vehicle_type: formData.vehicle_type,
-  //     };
-  
-  //     console.log('Transformed Data:', transformedData);
-  
-  //     const response = await fetch(`/api/admin/accounts/update_fresh_licence_cost`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         authorizations: state?.accessToken ?? '',
-  //         api_key: '10f052463f485938d04ac7300de7ec2b',
-  //       },
-  //       body: JSON.stringify(transformedData),
-  //     });
-  
-  //     console.log('Response Status:', response.status);
-  
-  //     // ✅ Read response as text first
-  //     const responseText = await response.text();
-  //     console.log('Raw Response:', responseText || '(empty)');
-  
-  //     let data: any = {};
-  //     if (responseText.trim()) {
-  //       try {
-  //         data = JSON.parse(responseText);
-  //       } catch (jsonError) {
-  //         console.error('JSON Parse Error:', jsonError);
-  //         throw new Error('Invalid JSON response from server');
-  //       }
-  //     }
-  
-  //     console.log('Response Data:', data);
-  
-  //     // ✅ Handle truly empty responses (assume success on status 200)
-  //     if (response.status === 200 && Object.keys(data).length === 0) {
-  //       toast.success('License Class updated successfully');
-  //       setSuccess(true);
-  //       onSave(formData);
-  //       togglemodal();
-  //       return;
-  //     }
-  
-  //     if (data.success) {
-  //       setSuccess(true);
-  //       onSave(formData);
-  //       toast.success('License Class updated successfully');
-  //       togglemodal();
-  //     } else {
-  //       setError(data.msg || 'Failed to update driver');
-  //       console.log('Error Messages:', data.error_msgs || 'No error messages provided');
-  //     }
-  //   } catch (err: any) {
-  //     console.error('Error during API call:', err);
-  //     toast.error(err.message || 'An error occurred while updating the License class.');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   
   
+  // const getFormattedVehicleType = (type: string) => {
+  //   if (!type) return "";
+  //   const typeMap: Record<string, string> = {
+  //     mc: "MC",
+  //     lmc: "LMV",
+  //     lmc_mc: "Both",
+  //     auto:"Auto"
+  //   };
+  //   return typeMap[type] || type;
+  // }
   
   if (!showModal || !formData) return null;
 
@@ -253,6 +193,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
               onChange={handleChange}
                type="text"
                 placeholder="vehicle_type"
+               // value={getFormattedVehicleType(formData.vehicle_type)}
                 readOnly
                 // className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" 
                className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 
@@ -261,9 +202,6 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                dark:hover:border-navy-400 dark:focus:border-accent"
                 />
               </label>
-
-
-
                <label className="block">
                 <span>Gender</span>
               <input name="gender"
@@ -342,7 +280,7 @@ className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-sla
       }
     }}
      type="text"
-      placeholder="study cost" 
+      placeholder="Study Cost" 
       className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
   </label>
   <label className="block">
@@ -357,7 +295,7 @@ className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-sla
     }
   }}
    type="text"
-    placeholder="licence cost"
+    placeholder="Licence Cost"
     className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" />
 </label>
 </>

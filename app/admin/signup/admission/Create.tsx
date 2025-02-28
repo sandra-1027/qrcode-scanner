@@ -2654,7 +2654,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
 
                         {/* check box */}
 <div>
-                      {(type === "lmv" ||
+                      {(type === "lmc" ||
                       type === "mc" ||
                       type === "auto")&& (
                        
@@ -2733,7 +2733,7 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
 
       )}
 
- {/* type */}
+           {/* type */}
                 {(selectedService === "licence fresh" ||
                   selectedService === "renewal licence" ||
                   selectedService === "duplicate licence" ||
@@ -2749,9 +2749,9 @@ className="cursor-pointer px-3 py-2 hover:bg-indigo-500 hover:text-white dark:ho
                         className="text-sm pl-2 dark:bg-navy-700 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       >
                         <option>Select Type</option>
-                        <option value="lmv">LMV</option>
+                        <option value="lmc">LMV</option>
                         <option value="mc">MC</option>
-                        <option value="both">BOTH</option>
+                        <option value="lmc_mc">BOTH</option>
                         <option value="auto">Auto Rickshaw</option>
                       </select>
                     </span>

@@ -299,10 +299,10 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
               >
            
                 <option value="">Please select vehicle type</option>
-               <option value="LMV">LMV</option>
-               <option value="MC">MC</option>
-               <option value="Both">Both</option>
-               <option value="Auto">Auto Rickshaw</option>
+               <option value="lmc">LMV</option>
+               <option value="mc">MC</option>
+               <option value="lmc_mc">Both</option>
+               <option value="auto">Auto Rickshaw</option>
               </select>
               </span>
               </label>

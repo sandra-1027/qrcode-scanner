@@ -870,8 +870,10 @@ const page = () => {
         // Handle the case when no data is found
         setAccountData([]); // Clear accountData
         setFilteredData([]); // Clear filteredData
+        setExpenseData(null);
         console.log("No data found for the selected date"); // Debug log
       }
+      
       setExpenseData(data.data.expenses || null); // Handle case when expenses data is not available
     } catch (error) {
       console.error("Fetch error:", error);

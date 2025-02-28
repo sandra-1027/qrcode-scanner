@@ -308,10 +308,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               className="mt-1 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
               >
                 <option value="">Please select vehicle type</option>
-               <option value="LMV">LMV</option>
-               <option value="MC">MC</option>
-               <option value="Both">Both</option>
-               <option value="Autorickshaw">Auto rickshaw</option>
+               <option value="lmc">LMV</option>
+               <option value="mc">MC</option>
+               <option value="lmc_mc">Both</option>
+               <option value="auto">Auto rickshaw</option>
               </select>
               </label>
 

@@ -227,7 +227,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   {!imagePreview ? (
                     <label
                       htmlFor="imageInput"
-                      className="w-1/3 mt-2 flex items-center justify-center cursor-pointer bg-blue-500 text-white rounded px-4 py-2"
+                      className="w-1/3 mt-2 flex items-center justify-center cursor-pointer bg-primary text-white rounded px-4 py-2"
                     >
                       Select Image
                       <input
@@ -241,7 +241,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
                   ) : (
                     <div className="mt-2 flex space-x-2">
                       <label
-                        className="bg-blue-500 text-white p-2 rounded cursor-pointer px-6"
+                        className="bg-primary text-white p-2 rounded cursor-pointer px-6"
                         htmlFor="imageUpload"
                       >
                         Change
