@@ -889,7 +889,7 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
                       >
                         <label
                           htmlFor="mobile"
-                          className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                          className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                         >
                           Branch Name
                         </label>
@@ -899,7 +899,7 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
                           onClick={() =>
                             setIsbranchDropdownOpen(!isbranchDropdownOpen)
                           }
-                          className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                          className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 text-[#64748B] dark:text-[#A3ADC2]"
                         >
                           {/* {selectedBranch || "Select a branch"} */}
                           {branch_text ||
@@ -1275,7 +1275,7 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
                     <div className="relative w-full" ref={serviceDropdownRef}>
                       <label
                         htmlFor="mobile"
-                        className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                        className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                       >
                         Service
                       </label>
@@ -1285,7 +1285,7 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
                         onClick={() =>
                           setIsserviceDropdownOpen(!isserviceDropdownOpen)
                         }
-                        className="text-sm pl-2 mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                        className="text-sm pl-2 mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 text-[#64748B] dark:text-[#A3ADC2]"
                       >
                         {selectedService ||
                           formData?.service_name ||
@@ -1330,7 +1330,7 @@ const Edit = ({ showmodal, togglemodal, AdmissionData, onSave }: EditProps) => {
                     </div>
 
                     {/*billno */}
-                    <label className="block ml-3 flex-1">
+                    <label className="block flex-1">
                       <span>Bill No:</span>
                       <span className="relative mt-1 flex">
                         <input

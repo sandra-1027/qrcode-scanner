@@ -97,16 +97,17 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
 
         console.log("Response Status:", response.status);
         const data = await response.json();
-        toast.success("Licence Cost updated successfully");
+      
         console.log("Response Data:", data);
 
         if (data.success) {
           setSuccess(true);
+          toast.success("Licence Cost updated successfully");
           onSave(formData);
-          // togglemodal();
+         // togglemodal();
         } else {
-          setError(data.msg || "Failed to update driver");
-       
+         // toast.info("No changes detected. Please modify the data to update.");
+         setError(data.msg || "Failed to update driver");
           console.log("Error Messages:", data.error_msgs);
         }
       }
@@ -209,7 +210,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
         <div className="relative flex w-full max-w-3xl origin-top flex-col  rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
-              Edit License Cost
+              Edit Licence Cost
             </h3>
             <button
               onClick={togglemodal}

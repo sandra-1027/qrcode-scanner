@@ -124,10 +124,11 @@ const Edit = ({ showModal, toggleModal, vehicleData, onSave }: EditProps) => {
 
       const data = await response.json();
       console.log("API Response:", data);
-      toast.success("Vehicle updated successfully");
+     
 
       if (data.success) {
         setSuccess(true);
+        toast.success("Vehicle updated successfully");
         onSave(formData);
         //toggleModal();
       } else {

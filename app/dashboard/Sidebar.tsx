@@ -864,7 +864,7 @@ const Sidebar = () => {
                                   </div>
                                 </Link>
                               </li>
-                              {/* License Cost */}
+                              {/* Licence Cost */}
                               <li>
                                 <Link
                                   href="/admin/accounts/license-cost"
@@ -872,11 +872,11 @@ const Sidebar = () => {
                                 >
                                   <div className="flex items-center space-x-2">
                                     <div className="size-1.5 rounded-full border border-current opacity-40" />
-                                    <span>License Cost</span>
+                                    <span>Licence Cost</span>
                                   </div>
                                 </Link>
                               </li>
-                              {/* fresh License Cost */}
+                              {/* fresh Licence Cost */}
                               <li>
                                 <Link
                                   href="/admin/accounts/fresh-licence-cost"
@@ -1163,7 +1163,7 @@ const Sidebar = () => {
                                   </div>
                                 </Link>
                               </li>
-                               {/* License Cost*/}
+                               {/* Licence Cost*/}
                                <li>
                                 <Link
                                   href="/admin/accounts/license-cost"
@@ -1172,7 +1172,7 @@ const Sidebar = () => {
                                   <div className="flex items-center space-x-2">
                                     <div className="size-1.5 rounded-full border border-current opacity-40" />
                                     <span onClick={toggleDrawer}>
-                                      License Cost
+                                      Licence Cost
                                     </span>
                                   </div>
                                 </Link>

@@ -679,7 +679,7 @@ const Admission = () => {
       </div>
 
       <div className="flex items-center justify-between py-5 lg:py-6">
-        <span className="text-lg font-medium text-slate-800 dark:text-navy-50">Admissions</span>
+        <span className="text-lg font-medium text-slate-800 dark:text-navy-50">Admission</span>
         <button
           className="px-4 py-2 bg-primary hover:bg-primary-focus text-white rounded-md"
           onClick={() => togglemodal("add")}

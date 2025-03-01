@@ -85,15 +85,17 @@ const Edit = ({ showModal, toggleModal, serviceData, onSave }: EditProps) => {
 
         console.log("Response Status:", response.status);
         const data = await response.json();
-        toast.success("Service updated successfully");
+        
         console.log("Response Data:", data);
 
         if (data.success) {
           setSuccess(true);
+          toast.success("Service updated successfully");
           onSave(formData);
         //  toggleModal();
         } else {
-          setError(data.msg || "Failed to update driver");
+         // toast.info("No changes detected. Please modify the data to update.");
+         setError(data.msg || "Failed to update driver");
           console.log("Error Messages:", data.error_msgs);
         }
       }
@@ -108,8 +110,8 @@ const Edit = ({ showModal, toggleModal, serviceData, onSave }: EditProps) => {
     }
   };
 
+  // if (!showModal || !formData) return null;
   if (!showModal || !formData) return null;
-
   return (
     <div>
       <div

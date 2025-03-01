@@ -41,6 +41,8 @@ type CreateProps = {
     UserPhoto: File | null;
     dob: string;
     address: string;
+    remarks:string;
+    billno:string;
   };
   isEditing?: boolean;
 };
@@ -66,6 +68,7 @@ const Create: React.FC<CreateProps> = ({
   const [signaturePreview, setSignaturePreview] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<string>("");
   const [documentPreview, setDocumentPreview] = useState<string>("");
+  const [documentPreview1, setDocumentPreview1] = useState<string>("");
   const [oldrcPreview, setOldrcPreview] = useState<string>("");
   const [adharPreview, setAdharPreview] = useState<string>("");
   const [insurencePreview, setInsurencePreview] = useState<string>("");
@@ -88,6 +91,7 @@ const Create: React.FC<CreateProps> = ({
   const [signature, setsignature] = useState<File | null>(null);
   const [userfile, setuserfile] = useState<File | null>(null);
   const [document, setdocument] = useState<File | null>(null);
+  const [document1, setdocument1] = useState<File | null>(null);
   const [old_rc, setold_rc] = useState<File | null>(null);
   const [adhar, setadhar] = useState<File | null>(null);
   const [insurence, setinsurence] = useState<File | null>(null);
@@ -99,10 +103,14 @@ const Create: React.FC<CreateProps> = ({
   const [type, settype] = useState("");
   const [amount, setamount] = useState("");
   const [document_type, setdocument_type] = useState("");
+  const [document_type1, setdocument_type1] = useState("");
   const [tax, settax] = useState("");
   const [pucc, setpucc] = useState("");
   const [dob, setdob] = useState("");
   const [address, setaddress] = useState("");
+  const [remarks, setremarks] = useState("");
+  const [billno, setbillno] = useState("");
+
 
   const [mobileData, setMobileData] = useState([]);
   // const [filteredMobile, setFilteredMobile] = useState([]);
@@ -229,7 +237,14 @@ const Create: React.FC<CreateProps> = ({
       setDocumentPreview(URL.createObjectURL(file));
     }
   };
+  const handleDocumentChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
+    if (file) {
+      setdocument1(file);
+      setDocumentPreview1(URL.createObjectURL(file));
+    }
+  };
   const handleOldrcChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -283,7 +298,7 @@ const Create: React.FC<CreateProps> = ({
     formData.append("document_type", document_type || "");
     formData.append("tax", tax);
     formData.append("pucc", pucc);
-
+    formData.append("remarks", remarks);
     if (userfile) formData.append("userfile", userfile);
     if (document) formData.append("document", document);
     if (old_rc) formData.append("old_rc", old_rc);
@@ -637,10 +652,10 @@ const Create: React.FC<CreateProps> = ({
                   {/* Conditional Input Field */}
                   {selectedOption === "alreadyCreated" && (
                     <>
-                      <div className="relative w-full" ref={userDropdownRef}>
+                      <div className="relative w-full mt-6" ref={userDropdownRef}>
                         <label
                           htmlFor="mobile"
-                          className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                          className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                         >
                           Enter Mobile No / Name
                         </label>
@@ -648,7 +663,7 @@ const Create: React.FC<CreateProps> = ({
                         {/* Dropdown Button */}
                         <div
                           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                          className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                          className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 text-[#64748B] dark:text-[#A3ADC2]"
                         >
                           {selectedMobile || "Select a Mobile / Name"}
                           <span className="ml-2 dark:text-slate-400/70">
@@ -698,7 +713,7 @@ const Create: React.FC<CreateProps> = ({
                       >
                         <label
                           htmlFor="mobile"
-                          className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                          className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                         >
                           Enter Admission No
                         </label>
@@ -708,7 +723,7 @@ const Create: React.FC<CreateProps> = ({
                           onClick={() =>
                             setIsadmissionDropdownOpen(!isadmissionDropdownOpen)
                           }
-                          className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                          className="mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 text-[#64748B] dark:text-[#A3ADC2]"
                         >
                           {selectedAdmission || "Select an Admission No"}
                           <span className="ml-2 dark:text-slate-400/70">
@@ -777,9 +792,9 @@ const Create: React.FC<CreateProps> = ({
                         <span>Application No:</span>
                         <span className="relative mt-1 flex">
                           <input
-                            name="name"
-                            value={name}
-                            onChange={(e) => setname(e.target.value)}
+                            name="app_no"
+                            value={app_no}
+                            onChange={(e) => setapp_no(e.target.value)}
                             className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             placeholder="Application No"
                             type="text"
@@ -936,7 +951,7 @@ const Create: React.FC<CreateProps> = ({
                       <div className="relative w-full" ref={branchDropdownRef}>
                         <label
                           htmlFor="mobile"
-                          className="block mt-2 text-sm font-medium text-slate-700 dark:text-navy-100"
+                          className="block mt-2 text-sm text-[#64748B] dark:text-[#A3ADC2]"
                         >
                           Branch Name
                         </label>
@@ -946,7 +961,7 @@ const Create: React.FC<CreateProps> = ({
                           onClick={() =>
                             setIsbranchDropdownOpen(!isbranchDropdownOpen)
                           }
-                          className="text-sm pl-2 mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                          className="text-sm pl-2 mt-1 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 text-[#64748B] dark:text-[#A3ADC2]"
                         >
                           {selectedBranch || "Select a Branch"}
                           <span className="ml-2 dark:text-slate-400/70">
@@ -1198,9 +1213,9 @@ const Create: React.FC<CreateProps> = ({
                           <span>Choose Document</span>
                           <span className="relative mt-1 flex">
                             <select
-                              name="document_type"
-                              value={document_type}
-                              onChange={(e) => setdocument_type(e.target.value)}
+                              name="document_type1"
+                              value={document_type1}
+                              onChange={(e) => setdocument_type1(e.target.value)}
                               className="text-sm pl-2 dark:bg-navy-700 form-select peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                             >
                               <option>Choose a Document</option>
@@ -1220,14 +1235,14 @@ const Create: React.FC<CreateProps> = ({
                           </label>
                           <div
                             className={`border-2 rounded-lg flex items-center justify-center h-42 w-42 sm:h-40 sm:w-40 ${
-                              documentPreview
+                              documentPreview1
                                 ? "border-gray-300"
                                 : "border-blue-500"
                             }`}
                           >
-                            {documentPreview ? (
+                            {documentPreview1 ? (
                               <img
-                                src={documentPreview}
+                                src={documentPreview1}
                                 alt="Uploaded Document"
                                 className="max-h-full max-w-full object-contain"
                               />
@@ -1238,13 +1253,13 @@ const Create: React.FC<CreateProps> = ({
                             )}
                           </div>
                           <div className="mt-4 flex space-x-2">
-                            {!document ? (
+                            {!document1 ? (
                               <label className="cursor-pointer bg-primary hover:bg-primary-focus text-white font-bold py-2 px-4 rounded">
                                 Select Image
                                 <input
                                   type="file"
                                   accept="image/*"
-                                  onChange={handleDocumentChange}
+                                  onChange={handleDocumentChange1}
                                   className="hidden"
                                 />
                               </label>
@@ -1255,14 +1270,14 @@ const Create: React.FC<CreateProps> = ({
                                   <input
                                     type="file"
                                     accept="image/*"
-                                    onChange={handleDocumentChange}
+                                    onChange={handleDocumentChange1}
                                     className="hidden"
                                   />
                                 </label>
                                 <button
                                   onClick={() => {
-                                    setdocument(null);
-                                    setDocumentPreview("");
+                                    setdocument1(null);
+                                    setDocumentPreview1("");
                                   }}
                                   className="outline-dark border-[1px] border-dark font-bold py-2 px-4 rounded"
                                 >
@@ -1293,7 +1308,7 @@ const Create: React.FC<CreateProps> = ({
                   <div className="relative w-full" ref={serviceDropdownRef}>
                     <label
                       htmlFor="mobile"
-                      className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                      className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                     >
                       Service
                     </label>
@@ -1303,7 +1318,7 @@ const Create: React.FC<CreateProps> = ({
                       onClick={() =>
                         setIsserviceDropdownOpen(!isserviceDropdownOpen)
                       }
-                      className="mt-1.5 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                      className="mt-1.5 flex w-full items-center justify-between rounded-md border border-slate-300 bg-white py-2.5 px-3 shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 text-[#64748B] dark:text-[#A3ADC2]"
                     >
                       {selectedService || "Select a Service"}
                       <span className="ml-2 dark:text-slate-400/70">
@@ -1353,9 +1368,9 @@ const Create: React.FC<CreateProps> = ({
                     <span>Bill No:</span>
                     <span className="relative  flex">
                       <input
-                        name="name"
-                        value={name}
-                        onChange={(e) => setname(e.target.value)}
+                        name="billno"
+                        value={billno}
+                        onChange={(e) => setbillno(e.target.value)}
                         className="text-sm pl-2 form-input peer  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         placeholder="Bill No:"
                         type="text"
@@ -1432,9 +1447,10 @@ const Create: React.FC<CreateProps> = ({
                     <span>Trial Amount</span>
                     <span className="relative mt-1 flex">
                       <input
-                        type="text"
-                        placeholder="Trial Amount"
-                        value={selectedAmount}
+                      placeholder="Trial Amount"                  
+                        type="number"
+                        value={pay_amount}
+                        onChange={(e) => setpay_amount(e.target.value)}
                         className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       />
                     </span>
@@ -1553,9 +1569,9 @@ const Create: React.FC<CreateProps> = ({
                     <span className="relative mt-1 flex">
                       <textarea
                         rows={2}
-                        name="address"
-                        value={address}
-                        onChange={(e) => setaddress(e.target.value)}
+                        name="remarks"
+                        value={remarks}
+                        onChange={(e) => setremarks(e.target.value)}
                         className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                         // placeholder="Address"
                       />

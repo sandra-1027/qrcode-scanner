@@ -133,7 +133,7 @@ const Add: React.FC<CreateProps> = ({
     } catch (error : any) {
       console.error("Error submitting form:", error);
       toast.error(error.msg || "An error occurred while adding the Licence Cost.");
-      alert(`An error occurred while adding the license.`);
+      alert(`An error occurred while adding the licence.`);
     }
   };
 
@@ -229,7 +229,7 @@ const Add: React.FC<CreateProps> = ({
         <div className="relative flex w-full max-w-3xl origin-top flex-col  rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
-              {isEditing ? "Edit License Cost" : "Add License Cost"}
+             Add Licence Cost
             </h3>
             {/* {localFormData ? <p>Selected: {localFormData.service_id}</p> : <p>No service selected</p>} */}
             <button

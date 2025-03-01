@@ -93,11 +93,12 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
         const data = await response.json();
 
         console.log("Response Data:", data);
-
+        
+      
         if (data.success) {
           setSuccess(true);
           onSave(formData);
-          toast.success("License Class updated successfully");
+          toast.success("Licence Class updated successfully");
           //togglemodal();
         } else {
           setError(data.msg || "Failed to update driver");
@@ -107,7 +108,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     } catch (err: any) {
       console.error("Error during API call:", err);
       toast.error(
-        err.msg || "An error occurred while updating the License class."
+        err.msg || "An error occurred while updating the Licence class."
       );
     } finally {
       setLoading(false);
@@ -140,7 +141,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
         <div className="relative flex w-full max-w-3xl origin-top flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 dark:bg-navy-700">
           <div className="flex justify-between rounded-t-lg bg-slate-200 px-4 py-3 dark:bg-navy-800 sm:px-5">
             <h3 className="text-xl font-medium text-slate-700 dark:text-navy-100">
-              Edit License Cost
+              Edit Licence Cost
             </h3>
             <button
               onClick={togglemodal}

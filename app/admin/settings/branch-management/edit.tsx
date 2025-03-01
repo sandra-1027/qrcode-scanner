@@ -98,15 +98,18 @@ const Edit = ({ showModal, toggleModal, branchData, onSave }: EditProps) => {
 
         console.log("Response Status:", response.status);
         const data = await response.json();
-        toast.success("Branch Updated successfully!");
+        
         console.log("Response Data:", data);
 
         if (data.success) {
           setSuccess(true);
+          toast.success("Branch Updated successfully!");
           onSave(formData);
           // toggleModal();
         } else {
-          setError(data.msg || "Failed to update driver");
+         // toast.info("No changes detected. Please modify the data to update.");
+         setError(data.msg || "Failed to update driver");
+          // setError(data.msg || "Failed to update driver");
           console.log("Error Messages:", data.error_msgs);
         }
       }

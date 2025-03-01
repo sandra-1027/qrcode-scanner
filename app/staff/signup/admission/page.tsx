@@ -8,7 +8,7 @@ import { RiBillFill, RiCurrencyLine } from "react-icons/ri";
 import Payment from "./payment";
 import { FiClock } from "react-icons/fi";
 import { IoMdCheckmark } from "react-icons/io";
-import Edit from "./edit";
+
 
 type Admission = {
   id?: string;
@@ -312,17 +312,18 @@ const Admission = () => {
       <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:gap-6">
         <div className="card px-4 pb-4 sm:px-5">
           <div className="mt-5">
-            <div className="gridjs-head">
+          
               <div className="gridjs-search">
                 <input
-                  type="text"
+                 type="search"
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  placeholder="Search by name, branch, or place..."
-                  className="form-input peer w-1/4 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-1 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  placeholder="Type a keyword..."
+                  aria-label="Type a keyword..."
+                 className="text-sm pl-2 gridjs-input gridjs-search-input"
                 />
               </div>
-            </div>
+           
             <div className="overflow-x-auto w-full">
               <table className="is-hoverable w-full text-left">
                 <thead>
@@ -584,7 +585,7 @@ const Admission = () => {
         }
         isEditing={!!selectedCost}
       />
-      {showmodal &&
+      {/* {showmodal &&
         (modalMode === "edit" ? (
           <Edit
             showmodal={showmodal}
@@ -606,7 +607,14 @@ const Admission = () => {
             showmodal={showmodal}
             togglemodal={() => togglemodal("add")}
           />
-        ))}
+        ))} */}
+          {showmodal &&
+        (
+          <Create
+            showmodal={showmodal}
+            togglemodal={() => togglemodal("add")}
+          />
+        )}
     </div>
   );
 };
