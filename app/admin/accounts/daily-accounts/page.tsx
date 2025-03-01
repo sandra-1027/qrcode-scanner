@@ -1,4 +1,4 @@
-
+// correct one
 // 'use client'
 // import withAuth from '@/hoc/withAuth';
 // import React, { useEffect, useRef, useState } from 'react'
@@ -824,8 +824,8 @@ const page = () => {
   const [selectedBranch, setSelectedBranch] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [filteredDate, setFilteredDate] = useState("");
-
+   const [filteredDate, setFilteredDate] = useState("");
+ // const [filteredDate, setFilteredDate] = useState (new Date().toISOString().split("T")[0]) ;
   const [dailystatusselected, setdailystatusselected] = useState<string>("");
   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null); 
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
@@ -848,16 +848,19 @@ const page = () => {
   const fetchStaffData = async () => {
     try {
       console.log("Fetching data for date:", filteredDate); // Debug log
+      console.log(filteredDate);
       const response = await fetch('/api/admin/accounts/accounts_details', {
+        
         method: 'POST',
         headers: {
           'authorizations': state?.accessToken ?? '', 
           'api_key': '10f052463f485938d04ac7300de7ec2b', 
         },
+       
         body: JSON.stringify({ 
           id: null,
           status: null,
-          date: filteredDate, // Use filteredDate here
+          date: filteredDate,  // Use filteredDate here
         }),
       });
       if (!response.ok) {
@@ -1123,14 +1126,14 @@ useEffect(() => {
   }, []);
    
 
-  const formatDate = (dateString: any) => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
+  // const formatDate = (dateString: any) => {
+  //   const options: Intl.DateTimeFormatOptions = {
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //   };
+  //   return new Date(dateString).toLocaleDateString(undefined, options);
+  // };
   return (
     <div className=" w-full  pb-8">
  
@@ -1338,7 +1341,10 @@ useEffect(() => {
 
 <div className="gridjs-head flex flex-col sm:flex-row justify-between items-center">
   <div className="order-2 font-bold sm:order-1 text-center sm:text-left w-full sm:w-auto mb-2 sm:mb-0">
-    <span>Date: {formatDate(filteredDate)}</span>
+    <span>
+      {/* Date: {formatDate(filteredDate)} */}
+      Date: {filteredDate}
+      </span>
   </div>
   
   <div className="gridjs-search order-1 sm:order-2 w-full sm:w-auto">
@@ -1556,6 +1562,8 @@ useEffect(() => {
 
 export default page
 
+
+// march 1
 // 'use client'
 // import withAuth from '@/hoc/withAuth';
 // import React, { useEffect, useRef, useState } from 'react'
