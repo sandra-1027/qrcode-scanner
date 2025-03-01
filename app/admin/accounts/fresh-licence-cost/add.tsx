@@ -202,8 +202,7 @@ const Add: React.FC<CreateProps> = ({
                 </select>
               </label>
 
-              {localFormData.vehicle_type === "Both" ||
-              localFormData.vehicle_type === "lmc_mc" ? (
+              {localFormData.vehicle_type === "lmc_mc" ? (
                 <>
                   <label className="block">
                     <span>LMV MC Both Study</span>

@@ -433,13 +433,7 @@ const page = () => {
                               {item.vehicle_type === "auto" && (
                                 <span>Auto</span>
                               )}
-                              {/* {!(item.vehicle_type === "lmc" ||
-                item.vehicle_type === "mc" ||
-                item.vehicle_type === "lmc_mc" ||
-                item.vehicle_type === "auto"
-              )&& (
-                  <span>{item.vehicle_type} </span>
-                )} */}
+             
                             </td>
                             <td className="whitespace-nowrap px-4 py-3 sm:px-5">
                               {/* {item.gender} */}

@@ -115,16 +115,20 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
     }
   };
 
-  // const getFormattedVehicleType = (type: string) => {
-  //   if (!type) return "";
-  //   const typeMap: Record<string, string> = {
-  //     mc: "MC",
-  //     lmc: "LMV",
-  //     lmc_mc: "Both",
-  //     auto:"Auto"
-  //   };
-  //   return typeMap[type] || type;
-  // }
+  const getFormattedVehicleType = (type : any) => {
+    switch (type) {
+      case 'auto':
+        return 'Auto Rickshaw';
+      case 'lmc':
+        return 'LMV';
+      case 'mc':
+        return 'MC'; // Add more cases as needed
+      case 'lmc_mc':
+        return 'Both';
+      default:
+        return ''; // Return an empty string or a default value
+    }
+  };
 
   if (!showModal || !formData) return null;
 
@@ -171,13 +175,12 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                 <span>Vehicle Type</span>
                 <input
                   name="vehicle_type"
-                  value={formData.vehicle_type}
+                 // value={formData.vehicle_type}
                   onChange={handleChange}
                   type="text"
                   placeholder="vehicle_type"
-                  // value={getFormattedVehicleType(formData.vehicle_type)}
-                  readOnly
-                  // className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  value={getFormattedVehicleType(formData.vehicle_type)}
+                  readOnly    
                   className="mt-1 text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 
                bg-slate-200 dark:bg-navy-600 px-3 py-2 placeholder:text-slate-400/70 
                hover:border-slate-400 focus:border-primary dark:border-navy-450 
@@ -199,9 +202,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                 dark:hover:border-navy-400 dark:focus:border-accent"
                 />
               </label>
-              {formData.vehicle_type === "lmc_mc" ||
-              formData.vehicle_type === "both" ||
-              formData.vehicle_type === "Both" ? (
+              {formData.vehicle_type === "lmc_mc" ? (
                 <>
                   <label className="block">
                     <span>LMV MC both study</span>
