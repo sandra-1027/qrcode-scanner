@@ -95,7 +95,7 @@ const Add: React.FC<CreateProps> = ({
     //   setError("All fields are required.");
     //   return;
     // }
-    if (!localFormData.vehicle_type.trim() || !localFormData.gender) {
+    if (!localFormData.vehicle_type.trim() || !localFormData.gender || !localFormData) {
       setError("All fields are required.");
       return;
     }
@@ -116,18 +116,20 @@ const Add: React.FC<CreateProps> = ({
       console.log(localFormData, "data sent to backend");
 
       const responseJson = await response.json();
-      if (response.ok) {
+      if (responseJson.success) {
         toast.success("Licence Class added successfully");
+        togglemodal();
         console.log("Response from backend:", responseJson);
+       
       }
 
-      if (!response.ok) {
+      if (!responseJson.success) {
         alert(`Failed to add licence. Status code: ${response.status}`);
-
+        toast.error("Failed to add licence cost");
         return;
       }
 
-      togglemodal();
+     
     } catch (error: any) {
       console.error("Error submitting form:", error);
       // alert(`An error occurred while adding the licence.`);

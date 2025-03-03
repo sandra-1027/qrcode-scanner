@@ -164,12 +164,14 @@ const Edit = ({ showModal, toggleModal, AccountData, onSave }: EditProps) => {
 
         console.log("Response Status:", response.status);
         const data = await response.json();
-        toast.success("Account updated successfully");
-        console.log("Response Data:", data);
-
+      
         if (data.success) {
           setSuccess(true);
           onSave(formData);
+          toast.success("Account updated successfully");
+          console.log("Response Data:", data);
+  
+         
           // toggleModal();
         } else {
           setError(data.msg || "Failed to update Cost");

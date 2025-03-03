@@ -58,6 +58,7 @@ type Admission = {
   discounted_amount: string;
   discount: string;
   dl_no: string;
+  remarks:string;
 };
 const Admission = () => {
   const { state } = useAuth();
@@ -1006,6 +1007,7 @@ const Admission = () => {
                 total_amount: selectedCost.total_amount ?? "",
                 id: selectedCost.id || "",
                 billno: selectedCost.billno || "",
+                remarks:selectedCost.remarks || "",
               }
             : undefined
         }

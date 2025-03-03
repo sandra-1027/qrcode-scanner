@@ -56,7 +56,7 @@ const Add: React.FC<CreateProps> = ({
   const [localFormData, setLocalFormData] = useState(
     formData || {
       f_cost: "",
-      m_cost: "",
+      // m_cost: "",
       // service_id: selectedServiceid,
       vehicle_type: "",
       id: "",
@@ -105,11 +105,10 @@ const Add: React.FC<CreateProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (!localFormData.service_id.trim() || !localFormData.vehicle_type.trim()) {
-    //   if (!localFormData.service_id.trim()) {
-    //   setError("All fields are required.");
-    //   return;
-    // }
+    if (!selectedServiceid|| !localFormData.vehicle_type || !localFormData.f_cost  ) {
+      setError("All fields are required.");
+      return;
+    }
     console.log(formData?.service_id, "service_id");
     try {
       const payload = { ...localFormData, service_id: selectedServiceid };
@@ -126,10 +125,11 @@ const Add: React.FC<CreateProps> = ({
       console.log(localFormData, "data sent to backend");
 
       const responseJson = await response.json();
+      if(responseJson.success){
       toast.success("Licence Cost added successfully");
       console.log("Response from backend:", responseJson);
       togglemodal();
-      
+      }
     } catch (error : any) {
       console.error("Error submitting form:", error);
       toast.error(error.msg || "An error occurred while adding the Licence Cost.");

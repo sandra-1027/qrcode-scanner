@@ -16,6 +16,7 @@ type CreateProps = {
     total_amount: string;
     service_name: string;
     billno: string;
+    remarks:string;
   };
   isEditing?: boolean;
 };
@@ -32,6 +33,7 @@ interface Payment {
   total_amount: string;
   cus_service_id: string;
   billno: string;
+  remarks:string;
 }
 const Payment: React.FC<CreateProps> = ({
   showmodals,
@@ -53,6 +55,7 @@ const Payment: React.FC<CreateProps> = ({
     total_amount: "",
     cus_service_id: "",
     billno: "",
+    remarks:"",
   });
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -70,6 +73,7 @@ const Payment: React.FC<CreateProps> = ({
         amount: formData.amount || "",
         cus_service_id: formData.customer_id || "",
         billno: formData.billno || "",
+        remarks:formData.remarks || "",
       });
     }
   }, [formData]);
@@ -104,6 +108,7 @@ const Payment: React.FC<CreateProps> = ({
         },
         body: JSON.stringify(localFormData),
       });
+      console.log(localFormData,"local data")
       console.log("response", response);
       if (!response.ok) {
         const errorText = await response.text();
@@ -181,7 +186,7 @@ const Payment: React.FC<CreateProps> = ({
                     value={localFormData.billno}
                     readOnly
                     type="text"
-                    placeholder="Bill no"
+                    placeholder="Bill No:"
                     className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />
                 </span>
@@ -265,8 +270,8 @@ const Payment: React.FC<CreateProps> = ({
                 <span className="relative mt-1 flex">
                   <textarea
                     rows={2}
-                    name="payed_amount"
-                    value={localFormData.payed_amount}
+                    name="remarks"
+                    value={localFormData.remarks}
                     onChange={handleChange}
                     className="text-sm pl-2 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   />

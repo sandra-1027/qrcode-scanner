@@ -86,6 +86,7 @@ const Add: React.FC<CreateProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const staffdropdownRef = useRef<HTMLDivElement>(null);
   const driverdropdownRef = useRef<HTMLDivElement>(null);
+
   const fetchBranchData = async () => {
     try {
       const response = await fetch("/api/admin/settings/branch_details", {
@@ -129,7 +130,8 @@ const Add: React.FC<CreateProps> = ({
     const data: any = {
       daily_status: accountType,
       amount: parseFloat(amount),
-      type: expenseType || "general",
+       type: expenseType || "general",
+      //type: expenseType,
       expense_name: expenseType === "others" ? expenseName : expenseType, // Ensuring correct name
       branch_id: branch_id,
       staff_id: staff_id,
@@ -138,7 +140,7 @@ const Add: React.FC<CreateProps> = ({
     };
 
     console.log("Sending data:", data);
-
+   
     try {
       const response = await fetch("/api/admin/accounts/add_accounts", {
         method: "POST",
@@ -151,25 +153,31 @@ const Add: React.FC<CreateProps> = ({
       });
 
       const responseData = await response.json();
-      if (!response.ok) {
-        console.error(
-          `Error adding account:`,
-          responseData.message || "Unknown error"
-        );
-        toast.error(responseData.message || "Failed to add account");
-        return;
-      }
+      
+if(responseData.success){
+  console.log("Account added successfully:", responseData);
 
-      console.log("Account added successfully:", responseData);
-
-      toast.success("Account added successfully");
+  toast.success("Account added successfully");
+  togglemodal();
+}
+if(!responseData.success){
+  toast.error(responseData.message || "Failed to add account");
+}
+if (!response.ok) {
+  console.error(
+    `Error adding account:`,
+    responseData.message || "Unknown error"
+  );
+  toast.error(responseData.message || "Failed to add account");
+  return;
+}
     } catch (error: any) {
       console.error("Network error:", error);
       toast.error(
         error.message || "An error occurred while adding the account."
       );
     } finally {
-      togglemodal(); // Close modal
+     // togglemodal(); // Close modal
     }
   };
 
@@ -252,7 +260,7 @@ const Add: React.FC<CreateProps> = ({
       }
 
       const data = await response.json();
-      console.log("Search staff data", data.data);
+      //console.log("Search staff data", data.data);
 
       if (data.success) {
         setStaffData(data.data.staff_details || []);
@@ -306,7 +314,7 @@ const Add: React.FC<CreateProps> = ({
       }
 
       const data = await response.json();
-      console.log("Search driver data", data.data);
+      //console.log("Search driver data", data.data);
 
       if (data.success) {
         setSearchDriverData(data.data.driver_details || []);
@@ -364,6 +372,7 @@ const Add: React.FC<CreateProps> = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  
   return (
     <div>
       <div

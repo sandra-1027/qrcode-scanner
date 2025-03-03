@@ -838,6 +838,8 @@ const page = () => {
 
       const [isLoading, setIsLoading] = useState(false);
 
+      const dateToUse = selectedDate || filteredDate;
+
   const togglemodal = (mode: 'add' | 'edit', account: Account | null = null) => {
     setModalMode(mode);
     setSelectedAccount(account);
@@ -847,8 +849,8 @@ const page = () => {
 
   const fetchStaffData = async () => {
     try {
-      console.log("Fetching data for date:", filteredDate); // Debug log
-      console.log(filteredDate);
+     // console.log("Fetching data for date:", filteredDate); // Debug log
+     // console.log(filteredDate);
       const response = await fetch('/api/admin/accounts/accounts_details', {
         
         method: 'POST',
@@ -860,7 +862,9 @@ const page = () => {
         body: JSON.stringify({ 
           id: null,
           status: null,
-          date: filteredDate,  // Use filteredDate here
+          // date: filteredDate,  // Use filteredDate here
+          date: filteredDate, 
+          
         }),
       });
       if (!response.ok) {
@@ -869,21 +873,22 @@ const page = () => {
       }
       
       const data = await response.json();
-      console.log("Fetched data:", data); // Debug log
+     // console.log("Fetched data:", data); // Debug log
      
       if (data.success) {
+        //console.log(data.data,"whole")
         setAccountData(data.data.accounts_details);
         setFilteredData(data.data.accounts_details); // Update filteredData with the new data
-        console.log("Updated filteredData:", data.data.accounts_details); // Debug log
+       // console.log("Updated filteredData:", data.data.accounts_details); // Debug log
       } else {
         // Handle the case when no data is found
         setAccountData([]); // Clear accountData
         setFilteredData([]); // Clear filteredData
         setExpenseData(null);
-        console.log("No data found for the selected date"); // Debug log
+       // console.log("No data found for the selected date"); // Debug log
       }
       
-      setExpenseData(data.data.expenses || null); // Handle case when expenses data is not available
+      setExpenseData(data.data?.expenses || null); // Handle case when expenses data is not available
     } catch (error) {
       console.error("Fetch error:", error);
     }

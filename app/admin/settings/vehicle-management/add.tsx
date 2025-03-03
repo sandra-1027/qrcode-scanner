@@ -25,7 +25,7 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!vehicle_no || !tax_expiry_date || !rc_expiry_date || !pucc_expiry_date || !insurance_expiry_date) {
+    if (!vehicle_no || !tax_expiry_date || !rc_expiry_date || !pucc_expiry_date || !insurance_expiry_date || ! selectedFile) {
       setError("All fields are required.");
       return;
     }
@@ -55,11 +55,15 @@ const Add: React.FC<CreateProps> = ({ showmodal, togglemodal }) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Vehicle added successfully:", data);
+        //console.log("Vehicle added successfully:", data);
         // alert('Vehicle added successfully!');
-        toast.success("Vehicle added successfully!");
-        resetForm();
-        setTimeout(() => togglemodal(), 2000);
+        if(data.success){
+          toast.success("Vehicle added successfully!");
+          togglemodal();
+        }
+       
+        // resetForm();
+        // setTimeout(() => togglemodal(), 2000);
       } else {
         const errorData = await response.json();
         console.error("Error adding vehicle:", errorData);
