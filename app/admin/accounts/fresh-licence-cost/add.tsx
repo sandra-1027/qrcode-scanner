@@ -219,7 +219,7 @@ const Add: React.FC<CreateProps> = ({
                         }
                       }}
                       type="text"
-                      placeholder="LMV MC both study"
+                      placeholder="LMV MC both Study"
                       // className="form-input w-full rounded-lg border border-slate-300 px-3 py-2"
                       className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     />
@@ -237,7 +237,7 @@ const Add: React.FC<CreateProps> = ({
                         }
                       }}
                       type="text"
-                      placeholder="LMV MC both licence"
+                      placeholder="LMV MC both Licence"
                       className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     />
                   </label>
@@ -254,7 +254,7 @@ const Add: React.FC<CreateProps> = ({
                         }
                       }}
                       type="text"
-                      placeholder="LMV study MC licence"
+                      placeholder="LMV Study MC Licence"
                       className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     />
                   </label>
@@ -279,7 +279,7 @@ const Add: React.FC<CreateProps> = ({
               ) : (
                 <>
                   <label className="block">
-                    <span>Study cost</span>
+                    <span>Study Cost</span>
                     <input
                       name="study_cost"
                       value={localFormData.study_cost}
@@ -296,7 +296,7 @@ const Add: React.FC<CreateProps> = ({
                     />
                   </label>
                   <label className="block">
-                    <span>Licence cost</span>
+                    <span>Licence Cost</span>
                     <input
                       name="licence_cost"
                       value={localFormData.licence_cost}

@@ -210,8 +210,14 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                       name="lmc_mc_both_study"
                       value={formData.lmc_mc_both_study}
                       onChange={handleChange}
+                      onKeyPress={(e) => {
+                        // Allow only numbers, backspace, and dot
+                        if (!/[0-9.]/.test(e.key) && e.key !== "Backspace") {
+                          e.preventDefault();
+                        }
+                      }}
                       type="text"
-                      placeholder="LMV MC both study"
+                      placeholder="LMV MC both Study"
                       className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     />
                   </label>
@@ -222,8 +228,14 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                       name="lmc_mc_both_licence"
                       value={formData.lmc_mc_both_licence}
                       onChange={handleChange}
+                      onKeyPress={(e) => {
+                        // Allow only numbers, backspace, and dot
+                        if (!/[0-9.]/.test(e.key) && e.key !== "Backspace") {
+                          e.preventDefault();
+                        }
+                      }}
                       type="text"
-                      placeholder="LMV MC both licence"
+                      placeholder="LMV MC both Licence"
                       className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     />
                   </label>
@@ -235,7 +247,13 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                       value={formData.lmc_study_mc_licence}
                       onChange={handleChange}
                       type="text"
-                      placeholder="LMV study MC licence"
+                      onKeyPress={(e) => {
+                        // Allow only numbers, backspace, and dot
+                        if (!/[0-9.]/.test(e.key) && e.key !== "Backspace") {
+                          e.preventDefault();
+                        }
+                      }}
+                      placeholder="LMV Study MC Licence"
                       className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     />
                   </label>
@@ -246,6 +264,12 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                       name="lmc_licence_mc_study"
                       value={formData.lmc_licence_mc_study}
                       onChange={handleChange}
+                      onKeyPress={(e) => {
+                        // Allow only numbers, backspace, and dot
+                        if (!/[0-9.]/.test(e.key) && e.key !== "Backspace") {
+                          e.preventDefault();
+                        }
+                      }}
                       type="text"
                       placeholder="LMV Licence MC Study"
                       className="text-sm pl-2 mt-1 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"

@@ -239,7 +239,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
               <div className="relative w-full" ref={dropdownRef}>
                 <label
                   htmlFor="mobile"
-                  className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                  className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                 >
                   Service Name
                 </label>
@@ -301,7 +301,7 @@ const Edit = ({ showModal, togglemodal, costData, onSave }: EditProps) => {
                     name="vehicle_type"
                     value={formData?.vehicle_type || ""}
                     onChange={handleChange}
-                    className="text-sm pl-2 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 dark:text-navy-100"
+                    className="text-sm pl-2 block w-full rounded-md border border-slate-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm dark:border-navy-600 dark:bg-navy-700 text-[#64748B] dark:text-[#A3ADC2]"
                   >
                     <option value="">Please select vehicle type</option>
                     <option value="lmc">LMV</option>

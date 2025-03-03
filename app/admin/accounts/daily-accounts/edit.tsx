@@ -410,7 +410,7 @@ const Edit = ({ showModal, toggleModal, AccountData, onSave }: EditProps) => {
               <div className="relative w-full" ref={dropdownRef}>
                 <label
                   htmlFor="mobile"
-                  className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                  className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                 >
                   Branch Name
                 </label>
@@ -528,7 +528,7 @@ const Edit = ({ showModal, toggleModal, AccountData, onSave }: EditProps) => {
               <div className="relative w-full" ref={staffdropdownRef}>
                 <label
                   htmlFor="mobile"
-                  className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                  className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                 >
                   Staff Name
                 </label>
@@ -578,7 +578,7 @@ const Edit = ({ showModal, toggleModal, AccountData, onSave }: EditProps) => {
               <div className="relative w-full" ref={driverdropdownRef}>
                 <label
                   htmlFor="mobile"
-                  className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                  className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                 >
                   Driver Name
                 </label>

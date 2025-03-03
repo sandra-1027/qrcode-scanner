@@ -260,7 +260,7 @@ const Add: React.FC<CreateProps> = ({
               <div className="relative w-full" ref={dropdownRef}>
                 <label
                   htmlFor="mobile"
-                  className="block text-sm font-medium text-slate-700 dark:text-navy-100"
+                  className="block text-sm text-[#64748B] dark:text-[#A3ADC2]"
                 >
                   Service Name
                 </label>
