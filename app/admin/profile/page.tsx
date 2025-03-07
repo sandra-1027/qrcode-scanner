@@ -656,7 +656,7 @@ const AdminProfile = () => {
                   </div>
 
                   <div className="mb-4 mt-4">
-                    <label className="block mb-2 font-medium">User Photo</label>
+                    <label className="block mb-2">User Photo</label>
                     <div className="w-32 h-32">
                       {profileImage ? (
                         <img
@@ -676,7 +676,7 @@ const AdminProfile = () => {
                   </div>
                   {!profileImage && (
                     <div className="mb-4">
-                      <label className="w-1/5 flex items-center justify-center border rounded p-2 cursor-pointer bg-blue-500 text-white">
+                      <label className="w-1/5 flex items-center justify-center rounded p-2 cursor-pointer bg-primary hover:bg-primary-focus text-white">
                         Select Image
                         <input
                           type="file"

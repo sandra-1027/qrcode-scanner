@@ -440,6 +440,7 @@ const page = () => {
           <div className="mt-5">
             <div className="gridjs-head">
               <div className="gridjs-search">
+                
                 <input
                   type="search"
                   placeholder="Type a keyword..."
